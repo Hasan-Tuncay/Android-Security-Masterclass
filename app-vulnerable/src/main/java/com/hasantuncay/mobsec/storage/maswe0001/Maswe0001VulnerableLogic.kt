@@ -8,9 +8,11 @@ import android.webkit.WebView
 import android.widget.Toast
 import com.hasantuncay.mobsec.common.models.Maswe0001Vector
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import kotlin.concurrent.thread
@@ -28,7 +30,7 @@ object Maswe0001VulnerableLogic {
         
         val msg = context.getString(vector.msgVulnRes)
         if (vector == Maswe0001Vector.LOCAL_FILE) {
-            val file = File(context.filesDir, "diagnostics_vulnerable.log")
+            val file = File(context.filesDir, "diagnostics_vulnerable.json")
             Toast.makeText(context, String.format(msg, file.absolutePath), Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
@@ -36,35 +38,71 @@ object Maswe0001VulnerableLogic {
     }
 
     private fun triggerSystemConsoleLeak(appData: MasterclassData) {
-        val password = appData.userContext.plainTextPasswordInHeap
-        val tc = appData.gdprPii.directIdentifiers.nationalIdentificationNumber
-        Log.d("VULN_APP_TAG", "User login failed. Pwd: $password, TCKN: $tc")
+        // VULNERABLE: Dumping the entire application state in plain text to Logcat.
+        val dump = """
+            
+            --- CRITICAL APP STATE DUMP ---
+            [System Data] 
+            Master Key: ${appData.systemCrypto.masterCryptoKeyAesGcm}
+            RSA Private: ${appData.systemCrypto.rsaPrivateKeyPem.take(30)}...
+            
+            [GDPR PII Data]
+            Name: ${appData.gdprPii.directIdentifiers.fullName}
+            TCKN: ${appData.gdprPii.directIdentifiers.nationalIdentificationNumber}
+            Email: ${appData.gdprPii.directIdentifiers.personalEmail}
+            
+            [User Data]
+            Password (Plain): ${appData.userContext.plainTextPasswordInHeap}
+            --------------------------------
+        """.trimIndent()
+        Log.e("VULN_APP_TAG", dump)
     }
 
     private fun triggerNetworkLeak(appData: MasterclassData) {
         thread {
-            val interceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
-            val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+            // VULNERABLE: Logging HTTP Headers and Body explicitly
+            val loggingInterceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+            val headerDumpInterceptor = Interceptor { chain ->
+                val request = chain.request()
+                // Explicitly logging the headers which contains OAuth token
+                Log.e("VULN_NETWORK", "Outgoing Request Headers: \n${request.headers}")
+                chain.proceed(request)
+            }
+            
+            val client = OkHttpClient.Builder()
+                .addInterceptor(headerDumpInterceptor)
+                .addInterceptor(loggingInterceptor)
+                .build()
+                
             val token = appData.networkSession.oAuth2BearerToken
+            val endpoint = appData.systemCrypto.backendGraphqlEndpoint
             val request = Request.Builder()
-                .url("https://httpbin.org/get")
+                .url(endpoint)
                 .header("Authorization", "Bearer $token")
+                .header("X-CSRF-Token", appData.networkSession.csrfToken)
                 .build()
             try {
                 client.newCall(request).execute()
             } catch (e: Exception) {
-                Log.e("VULN_APP_TAG", "Network error", e)
+                Log.e("VULN_APP_TAG", "Network error (simulated) on $endpoint")
             }
         }
     }
 
     private fun triggerLocalFileLeak(appData: MasterclassData, context: Context) {
         try {
-            val file = File(context.filesDir, "diagnostics_vulnerable.log")
-            FileOutputStream(file, true).use { stream ->
-                val cc = appData.pciDss.cardholderData.primaryAccountNumber
-                val logData = "Crash diagnostic... Card: $cc\n"
-                stream.write(logData.toByteArray())
+            val file = File(context.filesDir, "diagnostics_vulnerable.json")
+            FileOutputStream(file, false).use { stream ->
+                // VULNERABLE: Writing highly sensitive PCI/HIPAA data to a plaintext file
+                val dumpObj = JSONObject().apply {
+                    put("pan", appData.pciDss.cardholderData.primaryAccountNumber)
+                    put("cvv", appData.pciDss.sensitiveAuthenticationData.cardVerificationCode)
+                    put("pinBlock", appData.pciDss.sensitiveAuthenticationData.pinBlock)
+                    put("hipaa_mrn", appData.hipaaPhi.medicalRecordNumber)
+                    put("hipaa_diagnosis", appData.hipaaPhi.icd10DiagnosisCode)
+                    put("device_ssaid", appData.deviceTelemetry.androidSsaid)
+                }
+                stream.write(dumpObj.toString(4).toByteArray())
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -72,9 +110,17 @@ object Maswe0001VulnerableLogic {
     }
 
     private fun triggerSdkTelemetryLeak(appData: MasterclassData) {
-        // VULNERABILITY: Dumping a whole domain object with sensitive data to Analytics/Crash SDK
-        val analyticsPayload = appData.analyticsLogs.mixpanelEventPayload
-        Log.e("VULN_SDK_SIMULATION", "Sending payload to Mixpanel: $analyticsPayload")
+        // VULNERABLE: Dumping entire domain objects with sensitive data to Analytics/Crash SDK
+        val payload = """
+            {
+              "event": "App_Crash",
+              "user_email": "${appData.gdprPii.directIdentifiers.personalEmail}",
+              "clipboard": "${appData.userContext.clipboardCache}",
+              "draft_messages": ${appData.userContext.draftMessagesDb},
+              "sim_iccid": "${appData.deviceTelemetry.simCardIccid}"
+            }
+        """.trimIndent()
+        Log.e("VULN_SDK_SIMULATION", "Sending Crashlytics Payload: \n$payload")
     }
 
     private fun triggerWebViewConsoleLeak(appData: MasterclassData, context: Context) {
@@ -82,15 +128,18 @@ object Maswe0001VulnerableLogic {
         webView.settings.javaScriptEnabled = true
         webView.webChromeClient = object : WebChromeClient() {
             override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-                Log.d("VULN_WEBVIEW", "JS Console: " + consoleMessage.message())
+                // VULNERABLE: Bridging sensitive JS console logs back to native Logcat
+                Log.e("VULN_WEBVIEW", "JS Console: " + consoleMessage.message())
                 return true
             }
         }
         val cookie = appData.networkSession.webViewSessionCookie
+        val refreshToken = appData.networkSession.oAuth2RefreshToken
         val html = """
             <html><body>
             <script>
-                console.log("Saving user session: $cookie");
+                console.log("DEBUG: Restoring session with Cookie: $cookie");
+                console.log("DEBUG: Auth Refresh Token: $refreshToken");
             </script>
             </body></html>
         """.trimIndent()

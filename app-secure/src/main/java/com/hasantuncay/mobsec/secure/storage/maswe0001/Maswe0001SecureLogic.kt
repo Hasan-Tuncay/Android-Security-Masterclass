@@ -10,11 +10,14 @@ import androidx.security.crypto.MasterKey
 import com.hasantuncay.mobsec.common.models.Maswe0001Vector
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import com.hasantuncay.mobsec.secure.BuildConfig
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import timber.log.Timber
 import java.io.File
+import java.security.MessageDigest
 import kotlin.concurrent.thread
 
 object Maswe0001SecureLogic {
@@ -33,40 +36,69 @@ object Maswe0001SecureLogic {
     }
 
     private fun secureSystemConsoleLeak(appData: MasterclassData) {
-        // SECURE: Never log plain text passwords. 
-        // Mask PII before logging.
-        val tckn = appData.gdprPii.directIdentifiers.nationalIdentificationNumber
-        val maskedTckn = if (tckn.length > 4) "****${tckn.takeLast(4)}" else "****"
-        Timber.d("User login failed. TCKN: %s", maskedTckn)
+        // SECURE: Generic, safe logging. Never dump domain objects or PII/PCI directly.
+        Timber.e("Application encountered a recoverable error. ErrorCode: E-450. SessionActive: true")
     }
 
     private fun secureNetworkLeak(appData: MasterclassData) {
         thread {
-            // SECURE: Disable body logging in production
-            val level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC else HttpLoggingInterceptor.Level.NONE
-            val interceptor = HttpLoggingInterceptor().apply { this.level = level }
-            val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+            // SECURE: Completely disable network logging in production.
+            val level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.NONE else HttpLoggingInterceptor.Level.NONE
+            val loggingInterceptor = HttpLoggingInterceptor().apply { this.level = level }
+            
+            // SECURE: Even if debugging is enabled, implement a Redacting Interceptor for sensitive headers/body
+            val redactingInterceptor = Interceptor { chain ->
+                val request = chain.request()
+                // In a real app, you would clone the request, redact the body/headers, and then log the redacted version.
+                // For this simulation, we just ensure Authorization is never logged.
+                val authHeader = request.header("Authorization")
+                if (authHeader != null && BuildConfig.DEBUG) {
+                    Timber.d("Outgoing request with REDACTED Authorization header.")
+                }
+                chain.proceed(request)
+            }
+
+            val client = OkHttpClient.Builder()
+                .addInterceptor(redactingInterceptor)
+                .addInterceptor(loggingInterceptor)
+                .build()
+                
             val token = appData.networkSession.oAuth2BearerToken
+            val endpoint = appData.systemCrypto.backendGraphqlEndpoint
             val request = Request.Builder()
-                .url("https://httpbin.org/get")
-                .header("Authorization", "Bearer ${"$"}token")
+                .url(endpoint)
+                .header("Authorization", "Bearer $token")
+                .header("X-CSRF-Token", appData.networkSession.csrfToken)
                 .build()
             try {
                 client.newCall(request).execute()
             } catch (e: Exception) {
-                Timber.e(e, "Network error")
+                // Generic log
+                Timber.e("Network request failed securely without dumping headers.")
             }
         }
     }
 
     private fun secureLocalFileLeak(appData: MasterclassData, context: Context) {
         try {
-            // SECURE: Use Jetpack Security to encrypt diagnostic files if they must contain sensitive info.
+            // SECURE: Filter out ultra-sensitive data (CVV, PIN) which MUST NOT be stored, 
+            // even if encrypted, per PCI-DSS guidelines.
+            val dumpObj = JSONObject().apply {
+                put("hipaa_diagnosis", appData.hipaaPhi.icd10DiagnosisCode)
+                put("device_ssaid", appData.deviceTelemetry.androidSsaid)
+                // CVV and PIN are explicitly excluded.
+                // PAN is heavily masked (e.g. first 6, last 4)
+                val pan = appData.pciDss.cardholderData.primaryAccountNumber
+                val maskedPan = if (pan.length > 10) "${pan.take(6)}******${pan.takeLast(4)}" else "MASKED"
+                put("pan", maskedPan)
+            }
+
+            // SECURE: Use Jetpack Security to encrypt the diagnostic file.
             val mainKey = MasterKey.Builder(context)
                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                 .build()
 
-            val file = File(context.filesDir, "diagnostics_secure.log")
+            val file = File(context.filesDir, "diagnostics_secure.json")
             if (file.exists()) file.delete() 
 
             val encryptedFile = EncryptedFile.Builder(
@@ -77,20 +109,28 @@ object Maswe0001SecureLogic {
             ).build()
 
             encryptedFile.openFileOutput().use { stream ->
-                // SECURE: Store only encrypted PAN if absolutely necessary.
-                val cc = appData.pciDss.cardholderData.primaryAccountNumber
-                val logData = "Crash report. Card: $cc\n"
-                stream.write(logData.toByteArray())
+                stream.write(dumpObj.toString(4).toByteArray())
             }
+            Timber.i("Secure diagnostic file written with Jetpack Security and PCI-DSS compliance.")
         } catch (e: Exception) {
             Timber.e(e)
         }
     }
 
     private fun secureSdkTelemetryLeak(appData: MasterclassData) {
-        // SECURE: Only send non-PII, pseudo-anonymized data to analytics SDKs
-        val anonymizedId = appData.analyticsLogs.mixpanelEventPayload.split(",").firstOrNull() ?: "ANON_ID"
-        Timber.d("Sending to 3rd Party Server: %s", anonymizedId)
+        // SECURE: Data Sanitization before sending to Analytics
+        val email = appData.gdprPii.directIdentifiers.personalEmail
+        val emailHash = hashString(email)
+        
+        val safePayload = """
+            {
+              "event": "App_Crash",
+              "user_id_hash": "$emailHash",
+              "has_drafts": ${appData.userContext.draftMessagesDb.isNotEmpty()}
+            }
+        """.trimIndent()
+        
+        Timber.i("Sending sanitized, anonymous payload to Analytics SDK: \n$safePayload")
     }
 
     private fun secureWebViewConsoleLeak(appData: MasterclassData, context: Context) {
@@ -99,23 +139,38 @@ object Maswe0001SecureLogic {
         webView.webChromeClient = object : WebChromeClient() {
             override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
                 val msg = consoleMessage.message().lowercase()
-                // SECURE: Intercept and block sensitive tokens from the JS console
-                if (msg.contains("password") || msg.contains("credit card") || msg.contains("token") || msg.contains("cookie")) {
-                    Timber.w("Blocked sensitive WebView console message.")
-                    return true 
+                // SECURE: Intercept and block sensitive tokens from the JS console using Regex or Keyword filtering
+                val sensitiveKeywords = listOf("cookie", "token", "auth", "bearer", "password")
+                if (sensitiveKeywords.any { msg.contains(it) }) {
+                    Timber.w("Blocked a potentially sensitive WebView console message.")
+                    return true // Handled, won't be printed
                 }
-                Timber.d("JS Console: %s", consoleMessage.message())
+                if (BuildConfig.DEBUG) {
+                    Timber.d("JS Console: %s", consoleMessage.message())
+                }
                 return true
             }
         }
         val cookie = appData.networkSession.webViewSessionCookie
+        val refreshToken = appData.networkSession.oAuth2RefreshToken
         val html = """
             <html><body>
             <script>
-                console.log("Saving user session: $cookie");
+                console.log("DEBUG: Restoring session with Cookie: $cookie");
+                console.log("DEBUG: Auth Refresh Token: $refreshToken");
+                console.log("UI_STATE: Rendered Successfully");
             </script>
             </body></html>
         """.trimIndent()
         webView.loadData(html, "text/html", "UTF-8")
+    }
+
+    private fun hashString(input: String): String {
+        return try {
+            val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+            bytes.joinToString("") { "%02x".format(it) }
+        } catch (e: Exception) {
+            "HASH_ERROR"
+        }
     }
 }
