@@ -1,5 +1,7 @@
 int string action_collapse 0x0
 int string action_expand 0x0
+int string action_hide 0x0
+int string action_show 0x0
 int string card_title_analytics 0x0
 int string card_title_classification 0x0
 int string card_title_device 0x0

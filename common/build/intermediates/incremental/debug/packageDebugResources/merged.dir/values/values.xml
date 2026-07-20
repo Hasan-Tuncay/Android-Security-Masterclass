@@ -2,6 +2,8 @@
 <resources>
     <string name="action_collapse">Collapse</string>
     <string name="action_expand">Expand</string>
+    <string name="action_hide">HIDE</string>
+    <string name="action_show">SHOW</string>
     <string name="card_title_analytics">Analytics &amp; Logs</string>
     <string name="card_title_classification">Data Classification</string>
     <string name="card_title_device">Device Telemetry</string>

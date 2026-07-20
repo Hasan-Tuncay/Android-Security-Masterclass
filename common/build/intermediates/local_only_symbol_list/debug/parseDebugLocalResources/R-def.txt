@@ -2,6 +2,8 @@ R_DEF: Internal format may change without notice
 local
 string action_collapse
 string action_expand
+string action_hide
+string action_show
 string card_title_analytics
 string card_title_classification
 string card_title_device

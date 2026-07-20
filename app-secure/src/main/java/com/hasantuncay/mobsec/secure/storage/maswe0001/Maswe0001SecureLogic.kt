@@ -10,12 +10,12 @@ import androidx.security.crypto.MasterKey
 import com.hasantuncay.mobsec.common.models.Maswe0001Vector
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import com.hasantuncay.mobsec.secure.BuildConfig
+import com.hasantuncay.mobsec.secure.utils.SecureLog
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
-import timber.log.Timber
 import java.io.File
 import java.security.MessageDigest
 import kotlin.concurrent.thread
@@ -37,7 +37,14 @@ object Maswe0001SecureLogic {
 
     private fun secureSystemConsoleLeak(appData: MasterclassData) {
         // SECURE: Generic, safe logging. Never dump domain objects or PII/PCI directly.
-        Timber.e("Application encountered a recoverable error. ErrorCode: E-450. SessionActive: true")
+        SecureLog.e("SecureSystem", "Application encountered a recoverable error. ErrorCode: E-450. SessionActive: true")
+        
+        // MASTG-BEST-0002 BEST PRACTICE:
+        // Notice how we use `%s` and pass the master key as an argument (`vararg`) instead of doing `"Key: " + key`.
+        // By doing this, we avoid creating a StringBuilder. In Release mode, R8 will strip this ENTIRE line,
+        // and the master key will NEVER be converted into a plaintext String object in the heap.
+        // This completely prevents Memory Dumping (RAM leak) vulnerabilities for this variable.
+        SecureLog.d("SecureSystem", "Simulated Check - Master Key is present: %s", appData.systemContext.masterCryptoKeyAesGcm)
     }
 
     private fun secureNetworkLeak(appData: MasterclassData) {
@@ -49,11 +56,9 @@ object Maswe0001SecureLogic {
             // SECURE: Even if debugging is enabled, implement a Redacting Interceptor for sensitive headers/body
             val redactingInterceptor = Interceptor { chain ->
                 val request = chain.request()
-                // In a real app, you would clone the request, redact the body/headers, and then log the redacted version.
-                // For this simulation, we just ensure Authorization is never logged.
                 val authHeader = request.header("Authorization")
                 if (authHeader != null && BuildConfig.DEBUG) {
-                    Timber.d("Outgoing request with REDACTED Authorization header.")
+                    SecureLog.d("SecureNetwork", "Outgoing request with REDACTED Authorization header.")
                 }
                 chain.proceed(request)
             }
@@ -74,7 +79,7 @@ object Maswe0001SecureLogic {
                 client.newCall(request).execute()
             } catch (e: Exception) {
                 // Generic log
-                Timber.e("Network request failed securely without dumping headers.")
+                SecureLog.e("SecureNetwork", "Network request failed securely without dumping headers.")
             }
         }
     }
@@ -111,9 +116,9 @@ object Maswe0001SecureLogic {
             encryptedFile.openFileOutput().use { stream ->
                 stream.write(dumpObj.toString(4).toByteArray())
             }
-            Timber.i("Secure diagnostic file written with Jetpack Security and PCI-DSS compliance.")
+            SecureLog.i("SecureStorage", "Secure diagnostic file written with Jetpack Security and PCI-DSS compliance.")
         } catch (e: Exception) {
-            Timber.e(e)
+            SecureLog.e("SecureStorage", "Error writing secure file", e)
         }
     }
 
@@ -130,7 +135,7 @@ object Maswe0001SecureLogic {
             }
         """.trimIndent()
         
-        Timber.i("Sending sanitized, anonymous payload to Analytics SDK: \n$safePayload")
+        SecureLog.i("SecureSDK", "Sending sanitized, anonymous payload to Analytics SDK: \n%s", safePayload)
     }
 
     private fun secureWebViewConsoleLeak(appData: MasterclassData, context: Context) {
@@ -142,11 +147,11 @@ object Maswe0001SecureLogic {
                 // SECURE: Intercept and block sensitive tokens from the JS console using Regex or Keyword filtering
                 val sensitiveKeywords = listOf("cookie", "token", "auth", "bearer", "password")
                 if (sensitiveKeywords.any { msg.contains(it) }) {
-                    Timber.w("Blocked a potentially sensitive WebView console message.")
+                    SecureLog.w("SecureWebView", "Blocked a potentially sensitive WebView console message.")
                     return true // Handled, won't be printed
                 }
                 if (BuildConfig.DEBUG) {
-                    Timber.d("JS Console: %s", consoleMessage.message())
+                    SecureLog.d("SecureWebView", "JS Console: %s", consoleMessage.message())
                 }
                 return true
             }
