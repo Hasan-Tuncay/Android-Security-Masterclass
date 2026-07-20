@@ -118,7 +118,7 @@ fun Maswe0001LogSecureScreen(onBack: () -> Unit) {
                     title = stringResource(id = vector.titleSecureRes),
                     icon = vector.icon,
                     onClick = {
-                        Maswe0001SecureLogic.executeVector(vector, username, creditCard, context)
+                        Maswe0001SecureLogic.executeVector(vector, appData, context)
                     }
                 )
             }

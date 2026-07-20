@@ -7,6 +7,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.Toast
 import com.hasantuncay.mobsec.common.models.Maswe0001Vector
+import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,13 +17,13 @@ import kotlin.concurrent.thread
 
 object Maswe0001VulnerableLogic {
 
-    fun executeVector(vector: Maswe0001Vector, username: String, creditCard: String, context: Context) {
+    fun executeVector(vector: Maswe0001Vector, appData: MasterclassData, context: Context) {
         when (vector) {
-            Maswe0001Vector.SYSTEM_CONSOLE -> triggerSystemConsoleLeak(username, creditCard)
-            Maswe0001Vector.NETWORK_INTERCEPTOR -> triggerNetworkLeak(creditCard)
-            Maswe0001Vector.LOCAL_FILE -> triggerLocalFileLeak(username, creditCard, context)
-            Maswe0001Vector.SDK_TELEMETRY -> triggerSdkTelemetryLeak(username, creditCard)
-            Maswe0001Vector.WEBVIEW_CONSOLE -> triggerWebViewConsoleLeak(creditCard, context)
+            Maswe0001Vector.SYSTEM_CONSOLE -> triggerSystemConsoleLeak(appData)
+            Maswe0001Vector.NETWORK_INTERCEPTOR -> triggerNetworkLeak(appData)
+            Maswe0001Vector.LOCAL_FILE -> triggerLocalFileLeak(appData, context)
+            Maswe0001Vector.SDK_TELEMETRY -> triggerSdkTelemetryLeak(appData)
+            Maswe0001Vector.WEBVIEW_CONSOLE -> triggerWebViewConsoleLeak(appData, context)
         }
         
         val msg = context.getString(vector.msgVulnRes)
@@ -34,17 +35,20 @@ object Maswe0001VulnerableLogic {
         }
     }
 
-    private fun triggerSystemConsoleLeak(username: String, creditCard: String) {
-        Log.d("VULN_APP_TAG", "User logging in -> Username: $username, CC: $creditCard")
+    private fun triggerSystemConsoleLeak(appData: MasterclassData) {
+        val password = appData.userContext.plainTextPasswordInHeap
+        val tc = appData.gdprPii.directIdentifiers.nationalIdentificationNumber
+        Log.d("VULN_APP_TAG", "User login failed. Pwd: $password, TCKN: $tc")
     }
 
-    private fun triggerNetworkLeak(creditCard: String) {
+    private fun triggerNetworkLeak(appData: MasterclassData) {
         thread {
             val interceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
             val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+            val token = appData.networkSession.oAuth2BearerToken
             val request = Request.Builder()
                 .url("https://httpbin.org/get")
-                .header("Authorization", "Bearer MOCK_JWT_FOR_$creditCard")
+                .header("Authorization", "Bearer $token")
                 .build()
             try {
                 client.newCall(request).execute()
@@ -54,11 +58,12 @@ object Maswe0001VulnerableLogic {
         }
     }
 
-    private fun triggerLocalFileLeak(username: String, creditCard: String, context: Context) {
+    private fun triggerLocalFileLeak(appData: MasterclassData, context: Context) {
         try {
             val file = File(context.filesDir, "diagnostics_vulnerable.log")
             FileOutputStream(file, true).use { stream ->
-                val logData = "Crash report for User: $username, CC: $creditCard\n"
+                val cc = appData.pciDss.cardholderData.primaryAccountNumber
+                val logData = "Crash diagnostic... Card: $cc\n"
                 stream.write(logData.toByteArray())
             }
         } catch (e: Exception) {
@@ -66,12 +71,13 @@ object Maswe0001VulnerableLogic {
         }
     }
 
-    private fun triggerSdkTelemetryLeak(username: String, creditCard: String) {
-        val userObj = DomainUser(username, creditCard)
-        Log.e("VULN_SDK_SIMULATION", "Sending to 3rd Party Server: $userObj")
+    private fun triggerSdkTelemetryLeak(appData: MasterclassData) {
+        // VULNERABILITY: Dumping a whole domain object with sensitive data to Analytics/Crash SDK
+        val analyticsPayload = appData.analyticsLogs.mixpanelEventPayload
+        Log.e("VULN_SDK_SIMULATION", "Sending payload to Mixpanel: $analyticsPayload")
     }
 
-    private fun triggerWebViewConsoleLeak(creditCard: String, context: Context) {
+    private fun triggerWebViewConsoleLeak(appData: MasterclassData, context: Context) {
         val webView = WebView(context)
         webView.settings.javaScriptEnabled = true
         webView.webChromeClient = object : WebChromeClient() {
@@ -80,10 +86,11 @@ object Maswe0001VulnerableLogic {
                 return true
             }
         }
+        val cookie = appData.networkSession.webViewSessionCookie
         val html = """
             <html><body>
             <script>
-                console.log("Processing payment for credit card: $creditCard");
+                console.log("Saving user session: $cookie");
             </script>
             </body></html>
         """.trimIndent()

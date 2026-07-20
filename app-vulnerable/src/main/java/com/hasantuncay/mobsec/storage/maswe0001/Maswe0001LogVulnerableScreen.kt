@@ -89,7 +89,7 @@ fun Maswe0001LogVulnerableScreen(onBack: () -> Unit) {
                     title = stringResource(id = vector.titleVulnRes),
                     icon = vector.icon,
                     onClick = {
-                        Maswe0001VulnerableLogic.executeVector(vector, username, creditCard, context)
+                        Maswe0001VulnerableLogic.executeVector(vector, appData, context)
                     }
                 )
             }
