@@ -23,16 +23,17 @@
 # =====================================================================
 # OWASP MASTG-BEST-0002: Remove Logging Code (Custom Logging Strip)
 # =====================================================================
-# NEDEN BURADA?
-# Bu kural, R8 derleyicisine (ProGuard) com.hasantuncay.mobsec.secure.utils.SecureLog
-# sınıfının içerisindeki hiçbir metodun uygulamanın durumunu (state) veya yan etkilerini
-# (side-effect) değiştirmediğini garanti eder.
+# WHY IS THIS HERE?
+# This rule guarantees to the R8 compiler (ProGuard) that none of the methods
+# inside the com.hasantuncay.mobsec.secure.utils.SecureLog class modify the 
+# application state or have any side-effects.
 # 
-# SONUÇ:
-# Release build'i alındığında, R8 kodu analiz eder. `SecureLog.d(...)` gibi çağrıların 
-# hiçbir işe yaramadığını (çünkü -assumenosideeffects dedik) varsayar ve bu çağrıları 
-# KÖKTEN SİLER (Strip eder). Bu sayede uygulamanın canlı sürümünde zerre kadar Log sızıntısı 
-# veya RAM sızıntısı (Memory Leak) olmaz.
+# RESULT:
+# When building a Release build, R8 analyzes the code. It assumes that calls
+# like `SecureLog.d(...)` have no effect (because we specified -assumenosideeffects)
+# and COMPLETELY STRIPS these method calls from the bytecode. This ensures there
+# are zero log leaks and zero memory leaks (StringBuilder allocations) in the 
+# production version of the app.
 # =====================================================================
 -assumenosideeffects class com.hasantuncay.mobsec.secure.utils.SecureLog {
     public static void d(java.lang.String, java.lang.String, java.lang.Object[]);

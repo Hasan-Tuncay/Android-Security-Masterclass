@@ -6,40 +6,42 @@ import com.hasantuncay.mobsec.secure.BuildConfig
 /**
  * OWASP MASTG-BEST-0002: Remove Logging Code
  * 
- * NEDEN BU SINIFI YAZDIK?
- * Standart loglamada (Örn: Log.d("Tag", "Şifre: " + password)) ProGuard/R8 ile `Log.d` çağrısı
- * silinse bile, Android derleyicisi bu satırı `new StringBuilder("Şifre: ").append(password).toString()`
- * şeklinde derler. `Log.d` metodunun silinmesi, StringBuilder'ın silinmesini GARANTİ ETMEZ.
+ * WHY DID WE WRITE THIS CLASS?
+ * In standard logging (e.g., Log.d("Tag", "Password: " + password)), even if the `Log.d` call
+ * is stripped by ProGuard/R8, the Android compiler still compiles this line into a StringBuilder:
+ * `new StringBuilder("Password: ").append(password).toString()`.
+ * Stripping the `Log.d` method DOES NOT GUARANTEE the removal of the StringBuilder allocation.
  * 
- * Sonuç olarak, şifre düz metin (plaintext) olarak RAM'e (Memory) yüklenir. Hacker'lar uygulamanın 
- * Memory Dump'ını (Hafıza Dökümü) aldıklarında, ekrana hiç basılmasa bile o şifreyi RAM'de bulurlar.
+ * As a result, the sensitive password is loaded into RAM (Memory) as plaintext. When hackers
+ * capture a Memory Dump of the application, they will find the password in RAM, even though
+ * it was never printed to the Logcat.
  * 
- * NASIL ÇÖZDÜK?
- * 1. String Interpolation (`$password` veya `"Şifre: " + password`) KULLANMIYORUZ.
- * 2. Hassas veriyi sadece bir argüman (`vararg`) olarak geçiriyoruz. Örn: `SecureLog.d("Tag", "Şifre: %s", password)`
- * 3. ProGuard/R8 tarafında (`proguard-rules.pro`), `SecureLog` sınıfının hiçbir yan etkisi olmadığını 
- *    (`-assumenosideeffects`) belirttik. Böylece Release derlemesinde bu metoda yapılan çağrılar KÖKTEN silinir, 
- *    hafızada hiçbir String yaratılmaz.
+ * HOW DID WE SOLVE THIS?
+ * 1. We DO NOT USE String Interpolation (`$password` or `"Password: " + password`).
+ * 2. We pass the sensitive data strictly as a variable argument (`vararg`). E.g.: `SecureLog.d("Tag", "Password: %s", password)`
+ * 3. On the ProGuard/R8 side (`proguard-rules.pro`), we specified that the `SecureLog` class
+ *    has no side-effects (`-assumenosideeffects`). Thus, in Release builds, calls to these methods
+ *    are COMPLETELY STRIPPED, preventing any String from being allocated in memory.
  */
 object SecureLog {
 
     /**
-     * Debug seviyesinde güvenli loglama.
-     * @param tag Log etiketi
-     * @param message Formatlanacak mesaj (Örn: "User ID: %s")
-     * @param args Mesajın içine yerleştirilecek argümanlar
+     * Secure logging at the Debug level.
+     * @param tag Log tag
+     * @param message Message to be formatted (e.g., "User ID: %s")
+     * @param args Arguments to be inserted into the formatted message
      */
     @JvmStatic
     fun d(tag: String, message: String, vararg args: Any?) {
-        // Sadece DEBUG modunda String oluşturulur.
-        // ProGuard R8 kuralı sayesinde bu metodun çağrıldığı SATIR, Release apk'sından tamamen silinir.
+        // The String is only allocated in DEBUG mode.
+        // Thanks to the ProGuard R8 rule, the LINE calling this method is completely stripped from the Release APK.
         if (BuildConfig.DEBUG) {
             Log.d(tag, formatMessage(message, *args))
         }
     }
 
     /**
-     * Error seviyesinde güvenli loglama.
+     * Secure logging at the Error level.
      */
     @JvmStatic
     fun e(tag: String, message: String, vararg args: Any?) {
@@ -49,7 +51,7 @@ object SecureLog {
     }
 
     /**
-     * Info seviyesinde güvenli loglama.
+     * Secure logging at the Info level.
      */
     @JvmStatic
     fun i(tag: String, message: String, vararg args: Any?) {
@@ -59,7 +61,7 @@ object SecureLog {
     }
 
     /**
-     * Warning seviyesinde güvenli loglama.
+     * Secure logging at the Warning level.
      */
     @JvmStatic
     fun w(tag: String, message: String, vararg args: Any?) {
@@ -69,14 +71,14 @@ object SecureLog {
     }
 
     /**
-     * Formatlama işlemini merkezi olarak yapar. Eğer argüman yoksa doğrudan mesajı döner.
+     * Centralized message formatting. Returns the original message if no arguments are provided.
      */
     private fun formatMessage(message: String, vararg args: Any?): String {
         return if (args.isNotEmpty()) {
             try {
                 String.format(message, *args)
             } catch (e: Exception) {
-                // String.format hatası olursa orijinal mesajı bas
+                // If String.format fails, print the original unformatted message as a fallback
                 message
             }
         } else {

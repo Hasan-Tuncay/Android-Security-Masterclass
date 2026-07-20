@@ -2,7 +2,7 @@ package com.hasantuncay.mobsec.common.navigation
 
 /**
  * Navigation 3 "Keys".
- * NavDisplay bu keyleri kullanarak ilgili NavEntry (Ekran) içeriklerini çağırır.
+ * NavDisplay uses these keys to invoke the corresponding NavEntry (Screen) contents.
  */
 data object DashboardRoute
 data object Maswe0001LogRoute
