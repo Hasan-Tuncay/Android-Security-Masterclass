@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -33,6 +34,18 @@ dependencies {
     api(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.security.crypto)
-    implementation(libs.okhttp.logging)
+    
+    // Cryptography and Security
+    api(libs.androidx.security.crypto)
+    
+    // Networking (Ktor & OkHttp)
+    api(libs.okhttp.logging)
+    api(libs.ktor.client.core)
+    api(libs.ktor.client.okhttp)
+    api(libs.ktor.client.content.negotiation)
+    api(libs.ktor.serialization.kotlinx.json)
+    api(libs.kotlinx.serialization.json)
+    
+    // Utilities
+    api(libs.timber)
 }
