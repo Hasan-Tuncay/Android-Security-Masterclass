@@ -43,8 +43,8 @@ object Maswe0001VulnerableLogic {
             
             --- CRITICAL APP STATE DUMP ---
             [System Data] 
-            Master Key: ${appData.systemCrypto.masterCryptoKeyAesGcm}
-            RSA Private: ${appData.systemCrypto.rsaPrivateKeyPem.take(30)}...
+            Master Key: ${appData.systemContext.masterCryptoKeyAesGcm}
+            RSA Private: ${appData.systemContext.rsaPrivateKeyPem.take(30)}...
             
             [GDPR PII Data]
             Name: ${appData.gdprPii.directIdentifiers.fullName}
@@ -75,7 +75,7 @@ object Maswe0001VulnerableLogic {
                 .build()
                 
             val token = appData.networkSession.oAuth2BearerToken
-            val endpoint = appData.systemCrypto.backendGraphqlEndpoint
+            val endpoint = appData.systemContext.backendGraphqlEndpoint
             val request = Request.Builder()
                 .url(endpoint)
                 .header("Authorization", "Bearer $token")

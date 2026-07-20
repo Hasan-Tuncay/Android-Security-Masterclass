@@ -64,7 +64,7 @@ object Maswe0001SecureLogic {
                 .build()
                 
             val token = appData.networkSession.oAuth2BearerToken
-            val endpoint = appData.systemCrypto.backendGraphqlEndpoint
+            val endpoint = appData.systemContext.backendGraphqlEndpoint
             val request = Request.Builder()
                 .url(endpoint)
                 .header("Authorization", "Bearer $token")
