@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dashboard -->
+    <string name="dashboard_coming_soon">Coming soon...</string>
+    <string name="dashboard_title_vulnerable">Vulnerability Dashboard</string>
+    <string name="dashboard_title_secure">Secure Dashboard</string>
+
+    <!-- MASVS Categories -->
+    <string name="masvs_storage">MASVS-STORAGE</string>
+    <string name="masvs_crypto">MASVS-CRYPTO</string>
+    <string name="masvs_network">MASVS-NETWORK</string>
+    <string name="masvs_auth">MASVS-AUTH</string>
+    <string name="masvs_platform">MASVS-PLATFORM</string>
+    <string name="masvs_code">MASVS-CODE</string>
+    <string name="masvs_resilience">MASVS-RESILIENCE</string>
+    <string name="masvs_privacy">MASVS-PRIVACY</string>
+
+    <!-- MASWE 0001 -->
+    <string name="maswe_0001_id">MASWE-0001</string>
+    <string name="maswe_0001_title">Insertion of Sensitive Data into Logs</string>
+
+    <!-- MASWE 0002 -->
+    <string name="maswe_0002_id">MASWE-0002</string>
+    <string name="maswe_0002_title">Sensitive Data Stored With Insufficient Access Restrictions in Internal Locations</string>
+
+    <!-- MASWE 0003 -->
+    <string name="maswe_0003_id">MASWE-0003</string>
+    <string name="maswe_0003_title">Backup Unencrypted</string>
+
+    <!-- MASWE 0004 -->
+    <string name="maswe_0004_id">MASWE-0004</string>
+    <string name="maswe_0004_title">Sensitive Data Not Excluded From Backup</string>
+
+    <!-- MASWE 0006 -->
+    <string name="maswe_0006_id">MASWE-0006</string>
+    <string name="maswe_0006_title">Sensitive Data Stored Unencrypted in Private Storage Locations</string>
+
+    <!-- MASWE 0007 -->
+    <string name="maswe_0007_id">MASWE-0007</string>
+    <string name="maswe_0007_title">Sensitive Data Stored Unencrypted in Shared Storage Requiring No User Interaction</string>
+</resources>

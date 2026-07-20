@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 rootProject.name = "Android-Security-Masterclass"
 include(":app-vulnerable")
 include(":app-secure")
+include(":common")

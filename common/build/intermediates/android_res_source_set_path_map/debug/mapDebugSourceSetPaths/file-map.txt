@@ -1,0 +1,9 @@
+com.hasantuncay.mobsec.common-pngs-0 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/common/build/generated/res/pngs/debug
+com.hasantuncay.mobsec.common-updated_navigation_xml-1 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/common/build/generated/updated_navigation_xml/debug
+com.hasantuncay.mobsec.common-mergeDebugResources-2 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/common/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
+com.hasantuncay.mobsec.common-mergeDebugResources-3 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/common/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
+com.hasantuncay.mobsec.common-debug-4 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/common/build/intermediates/merged_res/debug/mergeDebugResources
+com.hasantuncay.mobsec.common-debug-5 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/common/build/intermediates/packaged_res/debug/packageDebugResources
+com.hasantuncay.mobsec.common-debug-6 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/common/src/debug/res
+com.hasantuncay.mobsec.common-main-7 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/common/src/main/res
+gradleHome-0 /Users/hasantuncay/.gradle

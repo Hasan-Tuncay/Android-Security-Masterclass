@@ -1,0 +1,24 @@
+com.hasantuncay.mobsec.common
+string dashboard_coming_soon
+string dashboard_title_secure
+string dashboard_title_vulnerable
+string masvs_auth
+string masvs_code
+string masvs_crypto
+string masvs_network
+string masvs_platform
+string masvs_privacy
+string masvs_resilience
+string masvs_storage
+string maswe_0001_id
+string maswe_0001_title
+string maswe_0002_id
+string maswe_0002_title
+string maswe_0003_id
+string maswe_0003_title
+string maswe_0004_id
+string maswe_0004_title
+string maswe_0006_id
+string maswe_0006_title
+string maswe_0007_id
+string maswe_0007_title
