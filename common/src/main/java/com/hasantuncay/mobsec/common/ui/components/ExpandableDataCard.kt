@@ -23,7 +23,7 @@ import com.hasantuncay.mobsec.common.R
 fun ExpandableDataCard(
     title: String,
     modifier: Modifier = Modifier,
-    initiallyExpanded: Boolean = false,
+    initiallyExpanded: Boolean = true,
     content: @Composable ColumnScope.() -> Unit
 ) {
     var expanded by remember { mutableStateOf(initiallyExpanded) }
