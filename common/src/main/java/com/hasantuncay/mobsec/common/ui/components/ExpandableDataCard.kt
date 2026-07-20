@@ -13,6 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
+import androidx.compose.ui.res.stringResource
+import com.hasantuncay.mobsec.common.R
+
 @Composable
 fun ExpandableDataCard(
     title: String,
@@ -47,7 +50,7 @@ fun ExpandableDataCard(
                 )
                 Icon(
                     imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                    contentDescription = if (expanded) "Collapse" else "Expand"
+                    contentDescription = if (expanded) stringResource(id = R.string.action_collapse) else stringResource(id = R.string.action_expand)
                 )
             }
             

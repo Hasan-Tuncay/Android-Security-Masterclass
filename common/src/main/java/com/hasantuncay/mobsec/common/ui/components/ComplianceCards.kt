@@ -5,62 +5,64 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
+import com.hasantuncay.mobsec.common.R
 import com.hasantuncay.mobsec.common.models.data.compliance.GdprPiiData
 import com.hasantuncay.mobsec.common.models.data.compliance.HipaaPhiData
 import com.hasantuncay.mobsec.common.models.data.compliance.PciDssData
 
 @Composable
 fun GdprPiiCard(data: GdprPiiData, modifier: Modifier = Modifier) {
-    ExpandableDataCard(title = "GDPR - PII Data", modifier = modifier) {
-        Text("Direct Identifiers", style = MaterialTheme.typography.labelLarge)
-        ReadOnlyDataField("Full Name", data.directIdentifiers.fullName)
-        ReadOnlyDataField("National ID (TCKN)", data.directIdentifiers.nationalIdentificationNumber, isSensitive = true)
-        ReadOnlyDataField("Email", data.directIdentifiers.personalEmail)
-        ReadOnlyDataField("Passport", data.directIdentifiers.passportNumber)
+    ExpandableDataCard(title = stringResource(id = R.string.card_title_gdpr), modifier = modifier) {
+        Text(stringResource(id = R.string.subtitle_direct_identifiers), style = MaterialTheme.typography.labelLarge)
+        ReadOnlyDataField(stringResource(id = R.string.label_full_name), data.directIdentifiers.fullName)
+        ReadOnlyDataField(stringResource(id = R.string.label_tckn), data.directIdentifiers.nationalIdentificationNumber, isSensitive = true)
+        ReadOnlyDataField(stringResource(id = R.string.label_email), data.directIdentifiers.personalEmail)
+        ReadOnlyDataField(stringResource(id = R.string.label_passport), data.directIdentifiers.passportNumber)
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-        Text("Indirect Identifiers", style = MaterialTheme.typography.labelLarge)
-        ReadOnlyDataField("IPv6 Address", data.indirectIdentifiers.ipv6Address)
-        ReadOnlyDataField("Advertising ID", data.indirectIdentifiers.advertisingId)
-        ReadOnlyDataField("GPS Lat", data.indirectIdentifiers.exactLocation.latitude.toString())
-        ReadOnlyDataField("GPS Lng", data.indirectIdentifiers.exactLocation.longitude.toString())
+        Text(stringResource(id = R.string.subtitle_indirect_identifiers), style = MaterialTheme.typography.labelLarge)
+        ReadOnlyDataField(stringResource(id = R.string.label_ipv6), data.indirectIdentifiers.ipv6Address)
+        ReadOnlyDataField(stringResource(id = R.string.label_advertising_id), data.indirectIdentifiers.advertisingId)
+        ReadOnlyDataField(stringResource(id = R.string.label_gps_lat), data.indirectIdentifiers.exactLocation.latitude.toString())
+        ReadOnlyDataField(stringResource(id = R.string.label_gps_lng), data.indirectIdentifiers.exactLocation.longitude.toString())
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-        Text("Special Category (Sensitive)", style = MaterialTheme.typography.labelLarge)
-        ReadOnlyDataField("Political Affiliation", data.specialCategoryData.politicalAffiliation)
-        ReadOnlyDataField("Genetic Data Hash", data.specialCategoryData.geneticDataHash)
-        ReadOnlyDataField("Biometric Vector", data.specialCategoryData.biometricFacialVector)
+        Text(stringResource(id = R.string.subtitle_special_category), style = MaterialTheme.typography.labelLarge)
+        ReadOnlyDataField(stringResource(id = R.string.label_political_affiliation), data.specialCategoryData.politicalAffiliation)
+        ReadOnlyDataField(stringResource(id = R.string.label_genetic_hash), data.specialCategoryData.geneticDataHash)
+        ReadOnlyDataField(stringResource(id = R.string.label_biometric_vector), data.specialCategoryData.biometricFacialVector)
     }
 }
 
 @Composable
 fun PciDssCard(data: PciDssData, modifier: Modifier = Modifier) {
-    ExpandableDataCard(title = "PCI-DSS Data", modifier = modifier) {
-        Text("Cardholder Data", style = MaterialTheme.typography.labelLarge)
-        ReadOnlyDataField("PAN", data.cardholderData.primaryAccountNumber, isSensitive = true)
-        ReadOnlyDataField("Cardholder Name", data.cardholderData.cardholderName)
-        ReadOnlyDataField("Expiration", data.cardholderData.expirationDate)
-        ReadOnlyDataField("Service Code", data.cardholderData.serviceCode)
+    ExpandableDataCard(title = stringResource(id = R.string.card_title_pci), modifier = modifier) {
+        Text(stringResource(id = R.string.subtitle_cardholder_data), style = MaterialTheme.typography.labelLarge)
+        ReadOnlyDataField(stringResource(id = R.string.label_pan), data.cardholderData.primaryAccountNumber, isSensitive = true)
+        ReadOnlyDataField(stringResource(id = R.string.label_cardholder_name), data.cardholderData.cardholderName)
+        ReadOnlyDataField(stringResource(id = R.string.label_expiration), data.cardholderData.expirationDate)
+        ReadOnlyDataField(stringResource(id = R.string.label_service_code), data.cardholderData.serviceCode)
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-        Text("Sensitive Auth Data", style = MaterialTheme.typography.labelLarge)
-        ReadOnlyDataField("Full Mag Stripe", data.sensitiveAuthenticationData.fullMagneticStripeData, isSensitive = true)
-        ReadOnlyDataField("CVV", data.sensitiveAuthenticationData.cardVerificationCode, isSensitive = true)
-        ReadOnlyDataField("PIN Block", data.sensitiveAuthenticationData.pinBlock, isSensitive = true)
+        Text(stringResource(id = R.string.subtitle_sensitive_auth_data), style = MaterialTheme.typography.labelLarge)
+        ReadOnlyDataField(stringResource(id = R.string.label_full_mag_stripe), data.sensitiveAuthenticationData.fullMagneticStripeData, isSensitive = true)
+        ReadOnlyDataField(stringResource(id = R.string.label_cvv), data.sensitiveAuthenticationData.cardVerificationCode, isSensitive = true)
+        ReadOnlyDataField(stringResource(id = R.string.label_pin_block), data.sensitiveAuthenticationData.pinBlock, isSensitive = true)
     }
 }
 
 @Composable
 fun HipaaPhiCard(data: HipaaPhiData, modifier: Modifier = Modifier) {
-    ExpandableDataCard(title = "HIPAA - PHI Data", modifier = modifier) {
-        Text("Health Records", style = MaterialTheme.typography.labelLarge)
-        ReadOnlyDataField("Medical Record Number", data.medicalRecordNumber)
-        ReadOnlyDataField("Health Plan Beneficiary", data.healthPlanBeneficiaryNumber)
-        ReadOnlyDataField("ICD-10 Code", data.icd10DiagnosisCode)
-        ReadOnlyDataField("Admission Date", data.admissionDate)
-        ReadOnlyDataField("HL7 Payload", data.hl7ProcedurePayload)
-        ReadOnlyDataField("Face Image URI", data.fullFacePhotographicImageUri)
+    ExpandableDataCard(title = stringResource(id = R.string.card_title_hipaa), modifier = modifier) {
+        Text(stringResource(id = R.string.subtitle_health_records), style = MaterialTheme.typography.labelLarge)
+        ReadOnlyDataField(stringResource(id = R.string.label_medical_record_number), data.medicalRecordNumber)
+        ReadOnlyDataField(stringResource(id = R.string.label_health_plan_beneficiary), data.healthPlanBeneficiaryNumber)
+        ReadOnlyDataField(stringResource(id = R.string.label_icd10_code), data.icd10DiagnosisCode)
+        ReadOnlyDataField(stringResource(id = R.string.label_admission_date), data.admissionDate)
+        ReadOnlyDataField(stringResource(id = R.string.label_hl7_payload), data.hl7ProcedurePayload)
+        ReadOnlyDataField(stringResource(id = R.string.label_face_image_uri), data.fullFacePhotographicImageUri)
     }
 }
