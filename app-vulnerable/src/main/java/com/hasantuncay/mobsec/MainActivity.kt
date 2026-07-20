@@ -7,6 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import com.hasantuncay.mobsec.common.models.data.LocalMasterclassData
+import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.runtime.entryProvider
 import com.hasantuncay.mobsec.common.navigation.DashboardRoute
@@ -23,8 +26,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AndroidSecurityMasterclassTheme(appType = AppType.VULNERABLE) {
-                SecurityApp()
+            CompositionLocalProvider(LocalMasterclassData provides MasterclassData()) {
+                AndroidSecurityMasterclassTheme(appType = AppType.VULNERABLE) {
+                    SecurityApp()
+                }
             }
         }
     }
