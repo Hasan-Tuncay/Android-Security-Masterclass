@@ -16,14 +16,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.hasantuncay.mobsec.common.R
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
 import com.hasantuncay.mobsec.common.models.Maswe0001Vector
-
-import com.hasantuncay.mobsec.common.models.data.LocalMasterclassData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Maswe0001LogVulnerableScreen(onBack: () -> Unit) {
-    val appData = LocalMasterclassData.current
+    val viewModel = LocalMasterclassViewModel.current
+    val appData by viewModel.masterclassData.collectAsState()
+    
     val username = appData.gdprPii.directIdentifiers.fullName
     val creditCard = appData.pciDss.cardholderData.primaryAccountNumber
     

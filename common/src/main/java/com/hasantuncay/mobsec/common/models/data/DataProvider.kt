@@ -1,11 +1,12 @@
 package com.hasantuncay.mobsec.common.models.data
 
 import androidx.compose.runtime.compositionLocalOf
+import com.hasantuncay.mobsec.common.viewmodel.MasterclassDataViewModel
 
 /**
- * CompositionLocal providing access to the global MasterclassData across the entire Compose tree.
- * Prevents prop-drilling of sensitive dummy data to deep vulnerability screens.
+ * CompositionLocal providing access to the global MasterclassDataViewModel across the entire Compose tree.
+ * Prevents prop-drilling and allows deep vulnerability screens to both read state and dispatch events.
  */
-val LocalMasterclassData = compositionLocalOf<MasterclassData> {
-    error("MasterclassData not provided! Wrap your UI with CompositionLocalProvider(LocalMasterclassData provides data).")
+val LocalMasterclassViewModel = compositionLocalOf<MasterclassDataViewModel> {
+    error("MasterclassDataViewModel not provided! Wrap your UI with CompositionLocalProvider(LocalMasterclassViewModel provides viewModel).")
 }

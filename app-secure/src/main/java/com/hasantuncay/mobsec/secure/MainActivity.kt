@@ -31,9 +31,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val masterclassViewModel: MasterclassDataViewModel = viewModel()
-            val appData by masterclassViewModel.masterclassData.collectAsState()
 
-            CompositionLocalProvider(LocalMasterclassData provides appData) {
+            CompositionLocalProvider(com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel provides masterclassViewModel) {
                 AndroidSecurityMasterclassTheme(appType = AppType.SECURE) {
                     SecureApp()
                 }

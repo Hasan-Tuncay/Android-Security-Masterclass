@@ -39,10 +39,16 @@ data class SafeUserDto(val username: String)
 
 
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Maswe0001LogSecureScreen(onBack: () -> Unit) {
-    val appData = LocalMasterclassData.current
+    val viewModel = LocalMasterclassViewModel.current
+    val appData by viewModel.masterclassData.collectAsState()
+    
     val username = appData.gdprPii.directIdentifiers.fullName
     val creditCard = appData.pciDss.cardholderData.primaryAccountNumber
     
