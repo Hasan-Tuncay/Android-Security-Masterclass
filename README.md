@@ -52,3 +52,21 @@ Detailed documentation for each implemented scenario, including code samples and
 ## ⚠️ Disclaimer
 
 This project is created strictly for **educational purposes**. The vulnerabilities demonstrated in the `:app-vulnerable` module are real and dangerous. Do **not** use the code from the `:app-vulnerable` module in production environments. Always refer to the `:app-secure` module for best practices.
+
+---
+
+## 🦅 Contact & Community
+
+**Instructor: Hasan Tunçay**
+- [LinkedIn](https://www.linkedin.com/in/hasantuncay2635)
+- [X (Twitter)](https://x.com/yacnutnasah)
+
+<div align="center">
+  <img src="assets/harpia_logo.png" alt="Harpia Academy" width="300"/>
+</div>
+
+**Harpia Academy**
+- [LinkedIn](https://www.linkedin.com/company/harpiaacademyofficial)
+- [YouTube](https://www.youtube.com/@harpiaacademyofficial)
+- [Instagram](https://www.instagram.com/harpiaacademyofficial)
+- [X (Twitter)](https://x.com/harpiaacademy)
