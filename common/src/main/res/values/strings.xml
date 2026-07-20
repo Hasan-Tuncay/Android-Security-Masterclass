@@ -42,8 +42,8 @@
     <!-- MASWE-0001 Screen Strings -->
     <string name="maswe_0001_vuln_title">MASWE-0001: Logging (VULNERABLE)</string>
     <string name="maswe_0001_secure_title">MASWE-0001: Logging (SECURE)</string>
-    <string name="maswe_0001_vuln_desc">Enter sensitive data below, then trigger the vulnerability vectors to see how the data leaks.</string>
-    <string name="maswe_0001_secure_desc">Enter sensitive data below. The secure vectors will safely process the data without leaking it to logs or plaintext files.</string>
+    <string name="maswe_0001_vuln_desc">Review the sensitive data below, then trigger the vulnerability vectors to see how the data leaks.</string>
+    <string name="maswe_0001_secure_desc">Review the sensitive data below. The secure vectors will safely process the data without leaking it to logs or plaintext files.</string>
     <string name="maswe_0001_username">Username</string>
     <string name="maswe_0001_credit_card">Credit Card Number</string>
     <string name="maswe_0001_vuln_vectors_title">Vulnerability Vectors (Attack Simulations)</string>

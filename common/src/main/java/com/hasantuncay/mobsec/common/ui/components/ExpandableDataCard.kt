@@ -81,9 +81,11 @@ fun ExpandableDataCard(
 fun ReadOnlyDataField(
     label: String,
     value: String,
-    isSensitive: Boolean = false
+    isSensitive: Boolean = false,
+    initiallyObscured: Boolean = true
 ) {
-    val displayValue = if (isSensitive) "•".repeat(value.length.coerceAtMost(16)) else value
+    var obscured by remember(isSensitive, initiallyObscured) { mutableStateOf(isSensitive && initiallyObscured) }
+    val displayValue = if (obscured) "•".repeat(value.length.coerceAtMost(16)) else value
 
     Column(
         modifier = Modifier
@@ -92,12 +94,27 @@ fun ReadOnlyDataField(
             .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 8.dp, vertical = 6.dp)
     ) {
-        Text(
-            text = label.uppercase(),
-            style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
-            fontWeight = FontWeight.Bold
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = label.uppercase(),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
+                fontWeight = FontWeight.Bold
+            )
+            if (isSensitive) {
+                // Use a simple text toggle if Icons are not all available, or click the whole row
+                Text(
+                    text = if (obscured) "SHOW" else "HIDE",
+                    style = MaterialTheme.typography.labelSmall.copy(fontSize = androidx.compose.ui.unit.sp.Sp(10f)),
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.clickable { obscured = !obscured }
+                )
+            }
+        }
         Spacer(modifier = Modifier.height(2.dp))
         Text(
             text = displayValue,
