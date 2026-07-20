@@ -8,7 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import com.hasantuncay.mobsec.common.models.data.LocalMasterclassData
+import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.runtime.entryProvider
@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import com.hasantuncay.mobsec.common.R
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.viewmodel.compose.viewModel
+ 
 import com.hasantuncay.mobsec.common.viewmodel.MasterclassDataViewModel
 import com.hasantuncay.mobsec.common.ui.theme.AppType
 
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val masterclassViewModel: MasterclassDataViewModel = viewModel()
 
-            CompositionLocalProvider(com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel provides masterclassViewModel) {
+            CompositionLocalProvider(LocalMasterclassViewModel provides masterclassViewModel) {
                 AndroidSecurityMasterclassTheme(appType = AppType.VULNERABLE) {
                     SecurityApp()
                 }
