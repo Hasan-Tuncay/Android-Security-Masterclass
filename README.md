@@ -19,9 +19,9 @@ Instead of hunting for bugs in outdated Java codebases, this project uses a stat
 
 ```mermaid
 graph TD
-    Common[/:common (Shared Models, UI, Navigation)/] --> Vuln[/:app-vulnerable (Insecure Logic)/]
-    Common --> Sec[/:app-secure (Secure Logic)/]
-    Data[(MasterclassData: PII, PCI-DSS, System Keys)] -. injected into .-> Common
+    Common["/:common (Shared Models, UI, Navigation)/"] --> Vuln["/:app-vulnerable (Insecure Logic)/"]
+    Common --> Sec["/:app-secure (Secure Logic)/"]
+    Data[("MasterclassData: PII, PCI-DSS, System Keys")] -. injected into .-> Common
 ```
 
 The `:common` module houses the `MasterclassData` object, which contains realistic dummy data representing highly sensitive payloads:
