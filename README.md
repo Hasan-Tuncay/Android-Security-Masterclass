@@ -30,27 +30,16 @@ The `:common` module houses the `MasterclassData` object, which contains realist
 - **PCI-DSS**: Credit card numbers (PAN), CVV, PINs.
 - **System Crypto**: AES Master Keys, RSA Private Keys, OAuth Tokens.
 
-## 🚀 Implemented Scenarios
+## 🚀 Implemented Scenarios (Vulnerability Index)
 
-### 1. MASWE-0001: Sensitive Data Leakage via Logging (CWE-532)
-*Status: Completed*
-Demonstrates how sensitive data can unintentionally leak into local and remote locations.
-- **System Console**: Leaking cryptographic keys to Logcat.
-- **Network Interceptor**: Leaking `Authorization` and `X-CSRF-Token` headers.
-- **Local File Dump**: Dumping PCI-DSS data (CVV, PAN) in plaintext to local storage.
-- **SDK Telemetry**: Accidentally sending unhashed PII (emails) and clipboard data to Analytics SDKs (e.g., Crashlytics).
-- **WebView Console**: Leaking Session Cookies via JS `console.log` into the native layer.
-- ** Mitigation**: Covered in `:app-secure` via Redacting Interceptors, Data Sanitization (Hashing), Jetpack `EncryptedFile`, and WebChromeClient regex filtering.
+Detailed documentation for each implemented scenario, including code samples and mitigation strategies, can be found in the `docs/` directory.
 
-### 2. MASTG-BEST-0002: Remove Logging Code (Memory Leaks)
-*Status: Completed*
-Demonstrates the hidden danger of `StringBuilder` allocations in logging.
-- **Vulnerability**: Using string interpolation (`Log.d("Tag", "Password: $password")`) causes the password to reside in the heap memory as a plaintext String, even if the `Log.d` call is stripped in production.
-- ** Mitigation**: Implemented a custom `SecureLog` facility using strictly `vararg` arguments, combined with ProGuard/R8 `-assumenosideeffects` rules to completely strip the calls from the Release build, leaving zero memory footprint.
+### ✅ Completed
+- [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](./docs/MASWE-0001-Logging-Leaks.md)
+- [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](./docs/MASTG-BEST-0002-ProGuard.md)
 
-### 3. MASWE-0002: Insecure Local Storage (SharedPreferences & SQLite)
-*Status: Upcoming*
-Will cover the dangers of plaintext data persistence and demonstrate the proper use of `EncryptedSharedPreferences` and SQLCipher.
+### ⏳ Upcoming
+- *MASWE-0002: Insecure Local Storage (SharedPreferences & SQLite)*
 
 ## 🛠️ How to Build and Test
 
