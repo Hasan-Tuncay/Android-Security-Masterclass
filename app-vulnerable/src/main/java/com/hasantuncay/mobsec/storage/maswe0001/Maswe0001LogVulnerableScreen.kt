@@ -21,14 +21,17 @@ import androidx.compose.runtime.getValue
 import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
 import com.hasantuncay.mobsec.common.models.Maswe0001Vector
 
+import com.hasantuncay.mobsec.common.ui.components.AnalyticsLogCard
+import com.hasantuncay.mobsec.common.ui.components.GdprPiiCard
+import com.hasantuncay.mobsec.common.ui.components.PciDssCard
+import com.hasantuncay.mobsec.common.ui.components.SessionDataCard
+import com.hasantuncay.mobsec.common.ui.components.UserDataCard
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Maswe0001LogVulnerableScreen(onBack: () -> Unit) {
     val viewModel = LocalMasterclassViewModel.current
     val appData by viewModel.masterclassData.collectAsState()
-    
-    val username = appData.gdprPii.directIdentifiers.fullName
-    val creditCard = appData.pciDss.cardholderData.primaryAccountNumber
     
     val context = LocalContext.current
     val scrollState = rememberScrollState()
@@ -63,22 +66,12 @@ fun Maswe0001LogVulnerableScreen(onBack: () -> Unit) {
                 style = MaterialTheme.typography.bodyMedium
             )
 
-            OutlinedTextField(
-                value = username,
-                onValueChange = {},
-                readOnly = true,
-                label = { Text(stringResource(id = R.string.maswe_0001_username)) },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            OutlinedTextField(
-                value = creditCard,
-                onValueChange = {},
-                readOnly = true,
-                label = { Text(stringResource(id = R.string.maswe_0001_credit_card)) },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth()
-            )
+            // Modular Data Displays for Context
+            UserDataCard(data = appData.userContext)
+            GdprPiiCard(data = appData.gdprPii)
+            PciDssCard(data = appData.pciDss)
+            SessionDataCard(data = appData.networkSession)
+            AnalyticsLogCard(data = appData.analyticsLogs)
 
             Spacer(modifier = Modifier.height(8.dp))
             HorizontalDivider()
