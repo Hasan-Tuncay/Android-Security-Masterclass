@@ -19,6 +19,10 @@ import com.hasantuncay.mobsec.common.ui.DashboardScreen
 import com.hasantuncay.mobsec.common.ui.theme.AndroidSecurityMasterclassTheme
 import androidx.compose.ui.res.stringResource
 import com.hasantuncay.mobsec.common.R
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.hasantuncay.mobsec.common.viewmodel.MasterclassDataViewModel
 import com.hasantuncay.mobsec.common.ui.theme.AppType
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +30,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            CompositionLocalProvider(LocalMasterclassData provides MasterclassData()) {
+            val masterclassViewModel: MasterclassDataViewModel = viewModel()
+            val appData by masterclassViewModel.masterclassData.collectAsState()
+
+            CompositionLocalProvider(LocalMasterclassData provides appData) {
                 AndroidSecurityMasterclassTheme(appType = AppType.SECURE) {
                     SecureApp()
                 }
