@@ -35,8 +35,8 @@ The `:common` module houses the `MasterclassData` object, which contains realist
 Detailed documentation for each implemented scenario, including code samples and mitigation strategies, can be found in the `docs/` directory.
 
 ### ✅ Completed
-- [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](./docs/MASWE-0001-Logging-Leaks.md)
-- [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](./docs/MASTG-BEST-0002-ProGuard.md)
+- [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](./docs/maswe/MASWE-0001-Logging-Leaks.md)
+- [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](./docs/mastg-best/MASTG-BEST-0002-ProGuard.md)
 
 ### ⏳ Upcoming
 - *MASWE-0002: Insecure Local Storage (SharedPreferences & SQLite)*

@@ -31,7 +31,7 @@ The mitigated application implements defense-in-depth strategies to ensure data 
 
 1. **System Console Mitigation**: 
    - Uses generic error messages without dumping domain objects. 
-   - Avoids string interpolation. (See [MASTG-BEST-0002](./MASTG-BEST-0002-ProGuard.md) for detailed Memory Leak prevention).
+   - Avoids string interpolation. (See [MASTG-BEST-0002](../mastg-best/MASTG-BEST-0002-ProGuard.md) for detailed Memory Leak prevention).
 
 2. **Network Interceptor Mitigation**: 
    - Disables `HttpLoggingInterceptor` for production (`Level.NONE`). 
