@@ -17,13 +17,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 import com.hasantuncay.mobsec.common.R
 
 @Composable
 fun ExpandableDataCard(
     title: String,
     modifier: Modifier = Modifier,
-    initiallyExpanded: Boolean = true,
+    initiallyExpanded: Boolean = false,
     content: @Composable ColumnScope.() -> Unit
 ) {
     var expanded by remember { mutableStateOf(initiallyExpanded) }
@@ -82,7 +83,7 @@ fun ReadOnlyDataField(
     label: String,
     value: String,
     isSensitive: Boolean = false,
-    initiallyObscured: Boolean = true
+    initiallyObscured: Boolean = false
 ) {
     var obscured by remember(isSensitive, initiallyObscured) { mutableStateOf(isSensitive && initiallyObscured) }
     val displayValue = if (obscured) "•".repeat(value.length.coerceAtMost(16)) else value
@@ -108,8 +109,8 @@ fun ReadOnlyDataField(
             if (isSensitive) {
                 // Use a simple text toggle if Icons are not all available, or click the whole row
                 Text(
-                    text = if (obscured) "SHOW" else "HIDE",
-                    style = MaterialTheme.typography.labelSmall.copy(fontSize = androidx.compose.ui.unit.sp.Sp(10f)),
+                    text = if (obscured) stringResource(id = R.string.action_show) else stringResource(id = R.string.action_hide),
+                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.clickable { obscured = !obscured }
                 )

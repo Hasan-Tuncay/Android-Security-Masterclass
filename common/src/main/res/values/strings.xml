@@ -151,5 +151,7 @@
 
     <string name="action_expand">Expand</string>
     <string name="action_collapse">Collapse</string>
+    <string name="action_show">SHOW</string>
+    <string name="action_hide">HIDE</string>
 
 </resources>

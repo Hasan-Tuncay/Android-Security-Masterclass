@@ -81,7 +81,7 @@
     <string name="maswe_0001_msg_sys_console_vuln">Data logged to Logcat (System Console)</string>
     <string name="maswe_0001_msg_webview_secure">WebView JS console.log safely intercepted!</string>
     <string name="maswe_0001_msg_webview_vuln">WebView executed JS console.log!</string>
-    <string name="maswe_0001_secure_desc">Enter sensitive data below. The secure vectors will safely process the data without leaking it to logs or plaintext files.</string>
+    <string name="maswe_0001_secure_desc">Review the sensitive data below. The secure vectors will safely process the data without leaking it to logs or plaintext files.</string>
     <string name="maswe_0001_secure_title">MASWE-0001: Logging (SECURE)</string>
     <string name="maswe_0001_secure_vectors_title">Secure Mitigations (Defense Simulations)</string>
     <string name="maswe_0001_title">Insertion of Sensitive Data into Logs</string>
@@ -96,7 +96,7 @@
     <string name="maswe_0001_vector_sys_console_vuln">1. Trigger System Console Leak</string>
     <string name="maswe_0001_vector_webview_secure">5. Secure WebView Console</string>
     <string name="maswe_0001_vector_webview_vuln">5. Trigger WebView Console Leak</string>
-    <string name="maswe_0001_vuln_desc">Enter sensitive data below, then trigger the vulnerability vectors to see how the data leaks.</string>
+    <string name="maswe_0001_vuln_desc">Review the sensitive data below, then trigger the vulnerability vectors to see how the data leaks.</string>
     <string name="maswe_0001_vuln_title">MASWE-0001: Logging (VULNERABLE)</string>
     <string name="maswe_0001_vuln_vectors_title">Vulnerability Vectors (Attack Simulations)</string>
     <string name="maswe_0002_id">MASWE-0002</string>
