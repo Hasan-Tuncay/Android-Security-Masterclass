@@ -7,9 +7,9 @@ import com.hasantuncay.mobsec.common.models.data.classification.SensitivityClass
 @Composable
 fun SensitivityClassificationCard(data: SensitivityClassificationData, modifier: Modifier = Modifier) {
     ExpandableDataCard(title = "Data Classification", modifier = modifier) {
-        ReadOnlyDataField("Public", data.publicData)
-        ReadOnlyDataField("Internal", data.internalData)
-        ReadOnlyDataField("Confidential", data.confidentialData)
-        ReadOnlyDataField("Restricted", data.restrictedData, isSensitive = true)
+        ReadOnlyDataField("Public", data.publicInformation)
+        ReadOnlyDataField("Internal", data.internalInformation)
+        ReadOnlyDataField("Confidential", data.confidentialInformation)
+        ReadOnlyDataField("Restricted", data.restrictedInformation, isSensitive = true)
     }
 }

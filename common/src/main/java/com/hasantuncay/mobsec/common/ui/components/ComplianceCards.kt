@@ -17,18 +17,21 @@ fun GdprPiiCard(data: GdprPiiData, modifier: Modifier = Modifier) {
         Text("Direct Identifiers", style = MaterialTheme.typography.labelLarge)
         ReadOnlyDataField("Full Name", data.directIdentifiers.fullName)
         ReadOnlyDataField("National ID (TCKN)", data.directIdentifiers.nationalIdentificationNumber, isSensitive = true)
-        ReadOnlyDataField("Email", data.directIdentifiers.emailAddress)
-        ReadOnlyDataField("Phone", data.directIdentifiers.phoneNumber)
+        ReadOnlyDataField("Email", data.directIdentifiers.personalEmail)
+        ReadOnlyDataField("Passport", data.directIdentifiers.passportNumber)
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
         Text("Indirect Identifiers", style = MaterialTheme.typography.labelLarge)
-        ReadOnlyDataField("DOB", data.indirectIdentifiers.dateOfBirth)
-        ReadOnlyDataField("Gender", data.indirectIdentifiers.gender)
+        ReadOnlyDataField("IPv6 Address", data.indirectIdentifiers.ipv6Address)
+        ReadOnlyDataField("Advertising ID", data.indirectIdentifiers.advertisingId)
+        ReadOnlyDataField("GPS Lat", data.indirectIdentifiers.exactLocation.latitude.toString())
+        ReadOnlyDataField("GPS Lng", data.indirectIdentifiers.exactLocation.longitude.toString())
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
         Text("Special Category (Sensitive)", style = MaterialTheme.typography.labelLarge)
-        ReadOnlyDataField("Health Condition", data.specialCategoryData.healthCondition)
-        ReadOnlyDataField("Biometric Hash", data.specialCategoryData.biometricTemplateHash)
+        ReadOnlyDataField("Political Affiliation", data.specialCategoryData.politicalAffiliation)
+        ReadOnlyDataField("Genetic Data Hash", data.specialCategoryData.geneticDataHash)
+        ReadOnlyDataField("Biometric Vector", data.specialCategoryData.biometricFacialVector)
     }
 }
 
@@ -39,11 +42,13 @@ fun PciDssCard(data: PciDssData, modifier: Modifier = Modifier) {
         ReadOnlyDataField("PAN", data.cardholderData.primaryAccountNumber, isSensitive = true)
         ReadOnlyDataField("Cardholder Name", data.cardholderData.cardholderName)
         ReadOnlyDataField("Expiration", data.cardholderData.expirationDate)
+        ReadOnlyDataField("Service Code", data.cardholderData.serviceCode)
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
         Text("Sensitive Auth Data", style = MaterialTheme.typography.labelLarge)
-        ReadOnlyDataField("CVV", data.sensitiveAuthData.cardVerificationValue, isSensitive = true)
-        ReadOnlyDataField("PIN Block", data.sensitiveAuthData.pinBlock, isSensitive = true)
+        ReadOnlyDataField("Full Mag Stripe", data.sensitiveAuthenticationData.fullMagneticStripeData, isSensitive = true)
+        ReadOnlyDataField("CVV", data.sensitiveAuthenticationData.cardVerificationCode, isSensitive = true)
+        ReadOnlyDataField("PIN Block", data.sensitiveAuthenticationData.pinBlock, isSensitive = true)
     }
 }
 
@@ -52,8 +57,10 @@ fun HipaaPhiCard(data: HipaaPhiData, modifier: Modifier = Modifier) {
     ExpandableDataCard(title = "HIPAA - PHI Data", modifier = modifier) {
         Text("Health Records", style = MaterialTheme.typography.labelLarge)
         ReadOnlyDataField("Medical Record Number", data.medicalRecordNumber)
-        ReadOnlyDataField("Diagnosis Code", data.diagnosisCode)
-        ReadOnlyDataField("Treatment Date", data.treatmentDate)
-        ReadOnlyDataField("Attending Physician", data.attendingPhysician)
+        ReadOnlyDataField("Health Plan Beneficiary", data.healthPlanBeneficiaryNumber)
+        ReadOnlyDataField("ICD-10 Code", data.icd10DiagnosisCode)
+        ReadOnlyDataField("Admission Date", data.admissionDate)
+        ReadOnlyDataField("HL7 Payload", data.hl7ProcedurePayload)
+        ReadOnlyDataField("Face Image URI", data.fullFacePhotographicImageUri)
     }
 }
