@@ -16,6 +16,7 @@ data class HipaaPhiData(
     val hl7ProcedurePayload: String = "MSH|^~\\&|EPIC|HOSPITAL|LAB...||ORU^R01|",
     /** Dates directly related to an individual (e.g., admission, discharge). */
     val admissionDate: String = "2026-07-21T09:00:00Z",
-    /** Full-face photographic image, considered a direct PHI identifier. */
     val fullFacePhotographicImageUri: String = "content://com.hospital.provider/patients/998877/face.jpg"
-)
+) {
+    override fun toString() = "[REDACTED_HIPAA_PHI_DATA]"
+}

@@ -37,6 +37,7 @@ Detailed documentation for each implemented scenario, including code samples and
 ### ✅ Completed
 - [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](./docs/maswe/MASWE-0001-Logging-Leaks.md)
 - [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](./docs/mastg-best/MASTG-BEST-0002-ProGuard.md)
+- [**MASTG-BEST-0003**: Data Class Sanitization (toString Redaction)](./docs/mastg-best/MASTG-BEST-0003-DataClass-Sanitization.md)
 
 ### ⏳ Upcoming
 - *MASWE-0002: Insecure Local Storage (SharedPreferences & SQLite)*

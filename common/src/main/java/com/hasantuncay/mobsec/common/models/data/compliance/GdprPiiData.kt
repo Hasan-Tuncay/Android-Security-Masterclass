@@ -25,7 +25,9 @@ data class DirectIdentifiers(
     val fullName: String = "John Doe",
     /** Personal contact email address. */
     val personalEmail: String = "john.doe@personal.domain.com"
-)
+) {
+    override fun toString() = "[REDACTED_GDPR_DIRECT_IDENTIFIERS]"
+}
 
 /**
  * Data points that require correlation with other datasets to identify a specific individual.
@@ -37,7 +39,9 @@ data class IndirectIdentifiers(
     val advertisingId: String = "38400000-8cf0-11bd-b23e-10b96e40000d",
     /** Highly precise geolocation coordinates. */
     val exactLocation: GeoLocation = GeoLocation(latitude = 39.92077, longitude = 32.85411)
-)
+) {
+    override fun toString() = "[REDACTED_GDPR_INDIRECT_IDENTIFIERS]"
+}
 
 /**
  * Special categories of personal data (Article 9 GDPR).

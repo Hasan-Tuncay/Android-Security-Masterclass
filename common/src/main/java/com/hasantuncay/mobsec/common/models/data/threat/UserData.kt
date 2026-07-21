@@ -11,6 +11,7 @@ data class UserData(
     val pbkdf2PasswordHash: String = "pbkdf2:sha256:29000:D8H9...:F9A2...",
     /** Data copied to the device's global clipboard, accessible by other applications. */
     val clipboardCache: String = "Copied 2FA Code: 849201",
-    /** Private messages stored locally in a SQLite database (e.g., Room). */
     val draftMessagesDb: List<String> = listOf("The corporate merger will be announced tomorrow, buy the stock.")
-)
+) {
+    override fun toString() = "[REDACTED_USER_DATA]"
+}

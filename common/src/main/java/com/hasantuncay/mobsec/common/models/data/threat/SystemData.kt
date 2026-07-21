@@ -15,6 +15,7 @@ data class SystemData(
     val androidKeystoreAlias: String = "com.company.app.MASTER_KEY",
     /** An RSA Private Key in PEM format. Should never be stored on the client device. */
     val rsaPrivateKeyPem: String = "-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAA...\n-----END RSA PRIVATE KEY-----",
-    /** The internal, non-public GraphQL endpoint used by the application backend. */
     val backendGraphqlEndpoint: String = "https://api.internal.company.com/graphql/v2"
-)
+) {
+    override fun toString() = "[REDACTED_SYSTEM_DATA]"
+}
