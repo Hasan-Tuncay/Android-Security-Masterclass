@@ -1,9 +1,11 @@
-# MASTG-BEST-0003: Data Class Sanitization (toString Redaction)
+# MASTG-BEST-0003: Comply with Privacy Regulations and Best Practices
 
 ## 📌 Overview
-This scenario demonstrates the official Android Security recommendation for preventing accidental **Log Info Disclosure**. Even if logging interceptors and ProGuard rules are configured correctly, a developer might accidentally log an entire domain object using string interpolation (e.g., `Log.d("Dump", userData.toString())`).
+This scenario demonstrates how to technically enforce compliance with privacy regulations like **GDPR** (General Data Protection Regulation) and **HIPAA** (Health Insurance Portability and Accountability Act) at the codebase level. 
 
-If standard Kotlin `data class` structures are used, the compiler automatically generates a `toString()` method that dumps all properties of the object in plaintext.
+One of the most common ways companies violate these regulations is through **Log Info Disclosure** (CWE-359 / CWE-532). Even if logging interceptors and ProGuard rules are configured correctly, a developer might accidentally log an entire domain object using string interpolation (e.g., `Log.d("Dump", userData.toString())`).
+
+If standard Kotlin `data class` structures are used for sensitive regulatory data (like `GdprPiiData` or `HipaaPhiData`), the compiler automatically generates a `toString()` method that dumps all properties of the object in plaintext.
 
 ## ❌ Vulnerable Implementation
 In a standard, unredacted data class:
