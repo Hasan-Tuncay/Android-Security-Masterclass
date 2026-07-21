@@ -17,6 +17,22 @@ import java.io.File
 import java.io.FileOutputStream
 import kotlin.concurrent.thread
 
+/**
+ * ⚠️ VULNERABLE IMPLEMENTATION: MASWE-0001 (Log Info Disclosure)
+ *
+ * TECHNICAL OVERVIEW:
+ * This class isolates intentional security anti-patterns resulting in data leakage.
+ * All vectors demonstrated herein violate OWASP MASVS-STORAGE and MASVS-CODE standards.
+ * The primary vulnerability class is CWE-532 (Information Exposure Through Log Files)
+ * and CWE-312 (Cleartext Storage of Sensitive Information).
+ *
+ * VULNERABILITY VECTORS:
+ * 1. SYSTEM CONSOLE: Direct plaintext dumping of cryptographic keys and PII.
+ * 2. NETWORK INTERCEPTOR: Exposure of Authorization and CSRF headers via OkHttp loggers.
+ * 3. LOCAL FILE: Storage of prohibited PCI-DSS data (CVV, PIN) in unencrypted local files.
+ * 4. SDK TELEMETRY: Transmission of unhashed PII to third-party SDK simulation.
+ * 5. WEBVIEW CONSOLE: Bridging DOM-level JavaScript logs to the native Android Logcat.
+ */
 object Maswe0001VulnerableLogic {
 
     fun executeVector(vector: Maswe0001Vector, appData: MasterclassData, context: Context) {
@@ -37,8 +53,14 @@ object Maswe0001VulnerableLogic {
         }
     }
 
+    /**
+     * VULNERABLE VECTOR 1: SYSTEM CONSOLE (CWE-532)
+     * Mechanism: Utilizes string interpolation to allocate sensitive data in the Heap (StringBuilder)
+     * and writes the payload to the system-wide Logcat buffer (`/dev/log/main`).
+     * Impact: Any malware with root privileges, adb access, or system-level `READ_LOGS` permission
+     * can extract cryptographic keys (AES/RSA) and plaintext passwords.
+     */
     private fun triggerSystemConsoleLeak(appData: MasterclassData) {
-        // VULNERABLE: Dumping the entire application state in plain text to Logcat.
         val dump = """
             
             --- CRITICAL APP STATE DUMP ---
@@ -58,13 +80,18 @@ object Maswe0001VulnerableLogic {
         Log.e("VULN_APP_TAG", dump)
     }
 
+    /**
+     * VULNERABLE VECTOR 2: NETWORK INTERCEPTORS (CWE-532 / CWE-117)
+     * Mechanism: Instantiates OkHttp `HttpLoggingInterceptor` with `Level.BODY` and applies
+     * a custom interceptor that explicitly logs the `Request.headers`.
+     * Impact: OAuth2 Bearer tokens and CSRF parameters are logged in plaintext. Replay attacks
+     * and session hijacking become viable if logs are exfiltrated.
+     */
     private fun triggerNetworkLeak(appData: MasterclassData) {
         thread {
-            // VULNERABLE: Logging HTTP Headers and Body explicitly
             val loggingInterceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
             val headerDumpInterceptor = Interceptor { chain ->
                 val request = chain.request()
-                // Explicitly logging the headers which contains OAuth token
                 Log.e("VULN_NETWORK", "Outgoing Request Headers: \n${request.headers}")
                 chain.proceed(request)
             }
@@ -89,15 +116,21 @@ object Maswe0001VulnerableLogic {
         }
     }
 
+    /**
+     * VULNERABLE VECTOR 3: LOCAL FILE DUMPING (CWE-312 / PCI-DSS Non-Compliance)
+     * Mechanism: Serializes domain objects into a JSON payload and writes them via `FileOutputStream`
+     * to the internal `filesDir` without hardware-backed cryptographic protection (AES-GCM).
+     * Impact: CVV and PIN Block storage is a strict violation of PCI-DSS Requirement 3.2. 
+     * Plaintext storage allows extraction via rooted physical access or arbitrary read vulnerabilities.
+     */
     private fun triggerLocalFileLeak(appData: MasterclassData, context: Context) {
         try {
             val file = File(context.filesDir, "diagnostics_vulnerable.json")
             FileOutputStream(file, false).use { stream ->
-                // VULNERABLE: Writing highly sensitive PCI/HIPAA data to a plaintext file
                 val dumpObj = JSONObject().apply {
                     put("pan", appData.pciDss.cardholderData.primaryAccountNumber)
-                    put("cvv", appData.pciDss.sensitiveAuthenticationData.cardVerificationCode)
-                    put("pinBlock", appData.pciDss.sensitiveAuthenticationData.pinBlock)
+                    put("cvv", appData.pciDss.sensitiveAuthenticationData.cardVerificationCode) // SEVERE PCI-DSS VIOLATION
+                    put("pinBlock", appData.pciDss.sensitiveAuthenticationData.pinBlock) // SEVERE PCI-DSS VIOLATION
                     put("hipaa_mrn", appData.hipaaPhi.medicalRecordNumber)
                     put("hipaa_diagnosis", appData.hipaaPhi.icd10DiagnosisCode)
                     put("device_ssaid", appData.deviceTelemetry.androidSsaid)
@@ -109,8 +142,14 @@ object Maswe0001VulnerableLogic {
         }
     }
 
+    /**
+     * VULNERABLE VECTOR 4: SDK TELEMETRY (CWE-359)
+     * Mechanism: Aggregates unhashed PII and arbitrary system metrics (Clipboard, SIM ICCID)
+     * into a JSON string representing a third-party crash report payload.
+     * Impact: Transmitting raw PII to external analytics servers violates GDPR principles of 
+     * Data Minimization and subjects the data to third-party infrastructure risks.
+     */
     private fun triggerSdkTelemetryLeak(appData: MasterclassData) {
-        // VULNERABLE: Dumping entire domain objects with sensitive data to Analytics/Crash SDK
         val payload = """
             {
               "event": "App_Crash",
@@ -123,12 +162,17 @@ object Maswe0001VulnerableLogic {
         Log.e("VULN_SDK_SIMULATION", "Sending Crashlytics Payload: \n$payload")
     }
 
+    /**
+     * VULNERABLE VECTOR 5: WEBVIEW CONSOLE BRIDGE (CWE-532)
+     * Mechanism: Implements a `WebChromeClient` that routes `onConsoleMessage` directly to `Log.e`.
+     * Impact: Any sensitive data logged by the web application's JavaScript context (e.g., Session 
+     * Cookies, Refresh Tokens) automatically leaks into the native Android system logs.
+     */
     private fun triggerWebViewConsoleLeak(appData: MasterclassData, context: Context) {
         val webView = WebView(context)
         webView.settings.javaScriptEnabled = true
         webView.webChromeClient = object : WebChromeClient() {
             override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-                // VULNERABLE: Bridging sensitive JS console logs back to native Logcat
                 Log.e("VULN_WEBVIEW", "JS Console: " + consoleMessage.message())
                 return true
             }
