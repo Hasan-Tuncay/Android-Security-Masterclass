@@ -30,7 +30,7 @@ import kotlin.concurrent.thread
  *
  * KEY MITIGATIONS DEMONSTRATED HERE:
  * 1. Custom Logging & ProGuard (MASTG-BEST-0002): Preventing Heap Memory leaks via `vararg` and R8.
- * 2. Privacy Compliance (MASTG-BEST-0003): Redacting `toString()` outputs in the domain layer to protect PII/PCI.
+ * 2. Data Class Sanitization: Redacting `toString()` outputs in the domain layer as a defense-in-depth for logging.
  * 3. Network Redaction: Intercepting and masking HTTP Authorization headers.
  * 4. Data Masking & Jetpack Security: Encrypting local diagnostic files while strictly dropping CVV/PIN.
  * 5. Telemetry Sanitization: Hashing PII (SHA-256) before sending data to 3rd-party SDKs (e.g., Crashlytics).
@@ -71,9 +71,9 @@ object Maswe0001SecureLogic {
         // RESULT: Zero StringBuilder allocation. The AES key never becomes a String object in RAM.
         SecureLog.d("SecureSystem", "Simulated Check - Master Key is present: %s", appData.systemContext.masterCryptoKeyAesGcm)
 
-        // SECURE PRACTICE 3 (MASTG-BEST-0003): Comply with Privacy Regulations
+        // SECURE PRACTICE 3: Data Class Sanitization (Defense-in-depth)
         // Even if a developer accidentally logs the whole object, our overridden `toString()` 
-        // in `SystemData` will safely output "[REDACTED_SYSTEM_DATA]" protecting regulatory data.
+        // in `SystemData` will safely output "[REDACTED_SYSTEM_DATA]" preventing accidental leakage.
         SecureLog.d("SecureSystem", "Object Dump Protection Test: %s", appData.systemContext.toString())
     }
 
