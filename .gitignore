@@ -20,3 +20,6 @@ local.properties
 *.apk
 *.aab
 google-services.json
+
+# AGY Rules
+.agyrules

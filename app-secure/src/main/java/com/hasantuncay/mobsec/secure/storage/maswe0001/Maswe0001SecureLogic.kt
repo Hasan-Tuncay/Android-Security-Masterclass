@@ -68,8 +68,9 @@ object Maswe0001SecureLogic {
         // - `SecureLog` handles the formatting internally.
         // - In Release mode, R8 sees `-assumenosideeffects` for `SecureLog` in proguard-rules.pro.
         // - R8 completely strips this ENTIRE line from the bytecode.
-        // RESULT: Zero StringBuilder allocation. The AES key never becomes a String object in RAM.
-        SecureLog.d("SecureSystem", "Simulated Check - Master Key is present: %s", appData.systemContext.masterCryptoKeyAesGcm)
+        // RESULT: Zero StringBuilder allocation.
+        // We log the LENGTH of the key, not the key itself, to prevent Debug mode leakage.
+        SecureLog.d("SecureSystem", "Simulated Check - Master Key is present (Length: %d)", appData.systemContext.masterCryptoKeyAesGcm.length)
 
         // SECURE PRACTICE 3: Data Class Sanitization (Defense-in-depth)
         // Even if a developer accidentally logs the whole object, our overridden `toString()` 
@@ -94,9 +95,10 @@ object Maswe0001SecureLogic {
             val redactingInterceptor = Interceptor { chain ->
                 val request = chain.request()
                 val authHeader = request.header("Authorization")
-                if (authHeader != null && BuildConfig.DEBUG) {
-                    // We only log that the header existed, NOT its value.
-                    SecureLog.d("SecureNetwork", "Outgoing request with REDACTED Authorization header.")
+                val csrfHeader = request.header("X-CSRF-Token")
+                if ((authHeader != null || csrfHeader != null) && BuildConfig.DEBUG) {
+                    // We only log that the headers existed, NOT their values.
+                    SecureLog.d("SecureNetwork", "Outgoing request with REDACTED sensitive headers.")
                 }
                 chain.proceed(request)
             }
@@ -180,7 +182,9 @@ object Maswe0001SecureLogic {
         // Analytics can still track unique users (the hash remains constant for the same email),
         // but they cannot reverse the hash to find the actual email address.
         val email = appData.gdprPii.directIdentifiers.personalEmail
-        val emailHash = hashString(email)
+        // We use a unique device identifier (or server-provided salt) as a salt to mitigate Rainbow Table attacks.
+        val salt = appData.deviceTelemetry.androidSsaid
+        val emailHash = hashString(email, salt)
         
         // We also convert sensitive content (draft messages) into a boolean flag (`has_drafts`).
         val safePayload = """
@@ -209,11 +213,11 @@ object Maswe0001SecureLogic {
             override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
                 val msg = consoleMessage.message().lowercase()
                 
-                // We define a blacklist of sensitive terms.
-                val sensitiveKeywords = listOf("cookie", "token", "auth", "bearer", "password")
+                // We utilize Regex to catch various token formats instead of a weak blacklist.
+                val sensitiveRegex = Regex("(?i)(cookie|token|auth|bearer|password|secret|jwt|api_key|session)")
                 
-                // If the JS console message contains any of these words, we block it entirely.
-                if (sensitiveKeywords.any { msg.contains(it) }) {
+                // If the JS console message matches any sensitive pattern, block it entirely.
+                if (sensitiveRegex.containsMatchIn(msg)) {
                     SecureLog.w("SecureWebView", "Blocked a potentially sensitive WebView console message.")
                     return true // Returning true tells the system "I handled this, do not print it."
                 }
@@ -245,9 +249,10 @@ object Maswe0001SecureLogic {
      * Utility function to generate a SHA-256 hash.
      * In a real app, you might salt this to prevent Rainbow Table attacks.
      */
-    private fun hashString(input: String): String {
+    private fun hashString(input: String, salt: String): String {
         return try {
-            val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+            val saltedInput = salt + input
+            val bytes = MessageDigest.getInstance("SHA-256").digest(saltedInput.toByteArray())
             bytes.joinToString("") { "%02x".format(it) }
         } catch (e: Exception) {
             "HASH_ERROR"
