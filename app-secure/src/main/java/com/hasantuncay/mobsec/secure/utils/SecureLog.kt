@@ -96,6 +96,14 @@ object SecureLog {
         }
     }
 
+    @JvmStatic
+    fun wtf(tag: String, @CompileTimeConstant message: String, vararg args: Any?) {
+        if (RemoteConfigSim.isLoggingKilled) return
+        if (BuildConfig.DEBUG) {
+            Log.wtf(tag, formatMessage(message, *args))
+        }
+    }
+
     private fun formatMessage(message: String, vararg args: Any?): String {
         return if (args.isNotEmpty()) {
             try {

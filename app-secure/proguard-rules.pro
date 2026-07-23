@@ -39,6 +39,7 @@
     public static int w(...);
     public static int d(...);
     public static int e(...);
+    public static int wtf(...);
 }
 
 -assumenosideeffects class com.hasantuncay.mobsec.secure.utils.SecureLog {
@@ -48,6 +49,7 @@
     public static void i(...);
     public static void w(...);
     public static void e(...);
+    public static void wtf(...);
 }
 
 # ---------------------------------------------------------------------
