@@ -3,16 +3,15 @@ package com.hasantuncay.mobsec.secure.utils
 /**
  * Educational Simulation of a Remote Configuration service (like Firebase Remote Config).
  * Used to demonstrate the "Kill Switch" (Incident Response Flag) concept.
- * 
- * NEDEN ENTEGRE ETTİK? (WHY WAS THIS INTEGRATED?)
- * 1. Olay Müdahale (Incident Response): Canlıda (Production) bir zafiyet tespit edilirse (Örn: Loglara PII 
- *    verisi sızdığı fark edilirse), geliştirme ekibinin kodu düzeltip, derleyip, Google Play'e göndermesi 
- *    ve onay alması GÜNLER sürebilir.
- * 2. Anında Kapatma (Zero-Time Mitigation): Bu bayrak sayesinde, sunucudan `isLoggingKilled = true` 
- *    sinyali gönderildiği saniye, uygulamayı güncellemeye gerek kalmadan milyarlarca cihazdaki 
- *    tüm loglama faaliyetleri anında (runtime'da) felç edilir.
- * 3. Google Kılavuzu: Resmi Android Güvenlik Dokümanları, canlıda log tutulacaksa mutlaka uzaktan 
- *    kapatılabilir bir şartel (shut down logging conditionally) kurulmasını emreder.
+ * WHY WAS THIS INTEGRATED?
+ * 1. Incident Response (Zero-Time Mitigation): If a vulnerability is discovered in Production (e.g., 
+ *    a 3rd-party SDK starts leaking PII to logs), fixing the code, recompiling, and waiting for 
+ *    Play Store approval can take DAYS.
+ * 2. Instant Shutdown: By utilizing this remote flag, the backend can broadcast `isLoggingKilled = true`. 
+ *    This instantly paralyses the logging infrastructure across millions of devices in real-time, 
+ *    stopping the data leak without requiring an app update.
+ * 3. Google Security Guidelines: Official Android documentation mandates that if logging is required 
+ *    in Production, a conditional "shut down" switch (Kill Switch) must be implemented for incident response.
  */
 object RemoteConfigSim {
     /**
