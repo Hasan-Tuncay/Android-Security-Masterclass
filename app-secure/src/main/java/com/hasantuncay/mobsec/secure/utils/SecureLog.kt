@@ -1,6 +1,7 @@
 package com.hasantuncay.mobsec.secure.utils
 
 import android.util.Log
+import com.google.errorprone.annotations.CompileTimeConstant
 import com.hasantuncay.mobsec.secure.BuildConfig
 
 /**
@@ -32,7 +33,7 @@ object SecureLog {
      * @param args Arguments to be inserted into the formatted message
      */
     @JvmStatic
-    fun d(tag: String, message: String, vararg args: Any?) {
+    fun d(tag: String, @CompileTimeConstant message: String, vararg args: Any?) {
         // The String is only allocated in DEBUG mode.
         // Thanks to the ProGuard R8 rule, the LINE calling this method is completely stripped from the Release APK.
         if (BuildConfig.DEBUG) {
@@ -44,7 +45,7 @@ object SecureLog {
      * Secure logging at the Error level.
      */
     @JvmStatic
-    fun e(tag: String, message: String, vararg args: Any?) {
+    fun e(tag: String, @CompileTimeConstant message: String, vararg args: Any?) {
         if (BuildConfig.DEBUG) {
             Log.e(tag, formatMessage(message, *args))
         }
@@ -54,7 +55,7 @@ object SecureLog {
      * Secure logging at the Info level.
      */
     @JvmStatic
-    fun i(tag: String, message: String, vararg args: Any?) {
+    fun i(tag: String, @CompileTimeConstant message: String, vararg args: Any?) {
         if (BuildConfig.DEBUG) {
             Log.i(tag, formatMessage(message, *args))
         }
@@ -64,7 +65,7 @@ object SecureLog {
      * Secure logging at the Warning level.
      */
     @JvmStatic
-    fun w(tag: String, message: String, vararg args: Any?) {
+    fun w(tag: String, @CompileTimeConstant message: String, vararg args: Any?) {
         if (BuildConfig.DEBUG) {
             Log.w(tag, formatMessage(message, *args))
         }
