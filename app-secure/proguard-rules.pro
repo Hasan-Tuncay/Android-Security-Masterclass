@@ -21,23 +21,61 @@
 #-renamesourcefileattribute SourceFile
 
 # =====================================================================
-# OWASP MASTG-BEST-0002: Remove Logging Code (Custom Logging Strip)
+# OWASP MASTG-BEST-0002 & MASWE-0001: R8 Log Stripping Architectures
 # =====================================================================
-# WHY IS THIS HERE?
-# This rule guarantees to the R8 compiler (ProGuard) that none of the methods
-# inside the com.hasantuncay.mobsec.secure.utils.SecureLog class modify the 
-# application state or have any side-effects.
-# 
-# RESULT:
-# When building a Release build, R8 analyzes the code. It assumes that calls
-# like `SecureLog.d(...)` have no effect (because we specified -assumenosideeffects)
-# and COMPLETELY STRIPS these method calls from the bytecode. This ensures there
-# are zero log leaks and zero memory leaks (StringBuilder allocations) in the 
-# production version of the app.
-# =====================================================================
--assumenosideeffects class com.hasantuncay.mobsec.secure.utils.SecureLog {
-    public static void d(java.lang.String, java.lang.String, java.lang.Object[]);
-    public static void e(java.lang.String, java.lang.String, java.lang.Object[]);
-    public static void i(java.lang.String, java.lang.String, java.lang.Object[]);
-    public static void w(java.lang.String, java.lang.String, java.lang.Object[]);
+# This configuration demonstrates the 3 official methods for stripping
+# logs using R8 in Android Production environments.
+
+# ---------------------------------------------------------------------
+# OPTION 1: TOTAL STRIPPING (Paranoid Mode) - ACTIVE
+# ---------------------------------------------------------------------
+# Assumes NO log functions have side effects, stripping ALL log levels
+# (v, d, i, w, e) from both the native Android logger and our custom SecureLog.
+# Provides 100% log privacy in production.
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static int v(...);
+    public static int i(...);
+    public static int w(...);
+    public static int d(...);
+    public static int e(...);
 }
+
+-assumenosideeffects class com.hasantuncay.mobsec.secure.utils.SecureLog {
+    public static void d(...);
+    public static void dUnsafe(...);
+    public static void dStrict(...);
+    public static void i(...);
+    public static void w(...);
+    public static void e(...);
+}
+
+# ---------------------------------------------------------------------
+# OPTION 2: SELECTIVE STRIPPING (Commented Out)
+# ---------------------------------------------------------------------
+# Strips only Verbose, Debug, and Info. Keeps Warnings and Errors for 
+# production crash reporting.
+# 
+# -assumenosideeffects class android.util.Log {
+#     public static boolean isLoggable(java.lang.String, int);
+#     public static int v(...);
+#     public static int d(...);
+#     public static int i(...);
+# }
+
+# ---------------------------------------------------------------------
+# OPTION 3: LOG STRIPPING WITHOUT SHRINKING/OBFUSCATION (Commented Out)
+# ---------------------------------------------------------------------
+# For developers who do NOT want to shrink or obfuscate their app (e.g.,
+# it causes bugs) but STILL want to strip logs for security.
+# This disables the shrinking engine while keeping side-effect stripping.
+# 
+# -dontwarn **
+# -dontusemixedcaseclassnames
+# -dontskipnonpubliclibraryclasses
+# -dontpreverify
+# -verbose
+# -optimizations !code/simplification/arithmetic,!code/allocation/variable
+# -keep class **
+# -keepclassmembers class * { *; }
+# -keepattributes *
