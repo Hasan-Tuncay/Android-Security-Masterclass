@@ -57,25 +57,38 @@ object Maswe0001SecureLogic {
      * Even if R8 strips the Log call, the string remains in memory and can be extracted via Memory Dumping.
      */
     private fun secureSystemConsoleLeak(appData: MasterclassData) {
-        // SECURE PRACTICE 1: Generic Error Messages
-        // Never dump domain objects directly. Attackers cannot glean system state from this.
-        SecureLog.e("SecureSystem", "Application encountered a recoverable error. ErrorCode: E-450. SessionActive: true")
+        // ==========================================
+        // DEMONSTRATION 1: The 3 Logging Models
+        // ==========================================
         
-        // SECURE PRACTICE 2 (MASTG-BEST-0002): Prevent Heap Memory Leaks
-        // Notice the use of `%s` and passing the master key as a separate argument (`vararg`).
-        // HOW IT WORKS:
-        // - We DO NOT use string interpolation (`"Key: " + key`).
-        // - `SecureLog` handles the formatting internally.
-        // - In Release mode, R8 sees `-assumenosideeffects` for `SecureLog` in proguard-rules.pro.
-        // - R8 completely strips this ENTIRE line from the bytecode.
-        // RESULT: Zero StringBuilder allocation.
-        // We log the LENGTH of the key, not the key itself, to prevent Debug mode leakage.
-        SecureLog.d("SecureSystem", "Simulated Check - Master Key is present (Length: %d)", appData.systemContext.masterCryptoKeyAesGcm.length)
+        // MODEL A: Unsafe Logging (Bypasses ErrorProne, Leaks Memory in Heap)
+        // DANGER: The string is concatenated before the method call.
+        SecureLog.dUnsafe("SecureSystem", "UNSAFE LOG - Key Length: " + appData.systemContext.masterCryptoKeyAesGcm.length)
+        
+        // MODEL B: Strict Logging (Maximum Security, Enforced by ErrorProne)
+        // PASS: The string is a compile-time constant.
+        SecureLog.dStrict("SecureSystem", "STRICT LOG - System Check Completed Successfully.")
+        // FAIL (Uncomment to see ErrorProne Compile Error in IDE): 
+        // SecureLog.dStrict("SecureSystem", "STRICT LOG - Key: " + appData.systemContext.masterCryptoKeyAesGcm)
+        
+        // MODEL C: Hybrid Parameterized Logging (Recommended)
+        // PASS: The template is constant, dynamic data is passed via vararg. Prevents Heap allocation.
+        SecureLog.d("SecureSystem", "HYBRID LOG - Master Key is present (Length: %d)", appData.systemContext.masterCryptoKeyAesGcm.length)
 
-        // SECURE PRACTICE 3: Data Class Sanitization (Defense-in-depth)
-        // Even if a developer accidentally logs the whole object, our overridden `toString()` 
-        // in `SystemData` will safely output "[REDACTED_SYSTEM_DATA]" preventing accidental leakage.
+        // ==========================================
+        // DEMONSTRATION 2: Data Class Sanitization
+        // ==========================================
+        // Even if a developer accidentally logs the whole object via vararg, our overridden `toString()` 
+        // in `SystemData` will safely output "[REDACTED_SYSTEM_DATA]".
         SecureLog.d("SecureSystem", "Object Dump Protection Test: %s", appData.systemContext.toString())
+        
+        // ==========================================
+        // DEMONSTRATION 3: Memory Scrubbing (CWE-226)
+        // ==========================================
+        // The password is kept in a CharArray instead of an immutable String.
+        // We wipe it with zeros instantly, rather than waiting for the Garbage Collector.
+        appData.userContext.scrubPassword()
+        SecureLog.dStrict("SecureSystem", "Memory Scrubbing Executed: Plaintext password wiped from RAM.")
     }
 
     /**
