@@ -198,15 +198,44 @@ object Maswe0001SecureLogic {
      * If the 3rd-party is breached, your users' data is compromised.
      */
     private fun secureSdkTelemetryLeak(appData: MasterclassData) {
-        // HOW WE FIX IT: Data Sanitization (Hashing)
-        // We use SHA-256 to create a one-way irreversible hash of the email.
-        // Analytics can still track unique users (the hash remains constant for the same email),
-        // but they cannot reverse the hash to find the actual email address.
+        // ==========================================
+        // TECHNIQUE: ONE-WAY HASHING (Anonymization)
+        // ==========================================
+        // We use SHA-256 + salt to create a one-way irreversible hash of the email.
+        // Analytics can still track unique users (the hash is always the same for the same email),
+        // but cannot reverse the hash to recover the actual email address.
         val email = appData.gdprPii.directIdentifiers.personalEmail.getDataToMask()
-        // We use a unique device identifier (or server-provided salt) as a salt to mitigate Rainbow Table attacks.
+        // The SSAID (Android ID) is used as a salt to mitigate Rainbow Table attacks.
         val salt = appData.deviceTelemetry.androidSsaid
         val emailHash = hashString(email, salt)
-        
+
+        // ==========================================
+        // EDUCATIONAL NOTE: HASHING vs TRUE TOKENIZATION
+        // ==========================================
+        // What we implemented above is ONE-WAY ANONYMIZATION (Hashing), which is sufficient
+        // for anonymous analytics tracking. However, Google's documentation also describes a
+        // stricter technique called TOKENIZATION:
+        //
+        // TRUE TOKENIZATION (Production Pattern):
+        //   - Sensitive data is stored in a secure server-side vault
+        //     (e.g., HashiCorp Vault, AWS Secrets Manager, Google Cloud KMS).
+        //   - The vault issues an opaque reference called a "Token" (e.g., tok_4471).
+        //   - The app and all logs reference only the Token — never the real data.
+        //   - Only authorized personnel with vault access can resolve a token back to real data.
+        //   - This is used in payment systems (PCI-DSS) where reversibility is sometimes needed.
+        //
+        // WHY WE USED HASHING HERE INSTEAD:
+        //   - SHA-256 is sufficient for analytics use cases where reversibility is never needed.
+        //   - True tokenization requires a server-side vault infrastructure, which is outside
+        //     the scope of a client-side Android demonstration.
+        //   - If your app processes payment data and needs to reverse a token (e.g., to refund),
+        //     implement a proper Token Registry on your backend instead.
+        //
+        // WHAT A DEVELOPER SEES IN THE LOGS:
+        //   Without this technique: "user_email: john.doe@gmail.com"  ← PII leak
+        //   With hashing:          "user_id_hash: a7ffc6f8bf1ed766..." ← Safe, irreversible
+        //   With tokenization:     "user_ref: tok_4471"               ← Safe, reversible via vault
+
         // We also convert sensitive content (draft messages) into a boolean flag (`has_drafts`).
         val safePayload = """
             {
@@ -215,7 +244,7 @@ object Maswe0001SecureLogic {
               "has_drafts": ${appData.userContext.draftMessagesDb.isNotEmpty()}
             }
         """.trimIndent()
-        
+
         SecureLog.i("SecureSDK", "Sending sanitized, anonymous payload to Analytics SDK: \n%s", safePayload)
     }
 
