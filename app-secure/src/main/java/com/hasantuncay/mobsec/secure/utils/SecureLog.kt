@@ -32,6 +32,7 @@ object SecureLog {
      */
     @JvmStatic
     fun dUnsafe(tag: String, message: String) {
+        if (RemoteConfigSim.isLoggingKilled) return
         if (BuildConfig.DEBUG) {
             Log.d(tag, message)
         }
@@ -48,6 +49,7 @@ object SecureLog {
      */
     @JvmStatic
     fun dStrict(tag: String, @CompileTimeConstant message: String) {
+        if (RemoteConfigSim.isLoggingKilled) return
         if (BuildConfig.DEBUG) {
             Log.d(tag, message)
         }
@@ -64,6 +66,7 @@ object SecureLog {
      */
     @JvmStatic
     fun d(tag: String, @CompileTimeConstant message: String, vararg args: Any?) {
+        if (RemoteConfigSim.isLoggingKilled) return
         if (BuildConfig.DEBUG) {
             Log.d(tag, formatMessage(message, *args))
         }
@@ -71,6 +74,7 @@ object SecureLog {
 
     @JvmStatic
     fun e(tag: String, @CompileTimeConstant message: String, vararg args: Any?) {
+        if (RemoteConfigSim.isLoggingKilled) return
         if (BuildConfig.DEBUG) {
             Log.e(tag, formatMessage(message, *args))
         }
@@ -78,6 +82,7 @@ object SecureLog {
 
     @JvmStatic
     fun i(tag: String, @CompileTimeConstant message: String, vararg args: Any?) {
+        if (RemoteConfigSim.isLoggingKilled) return
         if (BuildConfig.DEBUG) {
             Log.i(tag, formatMessage(message, *args))
         }
@@ -85,6 +90,7 @@ object SecureLog {
 
     @JvmStatic
     fun w(tag: String, @CompileTimeConstant message: String, vararg args: Any?) {
+        if (RemoteConfigSim.isLoggingKilled) return
         if (BuildConfig.DEBUG) {
             Log.w(tag, formatMessage(message, *args))
         }

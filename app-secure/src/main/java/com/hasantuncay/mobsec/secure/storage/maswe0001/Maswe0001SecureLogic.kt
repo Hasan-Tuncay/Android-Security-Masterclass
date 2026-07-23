@@ -89,6 +89,14 @@ object Maswe0001SecureLogic {
         // We wipe it with zeros instantly, rather than waiting for the Garbage Collector.
         appData.userContext.scrubPassword()
         SecureLog.dStrict("SecureSystem", "Memory Scrubbing Executed: Plaintext password wiped from RAM.")
+        
+        // ==========================================
+        // DEMONSTRATION 4: Incident Response (Kill Switch)
+        // ==========================================
+        // Simulating a critical breach where the backend flips the kill switch via Remote Config.
+        com.hasantuncay.mobsec.secure.utils.RemoteConfigSim.isLoggingKilled = true
+        SecureLog.e("SecureSystem", "🚨 THIS LOG WILL NEVER PRINT BECAUSE THE KILL SWITCH IS ACTIVE 🚨")
+        com.hasantuncay.mobsec.secure.utils.RemoteConfigSim.isLoggingKilled = false // Reset for further tests
     }
 
     /**
