@@ -224,14 +224,24 @@ object Maswe0001SecureLogic {
         // HOW WE FIX IT: Keyword Filtering in the Native Bridge
         webView.webChromeClient = object : WebChromeClient() {
             override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-                val msg = consoleMessage.message().lowercase()
+                val msg = consoleMessage.message().uppercase()
                 
-                // We utilize Regex to catch various token formats instead of a weak blacklist.
-                val sensitiveRegex = Regex("(?i)(cookie|token|auth|bearer|password|secret|jwt|api_key|session)")
+                // ==========================================
+                // EDUCATIONAL: WHITELIST vs BLACKLIST (Positive vs Negative Security Model)
+                // ==========================================
+                // ❌ BLACKLIST (Negative Security): Blocking known bad terms (e.g., "cookie", "token").
+                // Flaw: Attackers can easily bypass this using obfuscation or new variable names (e.g., "c00kie", "SessionID").
+                // 
+                // ✅ WHITELIST (Positive Security): Allowing ONLY known good patterns.
+                // Advantage: Default Deny. Anything that doesn't strictly match the allowed pattern is dropped.
+                // This is the fundamental principle of Zero Trust and Defense-in-Depth.
                 
-                // If the JS console message matches any sensitive pattern, block it entirely.
-                if (sensitiveRegex.containsMatchIn(msg)) {
-                    SecureLog.w("SecureWebView", "Blocked a potentially sensitive WebView console message.")
+                // Implementation: We only allow logs that explicitly start with known safe prefixes.
+                val safeWhitelistRegex = Regex("^(UI_STATE|ANALYTICS_EVENT):.*")
+                
+                // Default Deny mechanism
+                if (!safeWhitelistRegex.matches(msg)) {
+                    SecureLog.w("SecureWebView", "Blocked unknown WebView console message (Not in Whitelist).")
                     return true // Returning true tells the system "I handled this, do not print it."
                 }
                 
