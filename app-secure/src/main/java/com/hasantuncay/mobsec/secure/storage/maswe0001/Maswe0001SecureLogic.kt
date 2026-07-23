@@ -202,7 +202,7 @@ object Maswe0001SecureLogic {
         // We use SHA-256 to create a one-way irreversible hash of the email.
         // Analytics can still track unique users (the hash remains constant for the same email),
         // but they cannot reverse the hash to find the actual email address.
-        val email = appData.gdprPii.directIdentifiers.personalEmail
+        val email = appData.gdprPii.directIdentifiers.personalEmail.getDataToMask()
         // We use a unique device identifier (or server-provided salt) as a salt to mitigate Rainbow Table attacks.
         val salt = appData.deviceTelemetry.androidSsaid
         val emailHash = hashString(email, salt)

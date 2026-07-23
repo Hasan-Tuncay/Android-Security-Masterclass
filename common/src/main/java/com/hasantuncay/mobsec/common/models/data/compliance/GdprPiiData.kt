@@ -17,14 +17,14 @@ data class GdprPiiData(
  * Data points that can explicitly identify a single individual without cross-referencing.
  */
 data class DirectIdentifiers(
-    /** National Identification Number (e.g., SSN, TCKN). Extremely sensitive PII. */
-    val nationalIdentificationNumber: String = "10987654321",
+    /** National Identification Number (e.g., SSN, TCKN). Wrapped in ToMask for field-level security. */
+    val nationalIdentificationNumber: ToMask<String> = ToMask("10987654321"),
     /** Government-issued passport number. */
     val passportNumber: String = "U12345678",
     /** The full legal name of the data subject. */
     val fullName: String = "John Doe",
-    /** Personal contact email address. */
-    val personalEmail: String = "john.doe@personal.domain.com"
+    /** Personal contact email address. Wrapped in ToMask to demonstrate field-level masking. */
+    val personalEmail: ToMask<String> = ToMask("john.doe@personal.domain.com")
 ) {
     override fun toString() = "[REDACTED_GDPR_DIRECT_IDENTIFIERS]"
 }

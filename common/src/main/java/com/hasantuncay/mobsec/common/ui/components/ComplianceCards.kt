@@ -18,8 +18,8 @@ fun GdprPiiCard(data: GdprPiiData, modifier: Modifier = Modifier) {
     ExpandableDataCard(title = stringResource(id = R.string.card_title_gdpr), modifier = modifier) {
         Text(stringResource(id = R.string.subtitle_direct_identifiers), style = MaterialTheme.typography.labelLarge)
         ReadOnlyDataField(stringResource(id = R.string.label_full_name), data.directIdentifiers.fullName)
-        ReadOnlyDataField(stringResource(id = R.string.label_tckn), data.directIdentifiers.nationalIdentificationNumber, isSensitive = true)
-        ReadOnlyDataField(stringResource(id = R.string.label_email), data.directIdentifiers.personalEmail)
+        ReadOnlyDataField(stringResource(id = R.string.label_tckn), data.directIdentifiers.nationalIdentificationNumber.getDataToMask(), isSensitive = true)
+        ReadOnlyDataField(stringResource(id = R.string.label_email), data.directIdentifiers.personalEmail.getDataToMask())
         ReadOnlyDataField(stringResource(id = R.string.label_passport), data.directIdentifiers.passportNumber)
 
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
