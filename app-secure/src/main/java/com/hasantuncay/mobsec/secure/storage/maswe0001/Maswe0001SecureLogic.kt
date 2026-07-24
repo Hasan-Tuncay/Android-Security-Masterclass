@@ -199,53 +199,41 @@ object Maswe0001SecureLogic {
      */
     private fun secureSdkTelemetryLeak(appData: MasterclassData) {
         // ==========================================
-        // TECHNIQUE: ONE-WAY HASHING (Anonymization)
+        // TECHNIQUE: CRYPTOGRAPHIC ANONYMIZATION (KDF)
         // ==========================================
-        // We use SHA-256 + salt to create a one-way irreversible hash of the email.
-        // Analytics can still track unique users (the hash is always the same for the same email),
-        // but cannot reverse the hash to recover the actual email address.
+        // Simply hashing PII (like emails or phone numbers) with SHA-256 is INSECURE because
+        // low-entropy data can be easily brute-forced (billions of hashes/sec on modern GPUs).
+        // To properly anonymize PII for external SDKs without a true Token Vault, we must use a
+        // Key Derivation Function (KDF) like PBKDF2. This introduces "computational cost",
+        // making brute-force mathematically unfeasible.
+        
         val email = appData.gdprPii.directIdentifiers.personalEmail.getDataToMask()
-        // The SSAID (Android ID) is used as a salt to mitigate Rainbow Table attacks.
+        // The salt should ideally be randomly generated per user and stored securely.
+        // For demonstration, we use the device-specific SSAID as a static salt.
         val salt = appData.deviceTelemetry.androidSsaid
-        val emailHash = hashString(email, salt)
+        
+        // Use PBKDF2 with 10,000+ iterations instead of a single-pass SHA-256
+        val anonymizedId = generatePbkdf2Hash(email, salt)
 
         // ==========================================
-        // EDUCATIONAL NOTE: HASHING vs TRUE TOKENIZATION
+        // EDUCATIONAL NOTE: THIS IS NOT TOKENIZATION
         // ==========================================
-        // What we implemented above is ONE-WAY ANONYMIZATION (Hashing), which is sufficient
-        // for anonymous analytics tracking. However, Google's documentation also describes a
-        // stricter technique called TOKENIZATION:
-        //
-        // TRUE TOKENIZATION (Production Pattern):
-        //   - Sensitive data is stored in a secure server-side vault
-        //     (e.g., HashiCorp Vault, AWS Secrets Manager, Google Cloud KMS).
-        //   - The vault issues an opaque reference called a "Token" (e.g., tok_4471).
-        //   - The app and all logs reference only the Token — never the real data.
-        //   - Only authorized personnel with vault access can resolve a token back to real data.
-        //   - This is used in payment systems (PCI-DSS) where reversibility is sometimes needed.
-        //
-        // WHY WE USED HASHING HERE INSTEAD:
-        //   - SHA-256 is sufficient for analytics use cases where reversibility is never needed.
-        //   - True tokenization requires a server-side vault infrastructure, which is outside
-        //     the scope of a client-side Android demonstration.
-        //   - If your app processes payment data and needs to reverse a token (e.g., to refund),
-        //     implement a proper Token Registry on your backend instead.
-        //
-        // WHAT A DEVELOPER SEES IN THE LOGS:
-        //   Without this technique: "user_email: john.doe@gmail.com"  ← PII leak
-        //   With hashing:          "user_id_hash: a7ffc6f8bf1ed766..." ← Safe, irreversible
-        //   With tokenization:     "user_ref: tok_4471"               ← Safe, reversible via vault
+        // Do not confuse Hashing/KDF with Tokenization.
+        // - KDF (Used here): A deterministic, irreversible mathematical function.
+        // - TRUE TOKENIZATION: Replaces data with a completely random string (Token) generated
+        //   by an isolated Data Vault. There is NO mathematical relationship between the Token
+        //   and the original data. Tokenization is required for PCI-DSS (payments), while
+        //   costly hashing (KDF) is often used for GDPR (analytics anonymization).
 
-        // We also convert sensitive content (draft messages) into a boolean flag (`has_drafts`).
         val safePayload = """
             {
               "event": "App_Crash",
-              "user_id_hash": "$emailHash",
+              "user_anon_id": "$anonymizedId",
               "has_drafts": ${appData.userContext.draftMessagesDb.isNotEmpty()}
             }
         """.trimIndent()
 
-        SecureLog.i("SecureSDK", "Sending sanitized, anonymous payload to Analytics SDK: \n%s", safePayload)
+        SecureLog.i("SecureSDK", "Sending cryptographically anonymized payload to Analytics SDK: \n%s", safePayload)
     }
 
     /**
@@ -306,16 +294,24 @@ object Maswe0001SecureLogic {
     }
 
     /**
-     * Utility function to generate a SHA-256 hash.
-     * In a real app, you might salt this to prevent Rainbow Table attacks.
+     * Utility function to generate a PBKDF2 Hash (Key Derivation Function).
+     * Replaces weak single-pass SHA-256 to protect low-entropy PII against brute-force.
      */
-    private fun hashString(input: String, salt: String): String {
+    private fun generatePbkdf2Hash(input: String, salt: String): String {
         return try {
-            val saltedInput = salt + input
-            val bytes = MessageDigest.getInstance("SHA-256").digest(saltedInput.toByteArray())
-            bytes.joinToString("") { "%02x".format(it) }
+            val iterationCount = 10000 // Computational cost (higher is safer, but slower)
+            val keyLength = 256 // Output length in bits
+            val spec = javax.crypto.spec.PBEKeySpec(
+                input.toCharArray(),
+                salt.toByteArray(Charsets.UTF_8),
+                iterationCount,
+                keyLength
+            )
+            val factory = javax.crypto.SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
+            val hashBytes = factory.generateSecret(spec).encoded
+            hashBytes.joinToString("") { "%02x".format(it) }
         } catch (e: Exception) {
-            "HASH_ERROR"
+            "KDF_ERROR"
         }
     }
 }
