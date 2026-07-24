@@ -16,7 +16,7 @@ kotlinxSerializationJson = "1.6.3"
 ksp = "2.2.10-2.0.2"
 datastore = "1.1.7"
 room = "2.7.1"
-tink = "1.9.0"
+tink = "1.23.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
