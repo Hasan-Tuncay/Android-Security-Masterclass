@@ -46,8 +46,13 @@ Detailed documentation for each implemented scenario, including code samples and
 - [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](./docs/maswe/MASWE-0001-Logging-Leaks.md)
 - [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](./docs/mastg-best/MASTG-BEST-0002-ProGuard.md)
 
-### ⏳ Upcoming
-- *MASWE-0002: Insecure Local Storage (SharedPreferences & SQLite)*
+### 🚧 In Progress
+- [**MASWE-0002**: Insecure Local Storage (SharedPreferences, DataStore, SQLite)](./docs/maswe/MASWE-0002-Insecure-Storage.md) *(Attacker App PoC Ready)*
+
+### ⏳ Upcoming Scenarios
+- **MASWE-0064**: Insecure ContentProvider (IPC Leakage)
+- **MASWE-XXXX**: Deep Link & Intent Hijacking
+- **MASWE-XXXX**: Insecure Network Communication (TLS/SSL Pinning)
 
 ## 🛠️ How to Build and Test
 
@@ -73,6 +78,12 @@ adb shell pm grant com.hasantuncay.mobsec.attacker android.permission.READ_LOGS
 ## ⚠️ Disclaimer
 
 This project is created strictly for **educational purposes**. The vulnerabilities demonstrated in the `:app-vulnerable` module are real and dangerous. Do **not** use the code from the `:app-vulnerable` module in production environments. Always refer to the `:app-secure` module for best practices.
+
+## 🤝 How to Contribute
+
+We welcome contributions from the community! Whether it's adding a new vulnerability module, improving documentation, or fixing a bug, your help is appreciated.
+
+Please read our comprehensive [**Contributing Guide (`CONTRIBUTING.md`)**](./CONTRIBUTING.md) before opening a Pull Request. It covers our project philosophy (Mirror Architecture), coding standards, and the step-by-step process for adding new MASWE modules.
 
 ---
 
