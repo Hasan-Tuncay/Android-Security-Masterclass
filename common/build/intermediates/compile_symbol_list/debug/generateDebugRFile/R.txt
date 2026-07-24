@@ -104,6 +104,8 @@ int string maswe_0001_vuln_desc 0x0
 int string maswe_0001_vuln_title 0x0
 int string maswe_0001_vuln_vectors_title 0x0
 int string maswe_0002_id 0x0
+int string maswe_0002_msg_cache_secure 0x0
+int string maswe_0002_msg_cache_vuln 0x0
 int string maswe_0002_msg_datastore_secure 0x0
 int string maswe_0002_msg_datastore_vuln 0x0
 int string maswe_0002_msg_external_storage_secure 0x0
@@ -114,10 +116,18 @@ int string maswe_0002_msg_shared_prefs_secure 0x0
 int string maswe_0002_msg_shared_prefs_vuln 0x0
 int string maswe_0002_msg_sqlite_secure 0x0
 int string maswe_0002_msg_sqlite_vuln 0x0
+int string maswe_0002_msg_webview_secure 0x0
+int string maswe_0002_msg_webview_vuln 0x0
 int string maswe_0002_secure_desc 0x0
 int string maswe_0002_secure_title 0x0
 int string maswe_0002_secure_vectors_title 0x0
 int string maswe_0002_title 0x0
+int string maswe_0002_ui_adb_verification 0x0
+int string maswe_0002_ui_location_label 0x0
+int string maswe_0002_ui_vector_triggered 0x0
+int string maswe_0002_ui_writing_storage 0x0
+int string maswe_0002_vector_cache_secure 0x0
+int string maswe_0002_vector_cache_vuln 0x0
 int string maswe_0002_vector_datastore_secure 0x0
 int string maswe_0002_vector_datastore_vuln 0x0
 int string maswe_0002_vector_external_storage_secure 0x0
@@ -128,6 +138,8 @@ int string maswe_0002_vector_shared_prefs_secure 0x0
 int string maswe_0002_vector_shared_prefs_vuln 0x0
 int string maswe_0002_vector_sqlite_secure 0x0
 int string maswe_0002_vector_sqlite_vuln 0x0
+int string maswe_0002_vector_webview_secure 0x0
+int string maswe_0002_vector_webview_vuln 0x0
 int string maswe_0002_vuln_desc 0x0
 int string maswe_0002_vuln_title 0x0
 int string maswe_0002_vuln_vectors_title 0x0

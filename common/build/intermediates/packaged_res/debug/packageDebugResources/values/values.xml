@@ -106,6 +106,8 @@
     <string name="maswe_0001_vuln_title">MASWE-0001: Logging (VULNERABLE)</string>
     <string name="maswe_0001_vuln_vectors_title">Vulnerability Vectors (Attack Simulations)</string>
     <string name="maswe_0002_id">MASWE-0002</string>
+    <string name="maswe_0002_msg_cache_secure">PDF encrypted via Tink and wiped securely.</string>
+    <string name="maswe_0002_msg_cache_vuln">Plaintext PDF left in cacheDir indefinitely.</string>
     <string name="maswe_0002_msg_datastore_secure">DataStore encrypted with AES-256-GCM via Tink. Content unreadable.</string>
     <string name="maswe_0002_msg_datastore_vuln">Written to files/datastore/ — binary ≠ encrypted. Check Logcat!</string>
     <string name="maswe_0002_msg_external_storage_secure">Redirected to encrypted internal storage. External path not used.</string>
@@ -116,10 +118,18 @@
     <string name="maswe_0002_msg_shared_prefs_vuln">Written to shared_prefs/maswe0002_session.xml — plaintext token visible!</string>
     <string name="maswe_0002_msg_sqlite_secure">Room DB encrypted via SQLCipher. Hex dump shows no plaintext.</string>
     <string name="maswe_0002_msg_sqlite_vuln">Written to databases/maswe0002_vuln.db — check Logcat for WAL path!</string>
+    <string name="maswe_0002_msg_webview_secure">DOM storage disabled or data encrypted.</string>
+    <string name="maswe_0002_msg_webview_vuln">JWT leaked to localStorage via JS. Check /app_webview/</string>
     <string name="maswe_0002_secure_desc">Each vector applies the correct mitigation: encryption, access control, or storage relocation. The underlying sensitive data is never written in a recoverable plaintext form.</string>
     <string name="maswe_0002_secure_title">MASWE-0002: Insecure Storage (SECURE)</string>
     <string name="maswe_0002_secure_vectors_title">Secure Mitigations (Defense Simulations)</string>
     <string name="maswe_0002_title">Sensitive Data Stored With Insufficient Access Restrictions in Internal Locations</string>
+    <string name="maswe_0002_ui_adb_verification">ADB Verification:</string>
+    <string name="maswe_0002_ui_location_label">📁 Location:</string>
+    <string name="maswe_0002_ui_vector_triggered">Vector Triggered — Data Written to Disk</string>
+    <string name="maswe_0002_ui_writing_storage">Writing to storage…</string>
+    <string name="maswe_0002_vector_cache_secure">7. Secure Auto-Cleaning Cache</string>
+    <string name="maswe_0002_vector_cache_vuln">7. Cache Directory Exposure (CWE-200)</string>
     <string name="maswe_0002_vector_datastore_secure">2. Secure DataStore (Encrypted)</string>
     <string name="maswe_0002_vector_datastore_vuln">2. DataStore Unencrypted (.preferences_pb)</string>
     <string name="maswe_0002_vector_external_storage_secure">5. Secure: Internal Encrypted Storage</string>
@@ -130,6 +140,8 @@
     <string name="maswe_0002_vector_shared_prefs_vuln">1. SharedPreferences Plaintext Leak</string>
     <string name="maswe_0002_vector_sqlite_secure">3. Secure Room (SQLCipher Encrypted)</string>
     <string name="maswe_0002_vector_sqlite_vuln">3. Room / SQLite Plaintext + WAL Exposure</string>
+    <string name="maswe_0002_vector_webview_secure">6. Secure WebView Config</string>
+    <string name="maswe_0002_vector_webview_vuln">6. WebView DOM Storage (CWE-312)</string>
     <string name="maswe_0002_vuln_desc">Each vector below writes sensitive data to a different unprotected storage location. Trigger a vector, then verify the plaintext content using ADB or a file manager on a rooted device.</string>
     <string name="maswe_0002_vuln_title">MASWE-0002: Insecure Storage (VULNERABLE)</string>
     <string name="maswe_0002_vuln_vectors_title">Vulnerability Vectors (Attack Simulations)</string>

@@ -1,0 +1,212 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<!--
+3    app-attacker: Simulated Malicious Third-Party Application
+4    Package: com.hasantuncay.mobsec.attacker
+5
+6    EDUCATIONAL PURPOSE:
+7    This application simulates a malicious app installed on the same device as the
+8    victim application (app-vulnerable). It demonstrates real-world IPC exploitation
+9    techniques used by adversaries to steal sensitive data from misconfigured apps.
+10
+11    CURRENT EXPLOIT COVERAGE:
+12    - MASWE-0002 / Vector 4: FileProvider <root-path> exploitation via content:// URI
+13
+14    FUTURE EXPLOIT COVERAGE (extensible architecture):
+15    - Exported ContentProvider exploitation (MASWE-0064)
+16    - Exported Activity data interception
+17    - Broadcast snooping
+18    - Intent sniffing
+19
+20    NOTE: This app does NOT need any dangerous permissions. The FileProvider exploit
+21    works purely via FLAG_GRANT_READ_URI_PERMISSION — a standard Android permission
+22    grant mechanism that the victim app hands over voluntarily (unintentionally).
+23-->
+24<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+25    package="com.hasantuncay.mobsec.attacker"
+26    android:versionCode="1"
+27    android:versionName="1.0" >
+28
+29    <uses-sdk
+29-->INJECTED
+30        android:minSdkVersion="26"
+30-->INJECTED
+31        android:targetSdkVersion="36" />
+31-->INJECTED
+32
+33    <!--
+34      ⚠️ VULNERABLE SETUP (For educational demonstration only)
+35      The attacker app requests READ_LOGS to demonstrate MASWE-0001.
+36      On Android 4.1+ (API 16+), this permission is signature-level and will NOT
+37      be granted automatically. It must be granted via ADB:
+38      adb shell pm grant com.hasantuncay.mobsec.attacker android.permission.READ_LOGS
+39    -->
+40    <uses-permission android:name="android.permission.READ_LOGS" />
+40-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:34:5-104
+40-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:34:22-65
+41
+42    <permission
+42-->[androidx.core:core:1.19.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/dd40e5c14fd59130cb4ff9275df9df39/transformed/core-1.19.0/AndroidManifest.xml:22:5-24:47
+43        android:name="com.hasantuncay.mobsec.attacker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+43-->[androidx.core:core:1.19.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/dd40e5c14fd59130cb4ff9275df9df39/transformed/core-1.19.0/AndroidManifest.xml:23:9-81
+44        android:protectionLevel="signature" />
+44-->[androidx.core:core:1.19.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/dd40e5c14fd59130cb4ff9275df9df39/transformed/core-1.19.0/AndroidManifest.xml:24:9-44
+45
+46    <uses-permission android:name="com.hasantuncay.mobsec.attacker.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+46-->[androidx.core:core:1.19.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/dd40e5c14fd59130cb4ff9275df9df39/transformed/core-1.19.0/AndroidManifest.xml:26:5-97
+46-->[androidx.core:core:1.19.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/dd40e5c14fd59130cb4ff9275df9df39/transformed/core-1.19.0/AndroidManifest.xml:26:22-94
+47
+48    <application
+48-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:36:5-71:19
+49        android:allowBackup="true"
+49-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:37:9-35
+50        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+50-->[androidx.core:core:1.19.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/dd40e5c14fd59130cb4ff9275df9df39/transformed/core-1.19.0/AndroidManifest.xml:28:18-86
+51        android:debuggable="true"
+52        android:extractNativeLibs="false"
+52-->INJECTED
+53        android:icon="@mipmap/ic_launcher"
+53-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:38:9-43
+54        android:label="@string/app_name"
+54-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:39:9-41
+55        android:roundIcon="@mipmap/ic_launcher_round"
+55-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:40:9-54
+56        android:supportsRtl="true"
+56-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:41:9-35
+57        android:testOnly="true"
+58        android:theme="@style/Theme.Attacker" >
+58-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:42:9-46
+59
+60        <!-- Main launcher activity — the attacker's control panel -->
+61        <activity
+61-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:45:9-53:20
+62            android:name="com.hasantuncay.mobsec.attacker.AttackerMainActivity"
+62-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:46:13-49
+63            android:exported="true"
+63-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:47:13-36
+64            android:label="@string/app_name" >
+64-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:48:13-45
+65            <intent-filter>
+65-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:49:13-52:29
+66                <action android:name="android.intent.action.MAIN" />
+66-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:50:17-69
+66-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:50:25-66
+67
+68                <category android:name="android.intent.category.LAUNCHER" />
+68-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:51:17-77
+68-->/Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/AndroidManifest.xml:51:27-74
+69            </intent-filter>
+70        </activity>
+71
+72        <!--
+73            EXPLOIT RECEIVER: FileProvider content:// URI handler
+74            MASWE-0002 / Vector 4
+75
+76            This Activity is the entry point for the FileProvider exploit.
+77            When app-vulnerable triggers the FileProvider vector, it sends an
+78            explicit Intent to this activity with:
+79              - data = content:// URI pointing to victim's internal SharedPrefs file
+80              - FLAG_GRANT_READ_URI_PERMISSION
+81
+82            This Activity then uses ContentResolver.openInputStream() to read
+83            the victim app's sensitive file — demonstrating the real exploit path.
+84
+85            android:exported="true" is required for the victim app to start this
+86            activity via an explicit Intent from a different process.
+87        -->
+88        <activity
+88-->[androidx.compose.ui:ui-tooling-android:1.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/4c23b693b78e36b42a16faf169f5b572/transformed/ui-tooling/AndroidManifest.xml:23:9-25:39
+89            android:name="androidx.compose.ui.tooling.PreviewActivity"
+89-->[androidx.compose.ui:ui-tooling-android:1.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/4c23b693b78e36b42a16faf169f5b572/transformed/ui-tooling/AndroidManifest.xml:24:13-71
+90            android:exported="true" />
+90-->[androidx.compose.ui:ui-tooling-android:1.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/4c23b693b78e36b42a16faf169f5b572/transformed/ui-tooling/AndroidManifest.xml:25:13-36
+91
+92        <provider
+92-->[androidx.emoji2:emoji2:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/bce71506d366ff96cb1a6f986853e073/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
+93            android:name="androidx.startup.InitializationProvider"
+93-->[androidx.emoji2:emoji2:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/bce71506d366ff96cb1a6f986853e073/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
+94            android:authorities="com.hasantuncay.mobsec.attacker.androidx-startup"
+94-->[androidx.emoji2:emoji2:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/bce71506d366ff96cb1a6f986853e073/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
+95            android:exported="false" >
+95-->[androidx.emoji2:emoji2:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/bce71506d366ff96cb1a6f986853e073/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
+96            <meta-data
+96-->[androidx.emoji2:emoji2:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/bce71506d366ff96cb1a6f986853e073/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+97                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+97-->[androidx.emoji2:emoji2:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/bce71506d366ff96cb1a6f986853e073/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+98                android:value="androidx.startup" />
+98-->[androidx.emoji2:emoji2:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/bce71506d366ff96cb1a6f986853e073/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+99            <meta-data
+99-->[androidx.lifecycle:lifecycle-process:2.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/ddc9cdb789c6b6f9205f60db3378b16c/transformed/lifecycle-process-2.11.0/AndroidManifest.xml:29:13-31:52
+100                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+100-->[androidx.lifecycle:lifecycle-process:2.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/ddc9cdb789c6b6f9205f60db3378b16c/transformed/lifecycle-process-2.11.0/AndroidManifest.xml:30:17-78
+101                android:value="androidx.startup" />
+101-->[androidx.lifecycle:lifecycle-process:2.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/ddc9cdb789c6b6f9205f60db3378b16c/transformed/lifecycle-process-2.11.0/AndroidManifest.xml:31:17-49
+102            <meta-data
+102-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+103                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+103-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+104                android:value="androidx.startup" />
+104-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+105        </provider>
+106
+107        <uses-library
+107-->[androidx.window:window:1.5.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/84cc23eb724c8ea6a40c1d7b4093f149/transformed/window-1.5.0/AndroidManifest.xml:23:9-25:40
+108            android:name="androidx.window.extensions"
+108-->[androidx.window:window:1.5.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/84cc23eb724c8ea6a40c1d7b4093f149/transformed/window-1.5.0/AndroidManifest.xml:24:13-54
+109            android:required="false" />
+109-->[androidx.window:window:1.5.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/84cc23eb724c8ea6a40c1d7b4093f149/transformed/window-1.5.0/AndroidManifest.xml:25:13-37
+110        <uses-library
+110-->[androidx.window:window:1.5.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/84cc23eb724c8ea6a40c1d7b4093f149/transformed/window-1.5.0/AndroidManifest.xml:26:9-28:40
+111            android:name="androidx.window.sidecar"
+111-->[androidx.window:window:1.5.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/84cc23eb724c8ea6a40c1d7b4093f149/transformed/window-1.5.0/AndroidManifest.xml:27:13-51
+112            android:required="false" />
+112-->[androidx.window:window:1.5.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/84cc23eb724c8ea6a40c1d7b4093f149/transformed/window-1.5.0/AndroidManifest.xml:28:13-37
+113
+114        <activity
+114-->[androidx.compose.ui:ui-test-manifest:1.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/2bf53c8e9b7b7c571d67bcb0bdb6daf5/transformed/ui-test-manifest-1.11.0/AndroidManifest.xml:23:9-26:79
+115            android:name="androidx.activity.ComponentActivity"
+115-->[androidx.compose.ui:ui-test-manifest:1.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/2bf53c8e9b7b7c571d67bcb0bdb6daf5/transformed/ui-test-manifest-1.11.0/AndroidManifest.xml:24:13-63
+116            android:exported="true"
+116-->[androidx.compose.ui:ui-test-manifest:1.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/2bf53c8e9b7b7c571d67bcb0bdb6daf5/transformed/ui-test-manifest-1.11.0/AndroidManifest.xml:25:13-36
+117            android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+117-->[androidx.compose.ui:ui-test-manifest:1.11.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/2bf53c8e9b7b7c571d67bcb0bdb6daf5/transformed/ui-test-manifest-1.11.0/AndroidManifest.xml:26:13-76
+118
+119        <receiver
+119-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+120            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+120-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+121            android:directBootAware="false"
+121-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+122            android:enabled="true"
+122-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+123            android:exported="true"
+123-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+124            android:permission="android.permission.DUMP" >
+124-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+125            <intent-filter>
+125-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+126                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+126-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+126-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+127            </intent-filter>
+128            <intent-filter>
+128-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+129                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+129-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+129-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+130            </intent-filter>
+131            <intent-filter>
+131-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+132                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+132-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+132-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+133            </intent-filter>
+134            <intent-filter>
+134-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+135                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+135-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+135-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/hasantuncay/.gradle/caches/9.4.1/transforms/a08193dbca64c8a63d08681f2580fbfd/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+136            </intent-filter>
+137        </receiver>
+138    </application>
+139
+140</manifest>

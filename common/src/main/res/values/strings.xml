@@ -196,4 +196,19 @@
     <string name="maswe_0002_msg_external_storage_vuln">Written to /sdcard/Android/data/…/files/ — visible without root on API &lt; 29!</string>
     <string name="maswe_0002_msg_external_storage_secure">Redirected to encrypted internal storage. External path not used.</string>
 
+    <string name="maswe_0002_vector_webview_vuln">6. WebView DOM Storage (CWE-312)</string>
+    <string name="maswe_0002_vector_webview_secure">6. Secure WebView Config</string>
+    <string name="maswe_0002_msg_webview_vuln">JWT leaked to localStorage via JS. Check /app_webview/</string>
+    <string name="maswe_0002_msg_webview_secure">DOM storage disabled or data encrypted.</string>
+
+    <string name="maswe_0002_vector_cache_vuln">7. Cache Directory Exposure (CWE-200)</string>
+    <string name="maswe_0002_vector_cache_secure">7. Secure Auto-Cleaning Cache</string>
+    <string name="maswe_0002_msg_cache_vuln">Plaintext PDF left in cacheDir indefinitely.</string>
+    <string name="maswe_0002_msg_cache_secure">PDF encrypted via Tink and wiped securely.</string>
+
+    <string name="maswe_0002_ui_vector_triggered">Vector Triggered — Data Written to Disk</string>
+    <string name="maswe_0002_ui_location_label">📁 Location:</string>
+    <string name="maswe_0002_ui_writing_storage">Writing to storage…</string>
+    <string name="maswe_0002_ui_adb_verification">ADB Verification:</string>
+
 </resources>

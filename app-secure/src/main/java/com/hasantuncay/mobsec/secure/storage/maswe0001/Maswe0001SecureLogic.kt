@@ -38,7 +38,12 @@ import kotlin.concurrent.thread
  */
 object Maswe0001SecureLogic {
 
-    fun executeVector(vector: Maswe0001Vector, appData: MasterclassData, context: Context) {
+    fun executeVector(
+        vector: Maswe0001Vector,
+        appData: MasterclassData,
+        context: Context,
+        onResult: (resultStr: String?) -> Unit
+    ) {
         when (vector) {
             Maswe0001Vector.SYSTEM_CONSOLE -> secureSystemConsoleLeak(appData)
             Maswe0001Vector.NETWORK_INTERCEPTOR -> secureNetworkLeak(appData)
@@ -47,8 +52,19 @@ object Maswe0001SecureLogic {
             Maswe0001Vector.WEBVIEW_CONSOLE -> secureWebViewConsoleLeak(appData, context)
         }
         
-        val msg = context.getString(vector.msgSecureRes)
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        if (vector == Maswe0001Vector.LOCAL_FILE) {
+            val file = File(context.filesDir, "secure_app_debug.log")
+            onResult(file.absolutePath)
+        } else {
+            val tag = when(vector) {
+                Maswe0001Vector.SYSTEM_CONSOLE -> "SECURE_APP_TAG"
+                Maswe0001Vector.NETWORK_INTERCEPTOR -> "SECURE_NETWORK"
+                Maswe0001Vector.SDK_TELEMETRY -> "SECURE_SDK_SIMULATION"
+                Maswe0001Vector.WEBVIEW_CONSOLE -> "SECURE_WEBVIEW"
+                else -> null
+            }
+            onResult(tag)
+        }
     }
 
     /**
@@ -105,44 +121,45 @@ object Maswe0001SecureLogic {
      * CSRF tokens to Logcat. If a 3rd party app has `READ_LOGS`, it can hijack the user's session.
      */
     private fun secureNetworkLeak(appData: MasterclassData) {
-        thread {
-            // HOW WE FIX IT:
-            // 1. Force Logging Level to NONE in Production builds.
-            val level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.NONE else HttpLoggingInterceptor.Level.NONE
-            val loggingInterceptor = HttpLoggingInterceptor().apply { this.level = level }
-            
-            // 2. The Redacting Interceptor (Defense-in-Depth)
-            // Even in DEBUG mode, we manually strip sensitive headers before they hit the logging engine.
-            val redactingInterceptor = Interceptor { chain ->
-                val request = chain.request()
-                val authHeader = request.header("Authorization")
-                val csrfHeader = request.header("X-CSRF-Token")
-                if ((authHeader != null || csrfHeader != null) && BuildConfig.DEBUG) {
-                    // We only log that the headers existed, NOT their values.
-                    SecureLog.d("SecureNetwork", "Outgoing request with REDACTED sensitive headers.")
-                }
-                chain.proceed(request)
+        // HOW WE FIX IT:
+        // 1. Force Logging Level to NONE in Production builds.
+        val level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.NONE else HttpLoggingInterceptor.Level.NONE
+        val loggingInterceptor = HttpLoggingInterceptor().apply { this.level = level }
+        
+        // 2. The Redacting Interceptor (Defense-in-Depth)
+        // Even in DEBUG mode, we manually strip sensitive headers before they hit the logging engine.
+        val redactingInterceptor = Interceptor { chain ->
+            val request = chain.request()
+            val authHeader = request.header("Authorization")
+            val csrfHeader = request.header("X-CSRF-Token")
+            if ((authHeader != null || csrfHeader != null) && BuildConfig.DEBUG) {
+                // We only log that the headers existed, NOT their values.
+                SecureLog.d("SecureNetwork", "Outgoing request with REDACTED sensitive headers.")
             }
+            chain.proceed(request)
+        }
 
-            val client = OkHttpClient.Builder()
-                .addInterceptor(redactingInterceptor)
-                .addInterceptor(loggingInterceptor)
-                .build()
-                
-            val token = appData.networkSession.oAuth2BearerToken
-            val endpoint = appData.systemContext.backendGraphqlEndpoint
-            val request = Request.Builder()
-                .url(endpoint)
-                .header("Authorization", "Bearer $token")
-                .header("X-CSRF-Token", appData.networkSession.csrfToken)
-                .build()
-                
-            try {
-                client.newCall(request).execute()
-            } catch (e: Exception) {
+        val client = OkHttpClient.Builder()
+            .addInterceptor(redactingInterceptor)
+            .addInterceptor(loggingInterceptor)
+            .build()
+            
+        val token = appData.networkSession.oAuth2BearerToken
+        val endpoint = appData.systemContext.backendGraphqlEndpoint
+        val request = Request.Builder()
+            .url(endpoint)
+            .header("Authorization", "Bearer $token")
+            .header("X-CSRF-Token", appData.networkSession.csrfToken)
+            .build()
+            
+        client.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: java.io.IOException) {
                 SecureLog.e("SecureNetwork", "Network request failed securely without dumping headers.")
             }
-        }
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                // Ignore response for demonstration
+            }
+        })
     }
 
     /**
@@ -152,27 +169,13 @@ object Maswe0001SecureLogic {
      */
     private fun secureLocalFileLeak(appData: MasterclassData, context: Context) {
         try {
-            // STEP 1: Strict Data Filtering & Masking (PCI-DSS Compliance)
-            val dumpObj = JSONObject().apply {
-                put("hipaa_diagnosis", appData.hipaaPhi.icd10DiagnosisCode)
-                put("device_ssaid", appData.deviceTelemetry.androidSsaid)
-                
-                // CRITICAL RULE: CVV and PIN must NEVER be stored anywhere, even if encrypted.
-                // We explicitly exclude them from this JSON object.
-                
-                // MASKING: The Primary Account Number (PAN) is masked (e.g., 123456******7890).
-                val pan = appData.pciDss.cardholderData.primaryAccountNumber
-                val maskedPan = if (pan.length > 10) "${pan.take(6)}******${pan.takeLast(4)}" else "MASKED"
-                put("pan", maskedPan)
-            }
-
-            // STEP 2: AES256-GCM Encryption (Jetpack Security)
+            // STEP 1: AES256-GCM Encryption (Jetpack Security)
             // We use Android's hardware-backed Keystore to generate a MasterKey.
             val mainKey = MasterKey.Builder(context)
                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                 .build()
 
-            val file = File(context.filesDir, "diagnostics_secure.json")
+            val file = File(context.filesDir, "secure_app_debug.log")
             if (file.exists()) file.delete() 
 
             // EncryptedFile handles Chunking and AES-GCM Authentication transparently.
@@ -184,7 +187,16 @@ object Maswe0001SecureLogic {
             ).build()
 
             encryptedFile.openFileOutput().use { stream ->
-                stream.write(dumpObj.toString(4).toByteArray())
+                val timestamp = System.currentTimeMillis()
+                val threadName = Thread.currentThread().name
+                // STEP 2: Strict Data Filtering & Masking (PCI-DSS Compliance)
+                // CRITICAL RULE: CVV and PIN must NEVER be stored anywhere, even if encrypted.
+                val pan = appData.pciDss.cardholderData.primaryAccountNumber
+                val maskedPan = if (pan.length > 10) "${pan.take(6)}******${pan.takeLast(4)}" else "MASKED"
+                
+                val logLine = "[ERROR] [$timestamp] [$threadName] Secure Diagnostic Dump -> " +
+                              "PAN: $maskedPan, CVV: [DROPPED BY POLICY]\n"
+                stream.write(logLine.toByteArray())
             }
             SecureLog.i("SecureStorage", "Secure diagnostic file written with Jetpack Security and PCI-DSS compliance.")
         } catch (e: Exception) {
@@ -246,54 +258,56 @@ object Maswe0001SecureLogic {
      * will catch this and print it to the native Logcat, bridging the web vulnerability into Android.
      */
     private fun secureWebViewConsoleLeak(appData: MasterclassData, context: Context) {
-        val webView = WebView(context)
-        webView.settings.javaScriptEnabled = true
-        
-        // HOW WE FIX IT: Keyword Filtering in the Native Bridge
-        webView.webChromeClient = object : WebChromeClient() {
-            override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-                val msg = consoleMessage.message().uppercase()
-                
-                // ==========================================
-                // EDUCATIONAL: WHITELIST vs BLACKLIST (Positive vs Negative Security Model)
-                // ==========================================
-                // ❌ BLACKLIST (Negative Security): Blocking known bad terms (e.g., "cookie", "token").
-                // Flaw: Attackers can easily bypass this using obfuscation or new variable names (e.g., "c00kie", "SessionID").
-                // 
-                // ✅ WHITELIST (Positive Security): Allowing ONLY known good patterns.
-                // Advantage: Default Deny. Anything that doesn't strictly match the allowed pattern is dropped.
-                // This is the fundamental principle of Zero Trust and Defense-in-Depth.
-                
-                // Implementation: We only allow logs that explicitly start with known safe prefixes.
-                val safeWhitelistRegex = Regex("^(UI_STATE|ANALYTICS_EVENT):.*")
-                
-                // Default Deny mechanism
-                if (!safeWhitelistRegex.matches(msg)) {
-                    SecureLog.w("SecureWebView", "Blocked unknown WebView console message (Not in Whitelist).")
-                    return true // Returning true tells the system "I handled this, do not print it."
+        android.os.Handler(android.os.Looper.getMainLooper()).post {
+            val webView = WebView(context)
+            webView.settings.javaScriptEnabled = true
+            
+            // HOW WE FIX IT: Keyword Filtering in the Native Bridge
+            webView.webChromeClient = object : WebChromeClient() {
+                override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
+                    val msg = consoleMessage.message().uppercase()
+                    
+                    // ==========================================
+                    // EDUCATIONAL: WHITELIST vs BLACKLIST (Positive vs Negative Security Model)
+                    // ==========================================
+                    // ❌ BLACKLIST (Negative Security): Blocking known bad terms (e.g., "cookie", "token").
+                    // Flaw: Attackers can easily bypass this using obfuscation or new variable names (e.g., "c00kie", "SessionID").
+                    // 
+                    // ✅ WHITELIST (Positive Security): Allowing ONLY known good patterns.
+                    // Advantage: Default Deny. Anything that doesn't strictly match the allowed pattern is dropped.
+                    // This is the fundamental principle of Zero Trust and Defense-in-Depth.
+                    
+                    // Implementation: We only allow logs that explicitly start with known safe prefixes.
+                    val safeWhitelistRegex = Regex("^(UI_STATE|ANALYTICS_EVENT):.*")
+                    
+                    // Default Deny mechanism
+                    if (!safeWhitelistRegex.matches(msg)) {
+                        SecureLog.w("SecureWebView", "Blocked unknown WebView console message (Not in Whitelist).")
+                        return true // Returning true tells the system "I handled this, do not print it."
+                    }
+                    
+                    if (BuildConfig.DEBUG) {
+                        SecureLog.d("SecureWebView", "JS Console: %s", consoleMessage.message())
+                    }
+                    return true
                 }
-                
-                if (BuildConfig.DEBUG) {
-                    SecureLog.d("SecureWebView", "JS Console: %s", consoleMessage.message())
-                }
-                return true
             }
+            
+            val cookie = appData.networkSession.webViewSessionCookie
+            val refreshToken = appData.networkSession.oAuth2RefreshToken
+            val html = """
+                <html><body>
+                <script>
+                    // These logs will be successfully BLOCKED by our WebChromeClient filter.
+                    console.log("DEBUG: Restoring session with Cookie: $cookie");
+                    console.log("DEBUG: Auth Refresh Token: $refreshToken");
+                    // This innocent log will pass through the filter.
+                    console.log("UI_STATE: Rendered Successfully");
+                </script>
+                </body></html>
+            """.trimIndent()
+            webView.loadData(html, "text/html", "UTF-8")
         }
-        
-        val cookie = appData.networkSession.webViewSessionCookie
-        val refreshToken = appData.networkSession.oAuth2RefreshToken
-        val html = """
-            <html><body>
-            <script>
-                // These logs will be successfully BLOCKED by our WebChromeClient filter.
-                console.log("DEBUG: Restoring session with Cookie: $cookie");
-                console.log("DEBUG: Auth Refresh Token: $refreshToken");
-                // This innocent log will pass through the filter.
-                console.log("UI_STATE: Rendered Successfully");
-            </script>
-            </body></html>
-        """.trimIndent()
-        webView.loadData(html, "text/html", "UTF-8")
     }
 
     /**

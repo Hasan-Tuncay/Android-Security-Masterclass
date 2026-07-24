@@ -35,7 +35,12 @@ import kotlin.concurrent.thread
  */
 object Maswe0001VulnerableLogic {
 
-    fun executeVector(vector: Maswe0001Vector, appData: MasterclassData, context: Context) {
+    fun executeVector(
+        vector: Maswe0001Vector,
+        appData: MasterclassData,
+        context: Context,
+        onResult: (resultStr: String?) -> Unit
+    ) {
         when (vector) {
             Maswe0001Vector.SYSTEM_CONSOLE -> triggerSystemConsoleLeak(appData)
             Maswe0001Vector.NETWORK_INTERCEPTOR -> triggerNetworkLeak(appData)
@@ -44,12 +49,18 @@ object Maswe0001VulnerableLogic {
             Maswe0001Vector.WEBVIEW_CONSOLE -> triggerWebViewConsoleLeak(appData, context)
         }
         
-        val msg = context.getString(vector.msgVulnRes)
         if (vector == Maswe0001Vector.LOCAL_FILE) {
-            val file = File(context.filesDir, "diagnostics_vulnerable.json")
-            Toast.makeText(context, String.format(msg, file.absolutePath), Toast.LENGTH_LONG).show()
+            val file = File(context.filesDir, "app_debug.log")
+            onResult(file.absolutePath)
         } else {
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+            val tag = when(vector) {
+                Maswe0001Vector.SYSTEM_CONSOLE -> "VULN_APP_TAG"
+                Maswe0001Vector.NETWORK_INTERCEPTOR -> "VULN_NETWORK"
+                Maswe0001Vector.SDK_TELEMETRY -> "VULN_SDK_SIMULATION"
+                Maswe0001Vector.WEBVIEW_CONSOLE -> "VULN_WEBVIEW"
+                else -> null
+            }
+            onResult(tag)
         }
     }
 
@@ -82,60 +93,51 @@ object Maswe0001VulnerableLogic {
 
     /**
      * VULNERABLE VECTOR 2: NETWORK INTERCEPTORS (CWE-532 / CWE-117)
-     * Mechanism: Instantiates OkHttp `HttpLoggingInterceptor` with `Level.BODY` and applies
-     * a custom interceptor that explicitly logs the `Request.headers`.
+     * Mechanism: Instantiates OkHttp `HttpLoggingInterceptor` with `Level.BODY`
      * Impact: OAuth2 Bearer tokens and CSRF parameters are logged in plaintext. Replay attacks
      * and session hijacking become viable if logs are exfiltrated.
      */
     private fun triggerNetworkLeak(appData: MasterclassData) {
-        thread {
-            val loggingInterceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
-            val headerDumpInterceptor = Interceptor { chain ->
-                val request = chain.request()
-                Log.e("VULN_NETWORK", "Outgoing Request Headers: \n${request.headers}")
-                chain.proceed(request)
-            }
+        val loggingInterceptor = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+        
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
             
-            val client = OkHttpClient.Builder()
-                .addInterceptor(headerDumpInterceptor)
-                .addInterceptor(loggingInterceptor)
-                .build()
-                
-            val token = appData.networkSession.oAuth2BearerToken
-            val endpoint = appData.systemContext.backendGraphqlEndpoint
-            val request = Request.Builder()
-                .url(endpoint)
-                .header("Authorization", "Bearer $token")
-                .header("X-CSRF-Token", appData.networkSession.csrfToken)
-                .build()
-            try {
-                client.newCall(request).execute()
-            } catch (e: Exception) {
+        val token = appData.networkSession.oAuth2BearerToken
+        val endpoint = appData.systemContext.backendGraphqlEndpoint
+        val request = Request.Builder()
+            .url(endpoint)
+            .header("Authorization", "Bearer $token")
+            .header("X-CSRF-Token", appData.networkSession.csrfToken)
+            .build()
+            
+        client.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: java.io.IOException) {
                 Log.e("VULN_APP_TAG", "Network error (simulated) on $endpoint")
             }
-        }
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                // Ignore response for demonstration
+            }
+        })
     }
 
     /**
-     * VULNERABLE VECTOR 3: LOCAL FILE DUMPING (CWE-312 / PCI-DSS Non-Compliance)
-     * Mechanism: Serializes domain objects into a JSON payload and writes them via `FileOutputStream`
-     * to the internal `filesDir` without hardware-backed cryptographic protection (AES-GCM).
-     * Impact: CVV and PIN Block storage is a strict violation of PCI-DSS Requirement 3.2. 
-     * Plaintext storage allows extraction via rooted physical access or arbitrary read vulnerabilities.
+     * VULNERABLE VECTOR 3: CUSTOM FILE LOGGER (CWE-532 / PCI-DSS Non-Compliance)
+     * Mechanism: Simulates a custom file-based logger (e.g., rolling file appender) that writes
+     * application state and diagnostics to a local .log file in append mode.
+     * Impact: Plaintext storage allows extraction via rooted physical access or arbitrary read vulnerabilities.
      */
     private fun triggerLocalFileLeak(appData: MasterclassData, context: Context) {
         try {
-            val file = File(context.filesDir, "diagnostics_vulnerable.json")
-            FileOutputStream(file, false).use { stream ->
-                val dumpObj = JSONObject().apply {
-                    put("pan", appData.pciDss.cardholderData.primaryAccountNumber)
-                    put("cvv", appData.pciDss.sensitiveAuthenticationData.cardVerificationCode) // SEVERE PCI-DSS VIOLATION
-                    put("pinBlock", appData.pciDss.sensitiveAuthenticationData.pinBlock) // SEVERE PCI-DSS VIOLATION
-                    put("hipaa_mrn", appData.hipaaPhi.medicalRecordNumber)
-                    put("hipaa_diagnosis", appData.hipaaPhi.icd10DiagnosisCode)
-                    put("device_ssaid", appData.deviceTelemetry.androidSsaid)
-                }
-                stream.write(dumpObj.toString(4).toByteArray())
+            val file = File(context.filesDir, "app_debug.log")
+            FileOutputStream(file, true).use { stream ->
+                val timestamp = System.currentTimeMillis()
+                val threadName = Thread.currentThread().name
+                val logLine = "[ERROR] [$timestamp] [$threadName] Payment processing failed. " +
+                              "Diagnostic Dump -> PAN: ${appData.pciDss.cardholderData.primaryAccountNumber}, " +
+                              "CVV: ${appData.pciDss.sensitiveAuthenticationData.cardVerificationCode}\n"
+                stream.write(logLine.toByteArray())
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -169,24 +171,26 @@ object Maswe0001VulnerableLogic {
      * Cookies, Refresh Tokens) automatically leaks into the native Android system logs.
      */
     private fun triggerWebViewConsoleLeak(appData: MasterclassData, context: Context) {
-        val webView = WebView(context)
-        webView.settings.javaScriptEnabled = true
-        webView.webChromeClient = object : WebChromeClient() {
-            override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-                Log.e("VULN_WEBVIEW", "JS Console: " + consoleMessage.message())
-                return true
+        android.os.Handler(android.os.Looper.getMainLooper()).post {
+            val webView = WebView(context)
+            webView.settings.javaScriptEnabled = true
+            webView.webChromeClient = object : WebChromeClient() {
+                override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
+                    Log.e("VULN_WEBVIEW", "JS Console: " + consoleMessage.message())
+                    return true
+                }
             }
+            val cookie = appData.networkSession.webViewSessionCookie
+            val refreshToken = appData.networkSession.oAuth2RefreshToken
+            val html = """
+                <html><body>
+                <script>
+                    console.log("DEBUG: Restoring session with Cookie: $cookie");
+                    console.log("DEBUG: Auth Refresh Token: $refreshToken");
+                </script>
+                </body></html>
+            """.trimIndent()
+            webView.loadData(html, "text/html", "UTF-8")
         }
-        val cookie = appData.networkSession.webViewSessionCookie
-        val refreshToken = appData.networkSession.oAuth2RefreshToken
-        val html = """
-            <html><body>
-            <script>
-                console.log("DEBUG: Restoring session with Cookie: $cookie");
-                console.log("DEBUG: Auth Refresh Token: $refreshToken");
-            </script>
-            </body></html>
-        """.trimIndent()
-        webView.loadData(html, "text/html", "UTF-8")
     }
 }

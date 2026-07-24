@@ -21,6 +21,10 @@ import com.hasantuncay.mobsec.common.ui.theme.AndroidSecurityMasterclassTheme
 import com.hasantuncay.mobsec.common.ui.theme.AppType
 import com.hasantuncay.mobsec.common.viewmodel.MasterclassDataViewModel
 import com.hasantuncay.mobsec.secure.storage.maswe0001.Maswe0001LogSecureScreen
+import com.hasantuncay.mobsec.secure.storage.maswe0002.Maswe0002SecureScreen
+import com.hasantuncay.mobsec.common.navigation.Maswe0002SharedPrefsRoute
+import com.hasantuncay.mobsec.common.navigation.DataVaultRoute
+import com.hasantuncay.mobsec.common.ui.DataVaultScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +57,12 @@ fun SecureApp() {
             }
             entry<Maswe0001LogRoute> {
                 Maswe0001LogSecureScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<Maswe0002SharedPrefsRoute> {
+                Maswe0002SecureScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<DataVaultRoute> {
+                DataVaultScreen(onBack = { backStack.removeLastOrNull() })
             }
         }
     )

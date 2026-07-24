@@ -1,0 +1,8 @@
+com.hasantuncay.mobsec.attacker.app-attacker-pngs-0 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/build/generated/res/pngs/debug
+com.hasantuncay.mobsec.attacker.app-attacker-updated_navigation_xml-1 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/build/generated/updated_navigation_xml/debug
+com.hasantuncay.mobsec.attacker.app-attacker-packageDebugResources-2 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.hasantuncay.mobsec.attacker.app-attacker-packageDebugResources-3 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.hasantuncay.mobsec.attacker.app-attacker-debug-4 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/build/intermediates/merged_res/debug/mergeDebugResources
+com.hasantuncay.mobsec.attacker.app-attacker-debug-5 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/debug/res
+com.hasantuncay.mobsec.attacker.app-attacker-main-6 /Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/app-attacker/src/main/res
+gradleHome-0 /Users/hasantuncay/.gradle
