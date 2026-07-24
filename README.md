@@ -36,6 +36,8 @@ The `:common` module houses the `MasterclassData` object, which contains realist
 - **PCI-DSS**: Credit card numbers (PAN), CVV, PINs.
 - **System Crypto**: AES Master Keys, RSA Private Keys, OAuth Tokens.
 
+> 💡 **Tip:** You can view all of this simulated data live on your device by clicking the **"Data Vault"** button on the Dashboard of either the vulnerable or secure app.
+
 ## 🚀 Implemented Scenarios (Vulnerability Index)
 
 Detailed documentation for each implemented scenario, including code samples and mitigation strategies, can be found in the `docs/` directory.
@@ -52,6 +54,7 @@ Detailed documentation for each implemented scenario, including code samples and
 1. Clone the repository and open it in **Android Studio**.
 2. Select either the `app-vulnerable` or `app-secure` run configuration.
 3. Build Variant Testing (Crucial for MASTG-BEST-0002):
+   - **Debug**: Open the `Build Variants` tool window and select `debug`. Run the app and check **Logcat**. You will see the logs (leaks in the vulnerable app, safe/generic logs in the secure app).
    - **Release**: Switch the Build Variant to `release`. R8 (ProGuard) minification will kick in. In `app-secure`, all `SecureLog` calls will be stripped out entirely!
 
 ### 😈 Setting up the Attacker App (`:app-attacker`)
