@@ -18,13 +18,13 @@ data class GdprPiiData(
  */
 data class DirectIdentifiers(
     /** National Identification Number (e.g., SSN, TCKN). Wrapped in ToMask for field-level security. */
-    val nationalIdentificationNumber: ToMask<String> = ToMask("10987654321"),
+    val nationalIdentificationNumber: ToMask = ToMask("10987654321".toCharArray()),
     /** Government-issued passport number. */
     val passportNumber: String = "U12345678",
     /** The full legal name of the data subject. */
     val fullName: String = "John Doe",
     /** Personal contact email address. Wrapped in ToMask to demonstrate field-level masking. */
-    val personalEmail: ToMask<String> = ToMask("john.doe@personal.domain.com")
+    val personalEmail: ToMask = ToMask("john.doe@personal.domain.com".toCharArray())
 ) {
     override fun toString() = "[REDACTED_GDPR_DIRECT_IDENTIFIERS]"
 }

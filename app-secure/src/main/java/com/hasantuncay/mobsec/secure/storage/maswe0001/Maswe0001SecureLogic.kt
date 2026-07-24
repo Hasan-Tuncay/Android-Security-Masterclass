@@ -207,13 +207,16 @@ object Maswe0001SecureLogic {
         // Key Derivation Function (KDF) like PBKDF2. This introduces "computational cost",
         // making brute-force mathematically unfeasible.
         
-        val email = appData.gdprPii.directIdentifiers.personalEmail.getDataToMask()
+        val emailArray = appData.gdprPii.directIdentifiers.personalEmail.getDataToMask()
         // The salt should ideally be randomly generated per user and stored securely.
         // For demonstration, we use the device-specific SSAID as a static salt.
         val salt = appData.deviceTelemetry.androidSsaid
         
         // Use PBKDF2 with 10,000+ iterations instead of a single-pass SHA-256
-        val anonymizedId = generatePbkdf2Hash(email, salt)
+        val anonymizedId = generatePbkdf2Hash(emailArray, salt)
+
+        // MEMORY PROTECTION: Scrub the CharArray from memory after use!
+        appData.gdprPii.directIdentifiers.personalEmail.wipe()
 
         // ==========================================
         // EDUCATIONAL NOTE: THIS IS NOT TOKENIZATION
@@ -297,12 +300,12 @@ object Maswe0001SecureLogic {
      * Utility function to generate a PBKDF2 Hash (Key Derivation Function).
      * Replaces weak single-pass SHA-256 to protect low-entropy PII against brute-force.
      */
-    private fun generatePbkdf2Hash(input: String, salt: String): String {
+    private fun generatePbkdf2Hash(input: CharArray, salt: String): String {
         return try {
             val iterationCount = 10000 // Computational cost (higher is safer, but slower)
             val keyLength = 256 // Output length in bits
             val spec = javax.crypto.spec.PBEKeySpec(
-                input.toCharArray(),
+                input,
                 salt.toByteArray(Charsets.UTF_8),
                 iterationCount,
                 keyLength

@@ -70,8 +70,8 @@ object Maswe0001VulnerableLogic {
             
             [GDPR PII Data]
             Name: ${appData.gdprPii.directIdentifiers.fullName}
-            TCKN: ${appData.gdprPii.directIdentifiers.nationalIdentificationNumber.getDataToMask()}
-            Email: ${appData.gdprPii.directIdentifiers.personalEmail.getDataToMask()}
+            TCKN: ${String(appData.gdprPii.directIdentifiers.nationalIdentificationNumber.getDataToMask())}
+            Email: ${String(appData.gdprPii.directIdentifiers.personalEmail.getDataToMask())}
             
             [User Data]
             Password (Plain): ${appData.userContext.plainTextPasswordInHeap}
@@ -153,7 +153,7 @@ object Maswe0001VulnerableLogic {
         val payload = """
             {
               "event": "App_Crash",
-              "user_email": "${appData.gdprPii.directIdentifiers.personalEmail.getDataToMask()}",
+              "user_email": "${String(appData.gdprPii.directIdentifiers.personalEmail.getDataToMask())}",
               "clipboard": "${appData.userContext.clipboardCache}",
               "draft_messages": ${appData.userContext.draftMessagesDb},
               "sim_iccid": "${appData.deviceTelemetry.simCardIccid}"
