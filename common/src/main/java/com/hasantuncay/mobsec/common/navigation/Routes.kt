@@ -11,3 +11,4 @@ data object Maswe0003BackupRoute
 data object Maswe0004BackupExcludedRoute
 data object Maswe0006PrivateStorageRoute
 data object Maswe0007SharedStorageRoute
+data object DataVaultRoute

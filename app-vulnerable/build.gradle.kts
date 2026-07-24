@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp) // MASWE-0002: Room annotation processor
 }
 
 android {
@@ -50,6 +51,12 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.androidx.navigation3.runtime)
     implementation(libs.androidx.navigation3.ui)
+    // MASWE-0002: DataStore — Preferences DataStore plaintext storage vulnerability demo
+    implementation(libs.androidx.datastore.preferences)
+    // MASWE-0002: Room — SQLite plaintext + WAL journal exposure vulnerability demo
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
     implementation(project(":common"))
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))

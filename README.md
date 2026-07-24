@@ -21,8 +21,14 @@ Instead of hunting for bugs in outdated Java codebases, this project uses a stat
 graph TD
     Common["/:common (Shared Models, UI, Navigation)/"] --> Vuln["/:app-vulnerable (Insecure Logic)/"]
     Common --> Sec["/:app-secure (Secure Logic)/"]
+    Vuln -. exploits IPC .-> Attacker["/:app-attacker (Simulated Malware)/"]
     Data[("MasterclassData: PII, PCI-DSS, System Keys")] -. injected into .-> Common
 ```
+
+The project consists of three main modules:
+- **`:app-vulnerable`**: The "Before" state. Implements features with critical, realistic security flaws.
+- **`:app-secure`**: The "After" state. Implements the exact same features, but fully secured using modern best practices.
+- **`:app-attacker`**: A simulated malicious third-party app. Used to demonstrate live Inter-Process Communication (IPC) exploits (e.g., stealing files from `:app-vulnerable` via `FileProvider` misconfigurations) and Logcat snooping.
 
 The `:common` module houses the `MasterclassData` object, which contains realistic dummy data representing highly sensitive payloads:
 - **GDPR PII**: Names, emails, national identification numbers.
@@ -46,8 +52,20 @@ Detailed documentation for each implemented scenario, including code samples and
 1. Clone the repository and open it in **Android Studio**.
 2. Select either the `app-vulnerable` or `app-secure` run configuration.
 3. Build Variant Testing (Crucial for MASTG-BEST-0002):
-   - **Debug**: Open the `Build Variants` tool window and select `debug`. Run the app and check **Logcat**. You will see the logs (leaks in the vulnerable app, safe/generic logs in the secure app).
    - **Release**: Switch the Build Variant to `release`. R8 (ProGuard) minification will kick in. In `app-secure`, all `SecureLog` calls will be stripped out entirely!
+
+### 😈 Setting up the Attacker App (`:app-attacker`)
+
+To see the real consequences of these vulnerabilities, install the `:app-attacker` module alongside `:app-vulnerable` on the same device/emulator.
+
+**Granting `READ_LOGS` Permission (For MASWE-0001):**
+By default, Android does not allow apps to read system logs. To demonstrate how a malicious app *can* read logs if granted permission (or on rooted/older devices), you must grant this permission manually via ADB:
+
+```bash
+adb shell pm grant com.hasantuncay.mobsec.attacker android.permission.READ_LOGS
+```
+
+> **Note for Physical Devices:** If you are testing on a physical device (especially MIUI, ColorOS, etc.), running the command above might fail with a security exception. You must go to **Developer Options** and enable **"USB debugging (Security settings)"** or **"Disable permission monitoring"** to allow ADB to grant permissions.
 
 ## ⚠️ Disclaimer
 

@@ -25,4 +25,5 @@ dependencyResolutionManagement {
 rootProject.name = "Android-Security-Masterclass"
 include(":app-vulnerable")
 include(":app-secure")
+include(":app-attacker")   // Malicious third-party app for IPC exploit demonstrations
 include(":common")

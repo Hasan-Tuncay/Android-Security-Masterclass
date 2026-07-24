@@ -3,6 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--
+        ⚠️ VULNERABLE: MASWE-0002 Vector 5 — External Storage
+        WRITE_EXTERNAL_STORAGE is required on API < 29 to write to getExternalFilesDir().
+        On API 29+ (Scoped Storage), this permission is implicitly granted for the app's
+        own external directory, but declaring it here demonstrates the legacy risk surface.
+    -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidSecurityMasterclass">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -20,10 +30,37 @@
             android:theme="@style/Theme.AndroidSecurityMasterclass">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--
+            ⚠️ VULNERABLE COMPONENT: MASWE-0002 Vector 4 — FileProvider Root-Path
+            MASVS:   MASVS-STORAGE-2
+            CWE-284: Improper Access Control
+            CWE-22:  Path Traversal
+
+            This FileProvider uses file_paths_vulnerable.xml which contains a <root-path>
+            element. This makes the entire device filesystem accessible to any app that
+            receives a content:// URI with FLAG_GRANT_READ_URI_PERMISSION or
+            FLAG_GRANT_WRITE_URI_PERMISSION — bypassing the application sandbox.
+
+            Observe: The authority is exported via the <provider> element below.
+            Any external app that knows the authority string can craft a URI.
+
+            MITIGATION: Replace file_paths_vulnerable.xml with a config that uses only
+            narrowly scoped <files-path> or <cache-path> elements. See app-secure module.
+        -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths_vulnerable" />
+        </provider>
+
     </application>
 
 </manifest>

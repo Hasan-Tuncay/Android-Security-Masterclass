@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.CloudOff
 import androidx.compose.material.icons.filled.CloudSync
 import androidx.compose.material.icons.filled.FolderShared
 import androidx.compose.material.icons.filled.FolderSpecial
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material.icons.rounded.KeyboardArrowUp
 
@@ -36,6 +37,7 @@ import com.hasantuncay.mobsec.common.navigation.Maswe0003BackupRoute
 import com.hasantuncay.mobsec.common.navigation.Maswe0004BackupExcludedRoute
 import com.hasantuncay.mobsec.common.navigation.Maswe0006PrivateStorageRoute
 import com.hasantuncay.mobsec.common.navigation.Maswe0007SharedStorageRoute
+import com.hasantuncay.mobsec.common.navigation.DataVaultRoute
 
 data class MasweItem(
     @StringRes val idRes: Int,
@@ -109,6 +111,15 @@ fun DashboardScreen(title: String, onNavigate: (Any) -> Unit) {
                     containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = MaterialTheme.colorScheme.onPrimary
                 )
+            )
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = { onNavigate(DataVaultRoute) },
+                icon = { Icon(Icons.Default.Lock, contentDescription = stringResource(id = R.string.dashboard_data_vault_content_desc)) },
+                text = { Text(stringResource(id = R.string.dashboard_data_vault_btn)) },
+                containerColor = MaterialTheme.colorScheme.tertiary,
+                contentColor = MaterialTheme.colorScheme.onTertiary
             )
         }
     ) { paddingValues ->

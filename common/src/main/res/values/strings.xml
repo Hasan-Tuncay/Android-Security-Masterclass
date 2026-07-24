@@ -4,6 +4,12 @@
     <string name="dashboard_coming_soon">Coming soon...</string>
     <string name="dashboard_title_vulnerable">Vulnerability Dashboard</string>
     <string name="dashboard_title_secure">Secure Dashboard</string>
+    <string name="dashboard_data_vault_btn">Data Vault</string>
+    <string name="dashboard_data_vault_content_desc">Open Data Vault</string>
+
+    <string name="data_vault_title">Device Data Vault</string>
+    <string name="data_vault_desc">All simulated sensitive data stored on the device and targeted in vulnerability scenarios.</string>
+    <string name="maswe_context_info">These vectors target sensitive data on the device. You can view all simulated device data in the \'Data Vault\' screen.</string>
 
     <!-- MASVS Categories -->
     <string name="masvs_storage">MASVS-STORAGE</string>
@@ -153,5 +159,41 @@
     <string name="action_collapse">Collapse</string>
     <string name="action_show">SHOW</string>
     <string name="action_hide">HIDE</string>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- MASWE-0002 Screen Strings                                       -->
+    <!-- Sensitive Data Stored With Insufficient Access Restrictions     -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <string name="maswe_0002_vuln_title">MASWE-0002: Insecure Storage (VULNERABLE)</string>
+    <string name="maswe_0002_secure_title">MASWE-0002: Insecure Storage (SECURE)</string>
+    <string name="maswe_0002_vuln_desc">Each vector below writes sensitive data to a different unprotected storage location. Trigger a vector, then verify the plaintext content using ADB or a file manager on a rooted device.</string>
+    <string name="maswe_0002_secure_desc">Each vector applies the correct mitigation: encryption, access control, or storage relocation. The underlying sensitive data is never written in a recoverable plaintext form.</string>
+    <string name="maswe_0002_vuln_vectors_title">Vulnerability Vectors (Attack Simulations)</string>
+    <string name="maswe_0002_secure_vectors_title">Secure Mitigations (Defense Simulations)</string>
+    <string name="maswe_0002_written_to">Written to: %1$s</string>
+
+    <!-- MASWE-0002 Vector Titles -->
+    <string name="maswe_0002_vector_shared_prefs_vuln">1. SharedPreferences Plaintext Leak</string>
+    <string name="maswe_0002_vector_shared_prefs_secure">1. Secure SharedPreferences (DataStore+Tink)</string>
+    <string name="maswe_0002_vector_datastore_vuln">2. DataStore Unencrypted (.preferences_pb)</string>
+    <string name="maswe_0002_vector_datastore_secure">2. Secure DataStore (Encrypted)</string>
+    <string name="maswe_0002_vector_sqlite_vuln">3. Room / SQLite Plaintext + WAL Exposure</string>
+    <string name="maswe_0002_vector_sqlite_secure">3. Secure Room (SQLCipher Encrypted)</string>
+    <string name="maswe_0002_vector_file_provider_vuln">4. FileProvider Root-Path Misconfiguration</string>
+    <string name="maswe_0002_vector_file_provider_secure">4. Secure FileProvider (Narrow Path)</string>
+    <string name="maswe_0002_vector_external_storage_vuln">5. External Storage Sensitive Data Leak</string>
+    <string name="maswe_0002_vector_external_storage_secure">5. Secure: Internal Encrypted Storage</string>
+
+    <!-- MASWE-0002 Vector Result Messages -->
+    <string name="maswe_0002_msg_shared_prefs_vuln">Written to shared_prefs/maswe0002_session.xml — plaintext token visible!</string>
+    <string name="maswe_0002_msg_shared_prefs_secure">Migrated to encrypted DataStore. No plaintext on disk.</string>
+    <string name="maswe_0002_msg_datastore_vuln">Written to files/datastore/ — binary ≠ encrypted. Check Logcat!</string>
+    <string name="maswe_0002_msg_datastore_secure">DataStore encrypted with AES-256-GCM via Tink. Content unreadable.</string>
+    <string name="maswe_0002_msg_sqlite_vuln">Written to databases/maswe0002_vuln.db — check Logcat for WAL path!</string>
+    <string name="maswe_0002_msg_sqlite_secure">Room DB encrypted via SQLCipher. Hex dump shows no plaintext.</string>
+    <string name="maswe_0002_msg_file_provider_vuln">content:// URI generated — logged to Logcat. A second app could read this!</string>
+    <string name="maswe_0002_msg_file_provider_secure">FileProvider restricted to images/ only. Traversal URI rejected.</string>
+    <string name="maswe_0002_msg_external_storage_vuln">Written to /sdcard/Android/data/…/files/ — visible without root on API &lt; 29!</string>
+    <string name="maswe_0002_msg_external_storage_secure">Redirected to encrypted internal storage. External path not used.</string>
 
 </resources>

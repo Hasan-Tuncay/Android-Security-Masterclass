@@ -66,12 +66,17 @@ fun Maswe0001LogVulnerableScreen(onBack: () -> Unit) {
                 style = MaterialTheme.typography.bodyMedium
             )
 
-            // Modular Data Displays for Context
-            UserDataCard(data = appData.userContext)
-            GdprPiiCard(data = appData.gdprPii)
-            PciDssCard(data = appData.pciDss)
-            SessionDataCard(data = appData.networkSession)
-            AnalyticsLogCard(data = appData.analyticsLogs)
+            // Context Info
+            Card(
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(id = R.string.maswe_context_info),
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
 
             Spacer(modifier = Modifier.height(8.dp))
             HorizontalDivider()
