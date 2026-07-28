@@ -25,12 +25,20 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      # ─── SAST Layer 2: PR Gate ───────────────────────────────────
+      # Scope Isolation: Only :app-secure and :common are linted.
+      # :app-vulnerable and :app-attacker contain intentionally
+      # insecure code and are exempt from static analysis.
+
       # Uncomment below if Detekt is configured in your build.gradle
-      # - name: Run Detekt (Static Code Analysis)
-      #   run: ./gradlew detekt
+      # - name: Run Detekt (Kotlin Static Analysis)
+      #   run: ./gradlew :app-secure:detekt :common:detekt
 
-      - name: Run Android Lint (SAST)
-        run: ./gradlew lintDebug
+      - name: Run Android Lint on :app-secure
+        run: ./gradlew :app-secure:lintDebug
 
-      - name: Build Debug APKs
+      - name: Run Android Lint on :common
+        run: ./gradlew :common:lintDebug
+
+      - name: Build Debug APKs (All Modules)
         run: ./gradlew assembleDebug
