@@ -19,22 +19,69 @@ Instead of hunting for bugs in outdated Java codebases, this project uses a stat
 
 ```mermaid
 graph TD
-    Common["/:common (Shared Models, UI, Navigation)/"] --> Vuln["/:app-vulnerable (Insecure Logic)/"]
-    Common --> Sec["/:app-secure (Secure Logic)/"]
-    Vuln -. exploits IPC .-> Attacker["/:app-attacker (Simulated Malware)/"]
-    Data[("MasterclassData: PII, PCI-DSS, System Keys")] -. injected into .-> Common
+    subgraph COMMON[":common — Shared Foundation"]
+        direction TB
+        DATA[("MasterclassData")]
+        DATA --> COMP["compliance/<br/>GdprPiiData · HipaaPhiData · PciDssData · ToMask"]
+        DATA --> THREAT["threat/<br/>SystemData · SessionData · DeviceTelemetryData<br/>UserData · AnalyticsLogData"]
+        VECTORS["Maswe0001Vector (5 entries)<br/>Maswe0002Vector (7 entries)"]
+        INFRA["MasterclassDataViewModel<br/>Routes · Navigation<br/>Shared UI · Theme"]
+    end
+
+    subgraph VULN[":app-vulnerable — Insecure Logic ❌"]
+        direction TB
+        V01["✅ maswe0001/<br/>Log Leak: System Console · Network Interceptor<br/>Local File · SDK Telemetry · WebView Console"]
+        V02["🚧 maswe0002/<br/>Insecure Storage: SharedPrefs · DataStore<br/>SQLite/Room · FileProvider · External Storage<br/>WebView DOM · Cache Directory"]
+        V_FUTURE["⏳ Planned Modules:<br/>crypto · network · platform<br/>auth · privacy · resilience · code"]
+    end
+
+    subgraph SEC[":app-secure — Hardened Logic ✅"]
+        direction TB
+        S01["✅ maswe0001/<br/>SecureLog Wrapper · ProGuard Stripping<br/>Interceptor Redaction · SDK PII Masking"]
+        S02["🚧 maswe0002/<br/>EncryptedSharedPreferences · Tink AEAD<br/>SQLCipher · Scoped FileProvider<br/>Internal Storage · Cache Cleanup"]
+        S_FUTURE["⏳ Planned Modules:<br/>crypto · network · platform<br/>auth · privacy · resilience · code"]
+    end
+
+    subgraph ATK[":app-attacker — Simulated Malware 😈"]
+        direction TB
+        A1["LogcatExploitScreen<br/>READ_LOGS permission snooping"]
+        A2["ExploitReceiverScreen<br/>FileProvider content:// URI theft"]
+        A3["DashboardScreen<br/>Attack vector selection"]
+    end
+
+    subgraph GOV["Governance & CI/CD ⚙️"]
+        direction TB
+        CI["GitHub Actions: Lint + Detekt SAST"]
+        DEPBOT["Dependabot: Weekly Gradle CVE scan"]
+        TEMPLATES["Issue & PR Templates"]
+        DOCS["WHITEPAPER · MAPPING_MATRIX<br/>CONTRIBUTING · SECURITY · LICENSE"]
+    end
+
+    COMMON --> VULN
+    COMMON --> SEC
+    VULN -. "IPC Exploit<br/>(ContentProvider · Logcat)" .-> ATK
 ```
 
-The project consists of three main modules:
-- **`:app-vulnerable`**: The "Before" state. Implements features with critical, realistic security flaws.
-- **`:app-secure`**: The "After" state. Implements the exact same features, but fully secured using modern best practices.
-- **`:app-attacker`**: A simulated malicious third-party app. Used to demonstrate live Inter-Process Communication (IPC) exploits (e.g., stealing files from `:app-vulnerable` via `FileProvider` misconfigurations) and Logcat snooping.
+The project consists of **four modules** working in concert:
 
-The `:common` module houses the `MasterclassData` object, which contains realistic dummy data representing highly sensitive payloads:
-- **GDPR PII**: Names, emails, national identification numbers.
-- **HIPAA PHI**: Health records and diagnosis codes.
-- **PCI-DSS**: Credit card numbers (PAN), CVV, PINs.
-- **System Crypto**: AES Master Keys, RSA Private Keys, OAuth Tokens.
+| Module | Role | Status |
+| :--- | :--- | :--- |
+| **`:common`** | Shared data models (`MasterclassData`), MASWE vector enums, ViewModel, UI theme, and navigation. Both apps receive the same high-fidelity data. | Foundation ✅ |
+| **`:app-vulnerable`** | The "Before" state. Implements features with critical, realistic security flaws that violate OWASP MASVS standards. | MASWE-0001 ✅ · MASWE-0002 🚧 |
+| **`:app-secure`** | The "After" state. The exact same UI and features, secured using Jetpack Security, Tink, SQLCipher, ProGuard, and SecureLog. | MASWE-0001 ✅ · MASWE-0002 🚧 |
+| **`:app-attacker`** | A simulated malicious third-party app. Demonstrates **live** IPC exploits (FileProvider path traversal, Logcat snooping) — not theoretical ADB commands, but an actual running process on the device. | Active ✅ |
+
+### 📦 The `MasterclassData` High-Fidelity Data Model
+Unlike other educational projects that use trivial data ("admin:password"), our leak simulations use **regulation-grade** payloads:
+
+| Data Layer | Contents | Regulatory Standard |
+| :--- | :--- | :--- |
+| `compliance/GdprPiiData` | National ID (TCKN), email, direct identifiers | GDPR Article 4 / Article 9 |
+| `compliance/HipaaPhiData` | ICD-10 diagnosis codes, Medical Record Numbers | HIPAA §164.514 |
+| `compliance/PciDssData` | PAN, CVV, PIN blocks, Track 2 data | PCI-DSS Requirement 3.2 |
+| `threat/SystemData` | AES Master Keys, RSA Private Keys | MASVS-CRYPTO |
+| `threat/SessionData` | OAuth tokens, CSRF tokens, session cookies | MASVS-NETWORK |
+| `threat/DeviceTelemetryData` | SSAID, Advertising ID, geolocation | MASVS-PRIVACY |
 
 > 💡 **Tip:** You can view all of this simulated data live on your device by clicking the **"Data Vault"** button on the Dashboard of either the vulnerable or secure app.
 
