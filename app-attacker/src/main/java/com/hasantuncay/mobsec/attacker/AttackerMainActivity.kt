@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.res.stringResource
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.compose.ui.platform.LocalContext
@@ -46,6 +47,8 @@ class AttackerMainActivity : ComponentActivity() {
 @Composable
 fun AttackerApp(initialRoute: Any) {
     val context = LocalContext.current
+    val maswe0002Id = stringResource(R.string.exploit_maswe0002_id)
+    val maswe0002Title = stringResource(R.string.exploit_maswe0002_title)
     val backStack = remember { mutableStateListOf<Any>(initialRoute) }
 
     val handleBack: () -> Unit = {
@@ -66,8 +69,8 @@ fun AttackerApp(initialRoute: Any) {
                         backStack.add(
                             ExploitReceiverRoute(
                                 uriString = null,
-                                exploitId = context.getString(R.string.exploit_maswe0002_id),
-                                exploitDesc = context.getString(R.string.exploit_maswe0002_title)
+                                exploitId = maswe0002Id,
+                                exploitDesc = maswe0002Title
                             )
                         )
                     },
