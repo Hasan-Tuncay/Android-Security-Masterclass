@@ -156,10 +156,10 @@ The most comprehensive and expensive checks. Run only when a release candidate i
 
 | Layer | Tool | Status | Configuration |
 | :--- | :--- | :---: | :--- |
-| Layer 2 | Android Lint | ✅ Active | `.github/workflows/android_ci.yml` |
-| Layer 2 | Detekt | ⏳ Planned | Requires `detekt` Gradle plugin + `detekt.yml` config |
 | Layer 1 | Ktlint | ⏳ Planned | Requires `ktlint` Gradle plugin |
 | Layer 1 | ErrorProne | ⏳ Planned | Requires `errorprone` Gradle plugin + `NullAway` |
+| Layer 2 | Android Lint | ✅ Active | `.github/workflows/android_ci.yml` |
+| Layer 2 | Detekt | ⏳ Planned | Requires `detekt` Gradle plugin + `detekt.yml` config |
 | Layer 3 | OWASP Dep-Check | ⏳ Planned | Requires `dependency-check` Gradle plugin + cron workflow |
 | Layer 3 | Dependabot | ✅ Active | `.github/dependabot.yml` (weekly Gradle scan) |
 | Layer 4 | MobSF | ⏳ Planned | Requires Docker-based CI job + release workflow |
