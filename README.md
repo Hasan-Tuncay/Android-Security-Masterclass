@@ -90,7 +90,7 @@ Unlike other educational projects that use trivial data ("admin:password"), our 
 Detailed documentation for each implemented scenario, including code samples and mitigation strategies, can be found in the `docs/` directory.
 
 ### ✅ Completed
-- [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](./docs/maswe/MASWE-0001-Logging-Leaks.md)
+- [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](docs/maswe/MASVS-STORAGE/maswe_001/MASWE-0001-Logging-Leaks.md)
 - [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](./docs/mastg-best/MASTG-BEST-0002-ProGuard.md)
 
 ### 🚧 In Progress
