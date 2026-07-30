@@ -117,7 +117,7 @@ object Maswe0001VulnerableLogic {
                 Log.e("VULN_APP_TAG", "Network error (simulated) on $endpoint")
             }
             override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
-                // Ignore response for demonstration
+                // Ignored response for demonstration
             }
         })
     }
