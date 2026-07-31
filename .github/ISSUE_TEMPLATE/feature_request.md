@@ -2,7 +2,7 @@
 name: "🚀 Feature Request / New Module Proposal"
 about: Suggest a new MASWE vulnerability module or feature improvement
 title: "[FEATURE] "
-labels: enhancement
+labels: enhancement, help wanted
 assignees: ''
 ---
 

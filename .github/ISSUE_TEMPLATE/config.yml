@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📚 OWASP MASVS Documentation
+    url: https://mas.owasp.org/MASVS/
+    about: Read the official OWASP Mobile Application Security Verification Standard before proposing new vectors.
+  - name: 🦅 Harpia Academy YouTube
+    url: https://www.youtube.com/@harpiaacademyofficial
+    about: Watch video tutorials and walkthroughs for this project.
+  - name: 💬 Discussions & Questions
+    url: https://github.com/Hasan-Tuncay/Android-Security-Masterclass/discussions
+    about: Ask questions and share ideas in GitHub Discussions instead of opening an issue.
