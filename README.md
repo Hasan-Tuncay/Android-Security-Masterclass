@@ -22,47 +22,24 @@ Instead of hunting for bugs in outdated Java codebases, this project uses a stat
 
 ```mermaid
 graph TD
-    subgraph COMMON[":common — Shared Foundation"]
-        direction TB
-        DATA[("MasterclassData")]
-        DATA --> COMP["compliance/<br/>GdprPiiData · HipaaPhiData · PciDssData · ToMask"]
-        DATA --> THREAT["threat/<br/>SystemData · SessionData · DeviceTelemetryData<br/>UserData · AnalyticsLogData"]
-        VECTORS["Maswe0001Vector (5 entries)<br/>Maswe0002Vector (7 entries)"]
-        INFRA["MasterclassDataViewModel<br/>Routes · Navigation<br/>Shared UI · Theme"]
-    end
+    COMMON("🧱 :common<br/>Shared Data · ViewModel<br/>Theme · Navigation")
+    VULN("❌ :app-vulnerable<br/>Insecure Implementations")
+    SEC("✅ :app-secure<br/>Hardened Implementations")
+    ATK("😈 :app-attacker<br/>Simulated Malware")
 
-    subgraph VULN[":app-vulnerable — Insecure Logic ❌"]
-        direction TB
-        V01["✅ maswe0001/<br/>Log Leak: System Console · Network Interceptor<br/>Local File · SDK Telemetry · WebView Console"]
-        V02["🚧 maswe0002/<br/>Insecure Storage: SharedPrefs · DataStore<br/>SQLite/Room · FileProvider · External Storage<br/>WebView DOM · Cache Directory"]
-        V_FUTURE["⏳ Planned Modules:<br/>crypto · network · platform<br/>auth · privacy · resilience · code"]
-    end
+    COMMON -- "Same Data<br/>Same UI" --> VULN
+    COMMON -- "Same Data<br/>Same UI" --> SEC
+    VULN -. "IPC Exploit<br/>Logcat · ContentProvider" .-> ATK
 
-    subgraph SEC[":app-secure — Hardened Logic ✅"]
-        direction TB
-        S01["✅ maswe0001/<br/>SecureLog Wrapper · ProGuard Stripping<br/>Interceptor Redaction · SDK PII Masking"]
-        S02["🚧 maswe0002/<br/>EncryptedSharedPreferences · Tink AEAD<br/>SQLCipher · Scoped FileProvider<br/>Internal Storage · Cache Cleanup"]
-        S_FUTURE["⏳ Planned Modules:<br/>crypto · network · platform<br/>auth · privacy · resilience · code"]
-    end
+    classDef common fill:#4A90D9,stroke:#2C5F8A,color:#fff,stroke-width:2px,font-weight:bold
+    classDef vuln fill:#E74C3C,stroke:#C0392B,color:#fff,stroke-width:2px,font-weight:bold
+    classDef secure fill:#27AE60,stroke:#1E8449,color:#fff,stroke-width:2px,font-weight:bold
+    classDef attacker fill:#8E44AD,stroke:#6C3483,color:#fff,stroke-width:2px,font-weight:bold
 
-    subgraph ATK[":app-attacker — Simulated Malware 😈"]
-        direction TB
-        A1["LogcatExploitScreen<br/>READ_LOGS permission snooping"]
-        A2["ExploitReceiverScreen<br/>FileProvider content:// URI theft"]
-        A3["DashboardScreen<br/>Attack vector selection"]
-    end
-
-    subgraph GOV["Governance & CI/CD ⚙️"]
-        direction TB
-        CI["GitHub Actions: Lint + Detekt SAST"]
-        DEPBOT["Dependabot: Weekly Gradle CVE scan"]
-        TEMPLATES["Issue & PR Templates"]
-        DOCS["WHITEPAPER · MAPPING_MATRIX<br/>CONTRIBUTING · SECURITY · LICENSE"]
-    end
-
-    COMMON --> VULN
-    COMMON --> SEC
-    VULN -. "IPC Exploit<br/>(ContentProvider · Logcat)" .-> ATK
+    class COMMON common
+    class VULN vuln
+    class SEC secure
+    class ATK attacker
 ```
 
 The project consists of **four modules** working in concert:
@@ -76,6 +53,41 @@ The project consists of **four modules** working in concert:
 
 ### 📦 The `MasterclassData` High-Fidelity Data Model
 Unlike other educational projects that use trivial data ("admin:password"), our leak simulations use **regulation-grade** payloads:
+
+```mermaid
+graph TD
+    ROOT("📦 MasterclassData")
+
+    COMP("🏛️ compliance")
+    THREAT("⚠️ threat")
+
+    GDPR("GdprPiiData<br/>TCKN · Email · National ID")
+    HIPAA("HipaaPhiData<br/>ICD-10 · Medical Records")
+    PCI("PciDssData<br/>PAN · CVV · PIN Block")
+
+    SYS("SystemData<br/>AES Keys · RSA Private Keys")
+    SESS("SessionData<br/>OAuth · CSRF · Cookies")
+    DEV("DeviceTelemetryData<br/>SSAID · Ad ID · GeoLoc")
+
+    ROOT --> COMP
+    ROOT --> THREAT
+    COMP --> GDPR
+    COMP --> HIPAA
+    COMP --> PCI
+    THREAT --> SYS
+    THREAT --> SESS
+    THREAT --> DEV
+
+    classDef root fill:#2C3E50,stroke:#1A252F,color:#fff,stroke-width:2px,font-weight:bold
+    classDef comp fill:#2980B9,stroke:#1F618D,color:#fff,stroke-width:2px
+    classDef threat fill:#E67E22,stroke:#CA6F1E,color:#fff,stroke-width:2px
+    classDef leaf fill:#ECF0F1,stroke:#BDC3C7,color:#2C3E50,stroke-width:1px
+
+    class ROOT root
+    class COMP comp
+    class THREAT threat
+    class GDPR,HIPAA,PCI,SYS,SESS,DEV leaf
+```
 
 | Data Layer | Contents | Regulatory Standard |
 | :--- | :--- | :--- |
@@ -91,6 +103,39 @@ Unlike other educational projects that use trivial data ("admin:password"), our 
 ## 🚀 Implemented Scenarios (Vulnerability Index)
 
 Detailed documentation for each implemented scenario, including code samples and mitigation strategies, can be found in the `docs/` directory.
+
+```mermaid
+graph LR
+    subgraph BEFORE ["❌ Vulnerable"]
+        direction TB
+        V1("Log.d with plaintext PII")
+        V2("SharedPreferences cleartext")
+        V3("SQLite — no encryption")
+        V4("FileProvider over-exposed")
+        V5("Logging in release builds")
+    end
+
+    subgraph AFTER ["✅ Secure"]
+        direction TB
+        S1("SecureLog — masked output")
+        S2("EncryptedSharedPreferences")
+        S3("SQLCipher — AES-256")
+        S4("Scoped FileProvider")
+        S5("R8 strips all log calls")
+    end
+
+    V1 -- "fix" --> S1
+    V2 -- "fix" --> S2
+    V3 -- "fix" --> S3
+    V4 -- "fix" --> S4
+    V5 -- "fix" --> S5
+
+    classDef vuln fill:#E74C3C,stroke:#C0392B,color:#fff,stroke-width:2px
+    classDef secure fill:#27AE60,stroke:#1E8449,color:#fff,stroke-width:2px
+
+    class V1,V2,V3,V4,V5 vuln
+    class S1,S2,S3,S4,S5 secure
+```
 
 ### ✅ Completed
 - [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](docs/maswe/MASVS-STORAGE/maswe_001/MASWE-0001-Logging-Leaks.md)
@@ -116,6 +161,30 @@ Detailed documentation for each implemented scenario, including code samples and
 
 To see the real consequences of these vulnerabilities, install the `:app-attacker` module alongside `:app-vulnerable` on the same device/emulator.
 
+```mermaid
+graph LR
+    subgraph VICTIM ["❌ :app-vulnerable"]
+        direction TB
+        LOG("📋 Log.d sends PII<br/>to system Logcat")
+        FP("📂 FileProvider<br/>exported paths")
+    end
+
+    subgraph MALWARE ["😈 :app-attacker"]
+        direction TB
+        LE("🔍 LogcatExploitScreen<br/>reads all logs")
+        ER("📥 ExploitReceiverScreen<br/>steals files via URI")
+    end
+
+    LOG -- "READ_LOGS<br/>permission" --> LE
+    FP -- "content:// URI<br/>interception" --> ER
+
+    classDef victim fill:#E74C3C,stroke:#C0392B,color:#fff,stroke-width:2px
+    classDef malware fill:#8E44AD,stroke:#6C3483,color:#fff,stroke-width:2px
+
+    class LOG,FP victim
+    class LE,ER malware
+```
+
 **Granting `READ_LOGS` Permission (For MASWE-0001):**
 By default, Android does not allow apps to read system logs. To demonstrate how a malicious app *can* read logs if granted permission (or on rooted/older devices), you must grant this permission manually via ADB:
 
@@ -136,6 +205,29 @@ This project is created strictly for **educational purposes**. The vulnerabiliti
 ## 🤝 How to Contribute
 
 We welcome contributions from the community! Whether it's adding a new vulnerability module, improving documentation, or fixing a bug, your help is appreciated.
+
+```mermaid
+graph LR
+    PR("🔀 Pull Request")
+    LINT("🔍 Android Lint")
+    SAST("🛡️ Detekt SAST")
+    BUILD("🔨 Build<br/>3 Modules")
+    REVIEW("👀 Code Review")
+    MERGE("✅ Merge")
+
+    PR --> LINT --> SAST --> BUILD --> REVIEW --> MERGE
+
+    DEPBOT("🤖 Dependabot<br/>Weekly CVE Scan")
+    DEPBOT -. "auto PR" .-> BUILD
+
+    classDef step fill:#4A90D9,stroke:#2C5F8A,color:#fff,stroke-width:2px
+    classDef bot fill:#E67E22,stroke:#CA6F1E,color:#fff,stroke-width:2px
+    classDef done fill:#27AE60,stroke:#1E8449,color:#fff,stroke-width:2px
+
+    class PR,LINT,SAST,BUILD,REVIEW step
+    class MERGE done
+    class DEPBOT bot
+```
 
 Please read our comprehensive [**Contributing Guide (`CONTRIBUTING.md`)**](./CONTRIBUTING.md) before opening a Pull Request. It covers our project philosophy (Mirror Architecture), coding standards, and the step-by-step process for adding new MASWE modules.
 
