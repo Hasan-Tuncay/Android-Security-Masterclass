@@ -1,10 +1,13 @@
 # Android Security Masterclass 🛡️📱
 
-> **A Comprehensive Hands-on Guide to OWASP MASVS for Android Developers**
+> **A Hands-on OWASP MASVS/MASTG Security Training Lab for Android Developers & Pentesters — Mirror Architecture: Vulnerable ↔ Secure ↔ Attacker**
 
 ![Kotlin](https://img.shields.io/badge/Kotlin-1.9.0-blue.svg?logo=kotlin)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4CAF50.svg?logo=android)
 ![OWASP MASVS](https://img.shields.io/badge/OWASP-MASVS%20Compliant-red.svg?logo=owasp)
+![Platform](https://img.shields.io/badge/Platform-Android-green.svg?logo=android)
+![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)
+![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)
 
 ## 📖 Overview
 
@@ -121,6 +124,10 @@ adb shell pm grant com.hasantuncay.mobsec.attacker android.permission.READ_LOGS
 ```
 
 > **Note for Physical Devices:** If you are testing on a physical device (especially MIUI, ColorOS, etc.), running the command above might fail with a security exception. You must go to **Developer Options** and enable **"USB debugging (Security settings)"** or **"Disable permission monitoring"** to allow ADB to grant permissions.
+
+## 🔑 Keywords
+
+`android security` · `owasp masvs` · `owasp mastg` · `mobile application security` · `vulnerable android app` · `security training lab` · `kotlin security` · `jetpack compose security` · `CWE-532` · `insecure data storage` · `content provider exploit` · `android penetration testing` · `GDPR` · `HIPAA` · `PCI-DSS` · `mirror architecture` · `security by design`
 
 ## ⚠️ Disclaimer
 

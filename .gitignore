@@ -1,25 +1,74 @@
+# ============================================================
+# Android / Gradle Build Outputs
+# ============================================================
+# Matches build/ in any module (root, app-vulnerable, app-secure, etc.)
+**/build/
+.gradle/
+
+# ============================================================
+# IntelliJ / Android Studio — IDE State (user-local)
+# ============================================================
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-build/
-/captures
-.externalNativeBuild
-.cxx
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetSelector.xml
+.idea/deviceManager.xml
+.idea/appInsightsSettings.xml
+.idea/AndroidProjectSystem.xml
+.idea/.name
+.idea/markdown.xml
+.idea/planningMode.xml
+
+# Keep shared configs:
+#   .idea/gradle.xml
+#   .idea/runConfigurations/
+#   .idea/vcs.xml
+#   .idea/misc.xml
+#   .idea/compiler.xml
+#   .idea/inspectionProfiles/
+
+# ============================================================
+# Kotlin Compiler Cache
+# ============================================================
+.kotlin/
+
+# ============================================================
+# Local Properties (machine-specific SDK paths)
+# ============================================================
 local.properties
 
-# Security files
+# ============================================================
+# OS Generated Files
+# ============================================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ============================================================
+# Native Build
+# ============================================================
+.externalNativeBuild/
+.cxx/
+
+# ============================================================
+# Captures (Android Studio profiler)
+# ============================================================
+/captures/
+
+# ============================================================
+# Security / Signing Files
+# ============================================================
 *.jks
 *.keystore
 *.apk
 *.aab
 google-services.json
 
+# ============================================================
 # AGY Rules
+# ============================================================
 .agyrules
