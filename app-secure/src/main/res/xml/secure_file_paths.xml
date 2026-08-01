@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- SECURE VECTOR 4: Daraltılmış FileProvider Yapılandırması -->
+    <!-- Sadece uygulamanın internal files/ dizinindeki 'images' klasörüne erişim verilir -->
+    <!-- <root-path> veya geniş dizinler KESİNLİKLE KULLANILMAMALIDIR -->
+    <files-path name="images" path="images/" />
+</paths>
