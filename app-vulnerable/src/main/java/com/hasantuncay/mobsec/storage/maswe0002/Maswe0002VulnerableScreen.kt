@@ -351,5 +351,13 @@ private fun buildAdbVerificationCommand(vector: Maswe0002Vector, resultPath: Str
                 "adb shell run-as $pkg \\\n  cat \"${resultPath.substringAfter(pkg + "/")}\""
             else
                 "adb shell run-as $pkg ls -la cache/"
+
+        Maswe0002Vector.PATH_TRAVERSAL ->
+            "# Attackers can exploit the exported provider by appending ../\n" +
+            "adb shell content read \\\n  --uri \"$resultPath\""
+
+        Maswe0002Vector.THIRD_PARTY_SDK_LEAK ->
+            "# The SDK created an unencrypted SQLite DB in the app sandbox!\n" +
+            "adb shell run-as $pkg sqlite3 \\\n  databases/analytics_shadow.db \\\n  \"SELECT * FROM events;\""
     }
 }

@@ -48,8 +48,8 @@ The project consists of **four modules** working in concert:
 | Module | Role | Status |
 | :--- | :--- | :--- |
 | **`:common`** | Shared data models (`MasterclassData`), MASWE vector enums, ViewModel, UI theme, and navigation. Both apps receive the same high-fidelity data. | Foundation ✅ |
-| **`:app-vulnerable`** | The "Before" state. Implements features with critical, realistic security flaws that violate OWASP MASVS standards. | MASWE-0001 ✅ · MASWE-0002 🚧 |
-| **`:app-secure`** | The "After" state. The exact same UI and features, secured using Jetpack Security, Tink, SQLCipher, ProGuard, and SecureLog. | MASWE-0001 ✅ · MASWE-0002 🚧 |
+| **`:app-vulnerable`** | The "Before" state. Implements features with critical, realistic security flaws that violate OWASP MASVS standards. | MASWE-0001 ✅ · MASWE-0002 ✅ |
+| **`:app-secure`** | The "After" state. The exact same UI and features, secured using Jetpack Security, Tink, SQLCipher, ProGuard, and SecureLog. | MASWE-0001 ✅ · MASWE-0002 ✅ |
 | **`:app-attacker`** | A simulated malicious third-party app. Demonstrates **live** IPC exploits (FileProvider path traversal, Logcat snooping) — not theoretical ADB commands, but an actual running process on the device. | Active ✅ |
 
 ### 📦 The `MasterclassData` High-Fidelity Data Model
@@ -141,9 +141,9 @@ graph LR
 ### ✅ Completed
 - [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](docs/maswe/MASVS-STORAGE/maswe_001/MASWE-0001-Logging-Leaks.md)
 - [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](./docs/mastg-best/MASTG-BEST-0002-ProGuard.md)
+- [**MASWE-0002**: Insecure Local Storage (SharedPreferences, DataStore, SQLite)](./docs/maswe/MASVS-STORAGE/maswe_002/MASWE-0002-Insecure-Storage.md) *(Attacker App PoC Ready)*
 
 ### 🚧 In Progress
-- [**MASWE-0002**: Insecure Local Storage (SharedPreferences, DataStore, SQLite)](./docs/maswe/MASWE-0002-Insecure-Storage.md) *(Attacker App PoC Ready)*
 
 ### ⏳ Upcoming Scenarios
 - **MASWE-0064**: Insecure ContentProvider (IPC Leakage)

@@ -113,6 +113,42 @@ fun Maswe0002SecureScreen(onBack: () -> Unit) {
                 }
             }
 
+            HorizontalDivider()
+            
+            var pqcResult by remember { mutableStateOf<String?>(null) }
+            
+            Button(
+                onClick = {
+                    try {
+                        val keyPair = com.hasantuncay.mobsec.secure.crypto.PqcManager.generateMlKemKeyPair()
+                        val kemResult = com.hasantuncay.mobsec.secure.crypto.PqcManager.encapsulate(keyPair.public)
+                        val decapsulatedSecret = com.hasantuncay.mobsec.secure.crypto.PqcManager.decapsulate(keyPair.private, kemResult.encapsulation)
+                        
+                        val success = kemResult.secretKey.contentEquals(decapsulatedSecret)
+                        pqcResult = if (success) {
+                            "✅ PQC Kyber KEM Success!\nShared Secret Match: ${kemResult.secretKey.size} bytes."
+                        } else {
+                            "❌ PQC Kyber Failed! Secrets do not match."
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        pqcResult = "Error: ${e.message}"
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Test PQC (Kyber ML-KEM)")
+            }
+            
+            if (pqcResult != null) {
+                Text(
+                    text = pqcResult!!,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
             Spacer(modifier = Modifier.height(32.dp))
         }
     }

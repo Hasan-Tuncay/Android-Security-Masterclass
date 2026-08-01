@@ -6,8 +6,20 @@
    See https://developer.android.com/about/versions/12/backup-restore
 -->
 <full-backup-content>
-    <!--
-   <include domain="sharedpref" path="."/>
-   <exclude domain="sharedpref" path="device.xml"/>
--->
+    <!-- EXCLUDE ENCRYPTED FILES FROM BACKUP (API < 31) -->
+    <!-- Auto Backup does not back up hardware-backed Keystore keys. -->
+    <!-- Restoring these encrypted files without the keys causes irrecoverable crashes/data loss. -->
+    
+    <!-- EncryptedSharedPreferences -->
+    <exclude domain="sharedpref" path="maswe0002_secure_prefs.xml"/>
+    <exclude domain="sharedpref" path="maswe0002_tink_keyset.xml"/>
+    
+    <!-- Room / SQLCipher Database -->
+    <exclude domain="database" path="maswe0002_secure.db"/>
+    <exclude domain="database" path="maswe0002_secure.db-wal"/>
+    <exclude domain="database" path="maswe0002_secure.db-shm"/>
+    
+    <!-- Encrypted DataStore / Files -->
+    <exclude domain="file" path="datastore/maswe0002_secure.json"/>
+    <exclude domain="file" path="maswe0002_safe_internal.json"/>
 </full-backup-content>

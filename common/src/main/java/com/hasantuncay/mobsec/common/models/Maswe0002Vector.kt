@@ -163,5 +163,35 @@ enum class Maswe0002Vector(
         msgVulnRes = R.string.maswe_0002_msg_cache_vuln,
         msgSecureRes = R.string.maswe_0002_msg_cache_secure,
         icon = Icons.Default.FolderSpecial
+    ),
+
+    /**
+     * VECTOR 8: Path Traversal via ContentProvider (CWE-22)
+     *
+     * An exported ContentProvider designed to download/share files might take a filename 
+     * parameter (e.g., ?file=name.pdf). If it fails to canonicalize the path, an attacker 
+     * can pass `../../../shared_prefs/maswe0002_session.xml` and steal internal files.
+     */
+    PATH_TRAVERSAL(
+        titleVulnRes = R.string.maswe_0002_vector_path_traversal_vuln,
+        titleSecureRes = R.string.maswe_0002_vector_path_traversal_secure,
+        msgVulnRes = R.string.maswe_0002_msg_path_traversal_vuln,
+        msgSecureRes = R.string.maswe_0002_msg_path_traversal_secure,
+        icon = Icons.Default.FolderSpecial
+    ),
+
+    /**
+     * VECTOR 9: 3rd Party SDK Shadow Leaks
+     *
+     * Developers encrypt their own DataStore/Room DB, but pass PII to Analytics/Crash SDKs.
+     * These SDKs cache the PII unencrypted in their own SQLite databases inside the app sandbox
+     * (e.g., `databases/analytics_shadow.db`) while waiting for network connectivity.
+     */
+    THIRD_PARTY_SDK_LEAK(
+        titleVulnRes = R.string.maswe_0002_vector_sdk_leak_vuln,
+        titleSecureRes = R.string.maswe_0002_vector_sdk_leak_secure,
+        msgVulnRes = R.string.maswe_0002_msg_sdk_leak_vuln,
+        msgSecureRes = R.string.maswe_0002_msg_sdk_leak_secure,
+        icon = Icons.Default.DataObject
     )
 }

@@ -6,6 +6,7 @@ import android.webkit.ConsoleMessage
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.Toast
+import com.hasantuncay.mobsec.R
 import com.hasantuncay.mobsec.common.models.Maswe0001Vector
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import okhttp3.Interceptor
@@ -47,6 +48,21 @@ object Maswe0001VulnerableLogic {
             Maswe0001Vector.LOCAL_FILE -> triggerLocalFileLeak(appData, context)
             Maswe0001Vector.SDK_TELEMETRY -> triggerSdkTelemetryLeak(appData)
             Maswe0001Vector.WEBVIEW_CONSOLE -> triggerWebViewConsoleLeak(appData, context)
+        }
+
+        // Auto-launch Attacker App for Logcat Snooping
+        val exploitIntent = android.content.Intent().apply {
+            action = "com.hasantuncay.mobsec.attacker.action.LOGCAT"
+            setClassName("com.hasantuncay.mobsec.attacker", "com.hasantuncay.mobsec.attacker.AttackerMainActivity")
+            addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        }
+        try {
+            context.startActivity(exploitIntent)
+        } catch (e: android.content.ActivityNotFoundException) {
+            Log.w("VULN_0001", "Attacker app not installed.")
+            android.os.Handler(android.os.Looper.getMainLooper()).post {
+                Toast.makeText(context, context.getString(R.string.error_attacker_app_not_installed), Toast.LENGTH_LONG).show()
+            }
         }
         
         if (vector == Maswe0001Vector.LOCAL_FILE) {

@@ -7,6 +7,9 @@ import android.util.Log
 import android.webkit.WebView
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.datastore.core.DataStoreFactory
+import androidx.datastore.dataStoreFile
+import androidx.room.Room
 
 import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -16,6 +19,9 @@ import com.google.crypto.tink.KeyTemplates
 import com.google.crypto.tink.aead.AeadConfig
 import com.google.crypto.tink.integration.android.AndroidKeysetManager
 import com.hasantuncay.mobsec.common.models.Maswe0002Vector
+import com.hasantuncay.mobsec.common.utils.DataMaskingUtils
+import com.hasantuncay.mobsec.secure.crypto.KeystoreManager
+import net.sqlcipher.database.SupportFactory
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -72,6 +78,8 @@ object Maswe0002SecureLogic {
             Maswe0002Vector.EXTERNAL_STORAGE         -> triggerExternalStorageSecure(appData, context, onResult)
             Maswe0002Vector.WEBVIEW_DOM_STORAGE      -> triggerWebViewSecure(appData, context, onResult)
             Maswe0002Vector.CACHE_DIRECTORY          -> triggerCacheSecure(appData, context, onResult)
+            Maswe0002Vector.PATH_TRAVERSAL           -> triggerPathTraversalSecure(appData, context, onResult)
+            Maswe0002Vector.THIRD_PARTY_SDK_LEAK     -> triggerSdkSecure(appData, context, onResult)
         }
     }
 
@@ -85,6 +93,12 @@ object Maswe0002SecureLogic {
      * Countermeasure: Uses AndroidX Security library to transparently encrypt keys (AES256-SIV)
      * and values (AES256-GCM). The MasterKey is hardware-backed, meaning the encryption keys
      * never leave the Trusted Execution Environment (TEE).
+     *
+     * ⚠️ EDUCATIONAL NOTE:
+     * This library (androidx.security.crypto) is officially DEPRECATED by Google as of 2025 due
+     * to performance/corruption issues. The modern "Best Practice" is Jetpack DataStore + Tink (see Vector 2).
+     * However, this implementation is kept here as an example because it is still heavily used 
+     * in the industry and you will frequently encounter it in existing legacy codebases.
      */
     private suspend fun triggerSharedPrefsSecure(
         appData: MasterclassData,
@@ -136,8 +150,12 @@ object Maswe0002SecureLogic {
     ) {
         withContext(Dispatchers.IO) {
             val aead = getTinkAead(context)
-            val file = File(context.filesDir, "datastore/maswe0002_secure.json")
-            file.parentFile?.mkdirs()
+            
+            // Generate the secure datastore using the custom AEAD Serializer
+            val dataStore = DataStoreFactory.create(
+                serializer = EncryptedDataStoreSerializer(aead),
+                produceFile = { context.dataStoreFile("maswe0002_secure.json") }
+            )
             
             val json = JSONObject().apply {
                 put("auth_token", appData.networkSession.oAuth2BearerToken)
@@ -146,10 +164,10 @@ object Maswe0002SecureLogic {
             
             appData.gdprPii.directIdentifiers.nationalIdentificationNumber.wipe()
 
-            // SECURE: Encrypt the JSON payload before writing to disk
-            val ciphertext = aead.encrypt(json.toByteArray(), null)
-            FileOutputStream(file).use { it.write(ciphertext) }
+            // SECURE: Encrypt the JSON payload before writing to disk automatically via Serializer
+            dataStore.updateData { json }
 
+            val file = context.dataStoreFile("maswe0002_secure.json")
             withContext(Dispatchers.Main) { onResult(file.absolutePath) }
         }
     }
@@ -163,8 +181,38 @@ object Maswe0002SecureLogic {
         context: Context,
         onResult: (filePath: String?) -> Unit
     ) {
-        withContext(Dispatchers.Main) {
-            onResult("SQLCipher Implementation (To be fully integrated with net.zetetic:android-database-sqlcipher)")
+        withContext(Dispatchers.IO) {
+            // Generate a 256-bit AES key using the hardware-backed keystore
+            val secretKey = KeystoreManager.getOrCreateKey("maswe0002_db_key")
+            val passphrase = secretKey.encoded
+
+            // Pass the passphrase to SQLCipher's SupportFactory
+            val factory = SupportFactory(passphrase)
+
+            val db = Room.databaseBuilder(
+                context,
+                SecureDatabase::class.java,
+                "maswe0002_secure.db"
+            ).openHelperFactory(factory).build()
+
+            db.secureRecordDao().insert(
+                SecureRecord(
+                    pan = appData.pciDss.cardholderData.primaryAccountNumber,
+                    cvv = appData.pciDss.sensitiveAuthenticationData.cardVerificationCode,
+                    pinBlock = appData.pciDss.sensitiveAuthenticationData.pinBlock,
+                    hipaaMrn = appData.hipaaPhi.medicalRecordNumber,
+                    icd10Code = appData.hipaaPhi.icd10DiagnosisCode,
+                    nationalId = String(appData.gdprPii.directIdentifiers.nationalIdentificationNumber.getDataToMask())
+                )
+            )
+
+            // Clear passphrase from memory
+            passphrase.fill(0)
+
+            val dbPath = "${context.applicationInfo.dataDir}/databases/maswe0002_secure.db"
+            withContext(Dispatchers.Main) {
+                onResult(dbPath)
+            }
         }
     }
 
@@ -207,7 +255,14 @@ object Maswe0002SecureLogic {
      *
      * Countermeasure: PII/PHI should NEVER be on External Storage. It should be relocated to 
      * the Internal App Sandbox and protected at rest using AndroidX Security EncryptedFile.
+     *
+     * ⚠️ EDUCATIONAL NOTE:
+     * Like EncryptedSharedPreferences, `EncryptedFile` is DEPRECATED. The modern best practice
+     * is to use Google Tink's `StreamingAead` or standard `Aead` directly. We include this 
+     * wrapper here because it is a very common legacy pattern still found in many applications.
+     * To suppress the IDE warning, you can use @Suppress("DEPRECATION") if strictly required.
      */
+    @Suppress("DEPRECATION")
     private suspend fun triggerExternalStorageSecure(
         appData: MasterclassData,
         context: Context,
@@ -288,6 +343,98 @@ object Maswe0002SecureLogic {
             FileOutputStream(tempFile).use { it.write(ciphertext) }
 
             withContext(Dispatchers.Main) { onResult("${tempFile.absolutePath} (Encrypted & deleteOnExit)") }
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // SECURE VECTOR 8: PATH CANONICALIZATION (CWE-22)
+    // ══════════════════════════════════════════════════════════════════════════
+
+    /**
+     * SECURE VECTOR 8: Path Traversal Mitigation
+     *
+     * Countermeasure: Never trust user/external input for file paths. Always use `canonicalPath`
+     * to resolve `../` sequences, and verify that the resolved path still resides inside the 
+     * intended base directory.
+     */
+    private suspend fun triggerPathTraversalSecure(
+        appData: MasterclassData,
+        context: Context,
+        onResult: (filePath: String?) -> Unit
+    ) {
+        withContext(Dispatchers.IO) {
+            val maliciousInput = "../../../shared_prefs/maswe0002_session.xml"
+            val baseDir = context.cacheDir
+            
+            // 1. Create file object (contains malicious input)
+            val requestedFile = File(baseDir, maliciousInput)
+            
+            // 2. SECURE: Resolve the absolute path removing all symlinks and ../
+            val resolvedCanonicalPath = requestedFile.canonicalPath
+            val safeBaseCanonicalPath = baseDir.canonicalPath
+            
+            // 3. SECURE: Verify that the resolved path is a child of the base directory
+            if (!resolvedCanonicalPath.startsWith(safeBaseCanonicalPath)) {
+                withContext(Dispatchers.Main) { 
+                    onResult("BLOCKED: SecurityException - Path Traversal Attempt Detected!") 
+                }
+                return@withContext
+            }
+
+            // If it was safe, proceed...
+            withContext(Dispatchers.Main) { 
+                onResult("Safe file access granted.") 
+            }
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // SECURE VECTOR 9: 3RD PARTY SDK SHADOW LEAK MITIGATION
+    // ══════════════════════════════════════════════════════════════════════════
+
+    /**
+     * SECURE VECTOR 9: Data Masking for 3rd Party SDKs
+     *
+     * Countermeasure: If an SDK saves data unencrypted, never send it raw PII. 
+     * Mask, truncate, or hash the data before calling the SDK's tracking methods.
+     */
+    private suspend fun triggerSdkSecure(
+        appData: MasterclassData,
+        context: Context,
+        onResult: (filePath: String?) -> Unit
+    ) {
+        withContext(Dispatchers.IO) {
+            val rawEmail = String(appData.gdprPii.directIdentifiers.personalEmail.getDataToMask())
+            val rawTckn = String(appData.gdprPii.directIdentifiers.nationalIdentificationNumber.getDataToMask())
+            
+            // SECURE: Mask the email using common utils
+            val maskedEmail = DataMaskingUtils.maskEmail(rawEmail)
+            
+            // SECURE: Hash the TCKN (One-way cryptographic hash)
+            val tcknHash = DataMaskingUtils.hashSha256(rawTckn)
+
+            // Write to the shadow DB simulating the SDK
+            val dbDir = File(context.applicationInfo.dataDir, "databases")
+            if (!dbDir.exists()) dbDir.mkdirs()
+            val shadowDb = File(dbDir, "analytics_shadow_secure.db")
+            
+            android.database.sqlite.SQLiteDatabase.openOrCreateDatabase(shadowDb, null).use { db ->
+                db.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, event_name TEXT, payload TEXT)")
+                
+                val safePayload = """
+                    {"user_email": "$maskedEmail", "tckn_hash": "$tcknHash"}
+                """.trimIndent()
+                
+                val values = android.content.ContentValues().apply {
+                    put("event_name", "user_signup")
+                    put("payload", safePayload)
+                }
+                db.insert("events", null, values)
+            }
+
+            withContext(Dispatchers.Main) {
+                onResult("${shadowDb.absolutePath}\nCheck DB to verify data is masked/hashed!")
+            }
         }
     }
 }

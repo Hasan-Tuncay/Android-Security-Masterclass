@@ -5,15 +5,28 @@
 -->
 <data-extraction-rules>
     <cloud-backup>
-        <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include .../>
-        <exclude .../>
-        -->
+        <!-- EXCLUDE ENCRYPTED FILES FROM CLOUD BACKUP (API 31+) -->
+        <exclude domain="sharedpref" path="maswe0002_secure_prefs.xml"/>
+        <exclude domain="sharedpref" path="maswe0002_tink_keyset.xml"/>
+        
+        <exclude domain="database" path="maswe0002_secure.db"/>
+        <exclude domain="database" path="maswe0002_secure.db-wal"/>
+        <exclude domain="database" path="maswe0002_secure.db-shm"/>
+        
+        <exclude domain="file" path="datastore/maswe0002_secure.json"/>
+        <exclude domain="file" path="maswe0002_safe_internal.json"/>
     </cloud-backup>
-    <!--
     <device-transfer>
-        <include .../>
-        <exclude .../>
+        <!-- Device-to-device transfers MAY migrate Keystore keys in some cases (e.g., Pixel to Pixel), 
+             but it's safer to exclude hardware-backed encrypted files to prevent corruption. -->
+        <exclude domain="sharedpref" path="maswe0002_secure_prefs.xml"/>
+        <exclude domain="sharedpref" path="maswe0002_tink_keyset.xml"/>
+        
+        <exclude domain="database" path="maswe0002_secure.db"/>
+        <exclude domain="database" path="maswe0002_secure.db-wal"/>
+        <exclude domain="database" path="maswe0002_secure.db-shm"/>
+        
+        <exclude domain="file" path="datastore/maswe0002_secure.json"/>
+        <exclude domain="file" path="maswe0002_safe_internal.json"/>
     </device-transfer>
-    -->
 </data-extraction-rules>

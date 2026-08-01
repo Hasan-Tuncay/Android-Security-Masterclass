@@ -26,11 +26,13 @@ class AttackerMainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         // Read intent data for direct routing
-        val initialRoute: Any = if (intent.data != null) {
+        val initialRoute: Any = if (intent.action == "com.hasantuncay.mobsec.attacker.action.LOGCAT") {
+            LogcatExploitRoute
+        } else if (intent.data != null) {
             ExploitReceiverRoute(
                 uriString = intent.data.toString(),
-                exploitId = intent.getStringExtra("exploit_id") ?: getString(R.string.exploit_maswe0002_id),
-                exploitDesc = intent.getStringExtra("exploit_description") ?: getString(R.string.exploit_maswe0002_title)
+                exploitId = intent.getStringExtra("exploit_id") ?: getString(R.string.exploit_id_v4),
+                exploitDesc = intent.getStringExtra("exploit_description") ?: getString(R.string.exploit_title_v4)
             )
         } else {
             DashboardRoute
@@ -47,8 +49,8 @@ class AttackerMainActivity : ComponentActivity() {
 @Composable
 fun AttackerApp(initialRoute: Any) {
     val context = LocalContext.current
-    val maswe0002Id = stringResource(R.string.exploit_maswe0002_id)
-    val maswe0002Title = stringResource(R.string.exploit_maswe0002_title)
+    val maswe0002Id = stringResource(R.string.exploit_id_v4)
+    val maswe0002Title = stringResource(R.string.exploit_title_v4)
     val backStack = remember { mutableStateListOf<Any>(initialRoute) }
 
     val handleBack: () -> Unit = {
@@ -71,6 +73,16 @@ fun AttackerApp(initialRoute: Any) {
                                 uriString = null,
                                 exploitId = maswe0002Id,
                                 exploitDesc = maswe0002Title
+                            )
+                        )
+                    },
+                    onOpenPathTraversalExploit = {
+                        val payloadUri = "content://com.hasantuncay.mobsec.vulnerable.provider/download?file=../shared_prefs/maswe0002_session.xml"
+                        backStack.add(
+                            ExploitReceiverRoute(
+                                uriString = payloadUri,
+                                exploitId = "$maswe0002Id (Vector 8)",
+                                exploitDesc = "Path Traversal (CWE-22)"
                             )
                         )
                     },

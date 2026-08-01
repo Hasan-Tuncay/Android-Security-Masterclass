@@ -206,6 +206,16 @@
     <string name="maswe_0002_msg_cache_vuln">Plaintext PDF left in cacheDir indefinitely.</string>
     <string name="maswe_0002_msg_cache_secure">PDF encrypted via Tink and wiped securely.</string>
 
+    <string name="maswe_0002_vector_path_traversal_vuln">8. Path Traversal ContentProvider (CWE-22)</string>
+    <string name="maswe_0002_vector_path_traversal_secure">8. Secure Provider (Canonical Check)</string>
+    <string name="maswe_0002_msg_path_traversal_vuln">Exported provider allows ../ payload. Attackers can read internal sandbox!</string>
+    <string name="maswe_0002_msg_path_traversal_secure">Provider canonicalizes paths and rejects ../ payloads.</string>
+
+    <string name="maswe_0002_vector_sdk_leak_vuln">9. 3rd Party SDK Shadow Leak</string>
+    <string name="maswe_0002_vector_sdk_leak_secure">9. Secure SDK Masking</string>
+    <string name="maswe_0002_msg_sdk_leak_vuln">Analytics SDK cached PII unencrypted in analytics_shadow.db!</string>
+    <string name="maswe_0002_msg_sdk_leak_secure">PII masked/hashed before sending to SDK. No plaintext on disk.</string>
+
     <string name="maswe_0002_ui_vector_triggered">Vector Triggered — Data Written to Disk</string>
     <string name="maswe_0002_ui_location_label">📁 Location:</string>
     <string name="maswe_0002_ui_writing_storage">Writing to storage…</string>

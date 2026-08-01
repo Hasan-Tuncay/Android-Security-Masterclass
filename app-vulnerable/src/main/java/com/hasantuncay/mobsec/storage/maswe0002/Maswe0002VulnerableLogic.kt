@@ -1,5 +1,6 @@
 package com.hasantuncay.mobsec.storage.maswe0002
 
+import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import android.util.Log
@@ -18,6 +19,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.hasantuncay.mobsec.R
 import com.hasantuncay.mobsec.common.models.Maswe0002Vector
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import kotlinx.coroutines.Dispatchers
@@ -73,6 +75,8 @@ object Maswe0002VulnerableLogic {
             Maswe0002Vector.EXTERNAL_STORAGE         -> triggerExternalStorageLeak(appData, context, onResult)
             Maswe0002Vector.WEBVIEW_DOM_STORAGE      -> triggerWebViewLeak(appData, context, onResult)
             Maswe0002Vector.CACHE_DIRECTORY          -> triggerCacheLeak(appData, context, onResult)
+            Maswe0002Vector.PATH_TRAVERSAL           -> triggerPathTraversalLeak(appData, context, onResult)
+            Maswe0002Vector.THIRD_PARTY_SDK_LEAK     -> triggerSdkLeak(appData, context, onResult)
         }
     }
 
@@ -306,13 +310,16 @@ object Maswe0002VulnerableLogic {
                     setClassName("com.hasantuncay.mobsec.attacker", "com.hasantuncay.mobsec.attacker.AttackerMainActivity")
                     data = uri
                     addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                    addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
 
                 try {
                     context.startActivity(exploitIntent)
                 } catch (e: android.content.ActivityNotFoundException) {
                     Log.w("VULN_0002_FILEPROVIDER", "Attacker app not installed.")
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(context, context.getString(R.string.error_attacker_app_not_installed), Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 withContext(Dispatchers.Main) {
@@ -454,6 +461,99 @@ object Maswe0002VulnerableLogic {
             // Notice we do NOT call tempFile.deleteOnExit()
             withContext(Dispatchers.Main) {
                 onResult(tempFile.absolutePath)
+            }
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // VECTOR 8: PATH TRAVERSAL VIA CONTENT PROVIDER
+    // CWE-22: Improper Limitation of a Pathname to a Restricted Directory
+    // ══════════════════════════════════════════════════════════════════════════
+
+    /**
+     * VULNERABLE VECTOR 8: Path Traversal
+     * 
+     * Mechanism: We have registered an exported `VulnerableFileProvider` that accepts a `file` 
+     * parameter. It fails to canonicalize the path. We just write the session file here to 
+     * ensure it exists, and then return the content:// URI so the attacker app can exploit it.
+     */
+    private suspend fun triggerPathTraversalLeak(
+        appData: MasterclassData,
+        context: Context,
+        onResult: (filePath: String?) -> Unit
+    ) {
+        withContext(Dispatchers.IO) {
+            // Ensure the target session file exists
+            val prefs = context.getSharedPreferences("maswe0002_session", Context.MODE_PRIVATE)
+            prefs.edit().apply {
+                putString("auth_token", appData.networkSession.oAuth2BearerToken)
+            }.commit()
+
+            // Return the base URI that the attacker will append the payload to
+            val exploitUri = "content://${context.packageName}.vulnerable.provider/download?file=../shared_prefs/maswe0002_session.xml"
+            
+            val exploitIntent = android.content.Intent().apply {
+                setClassName("com.hasantuncay.mobsec.attacker", "com.hasantuncay.mobsec.attacker.AttackerMainActivity")
+                data = Uri.parse(exploitUri)
+                addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                putExtra("exploit_id", "MASWE-0002 / Vector 8")
+                putExtra("exploit_description", "Path Traversal (CWE-22)")
+            }
+
+            try {
+                context.startActivity(exploitIntent)
+            } catch (e: android.content.ActivityNotFoundException) {
+                Log.w("VULN_0002_TRAVERSAL", "Attacker app not installed.")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, context.getString(R.string.error_attacker_app_not_installed), Toast.LENGTH_LONG).show()
+                }
+            }
+
+            withContext(Dispatchers.Main) {
+                onResult(exploitUri)
+            }
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // VECTOR 9: 3RD PARTY SDK SHADOW LEAK
+    // CWE-200 / CWE-312
+    // ══════════════════════════════════════════════════════════════════════════
+
+    /**
+     * VULNERABLE VECTOR 9: 3rd Party Analytics/Crash SDK Shadow Leak
+     *
+     * Mechanism: Simulates what happens when you send PII to a 3rd party SDK (like Mixpanel).
+     * The SDK saves the data in a local SQLite database in plaintext while offline.
+     */
+    private suspend fun triggerSdkLeak(
+        appData: MasterclassData,
+        context: Context,
+        onResult: (filePath: String?) -> Unit
+    ) {
+        withContext(Dispatchers.IO) {
+            val dbDir = File(context.applicationInfo.dataDir, "databases")
+            if (!dbDir.exists()) dbDir.mkdirs()
+
+            // Simulating an SDK creating its own unencrypted shadow database
+            val shadowDb = File(dbDir, "analytics_shadow.db")
+            android.database.sqlite.SQLiteDatabase.openOrCreateDatabase(shadowDb, null).use { db ->
+                db.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, event_name TEXT, payload TEXT)")
+                
+                val piiPayload = """
+                    {"user_email": "${String(appData.gdprPii.directIdentifiers.personalEmail.getDataToMask())}",
+                     "tckn": "${String(appData.gdprPii.directIdentifiers.nationalIdentificationNumber.getDataToMask())}"}
+                """.trimIndent()
+                
+                val values = ContentValues().apply {
+                    put("event_name", "user_signup")
+                    put("payload", piiPayload)
+                }
+                db.insert("events", null, values)
+            }
+
+            withContext(Dispatchers.Main) {
+                onResult(shadowDb.absolutePath)
             }
         }
     }

@@ -9,6 +9,7 @@ import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.MasterKey
 import com.hasantuncay.mobsec.common.models.Maswe0001Vector
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
+import com.hasantuncay.mobsec.common.utils.DataMaskingUtils
 import com.hasantuncay.mobsec.secure.BuildConfig
 import com.hasantuncay.mobsec.secure.utils.SecureLog
 import okhttp3.Interceptor
@@ -192,7 +193,7 @@ object Maswe0001SecureLogic {
                 // STEP 2: Strict Data Filtering & Masking (PCI-DSS Compliance)
                 // CRITICAL RULE: CVV and PIN must NEVER be stored anywhere, even if encrypted.
                 val pan = appData.pciDss.cardholderData.primaryAccountNumber
-                val maskedPan = if (pan.length > 10) "${pan.take(6)}******${pan.takeLast(4)}" else "MASKED"
+                val maskedPan = DataMaskingUtils.maskPan(pan)
                 
                 val logLine = "[ERROR] [$timestamp] [$threadName] Secure Diagnostic Dump -> " +
                               "PAN: $maskedPan, CVV: [DROPPED BY POLICY]\n"
@@ -225,7 +226,7 @@ object Maswe0001SecureLogic {
         val salt = appData.deviceTelemetry.androidSsaid
         
         // Use PBKDF2 with 10,000+ iterations instead of a single-pass SHA-256
-        val anonymizedId = generatePbkdf2Hash(emailArray, salt)
+        val anonymizedId = DataMaskingUtils.generatePbkdf2Hash(emailArray, salt)
 
         // MEMORY PROTECTION: Scrub the CharArray from memory after use!
         appData.gdprPii.directIdentifiers.personalEmail.wipe()
@@ -307,28 +308,6 @@ object Maswe0001SecureLogic {
                 </body></html>
             """.trimIndent()
             webView.loadData(html, "text/html", "UTF-8")
-        }
-    }
-
-    /**
-     * Utility function to generate a PBKDF2 Hash (Key Derivation Function).
-     * Replaces weak single-pass SHA-256 to protect low-entropy PII against brute-force.
-     */
-    private fun generatePbkdf2Hash(input: CharArray, salt: String): String {
-        return try {
-            val iterationCount = 10000 // Computational cost (higher is safer, but slower)
-            val keyLength = 256 // Output length in bits
-            val spec = javax.crypto.spec.PBEKeySpec(
-                input,
-                salt.toByteArray(Charsets.UTF_8),
-                iterationCount,
-                keyLength
-            )
-            val factory = javax.crypto.SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
-            val hashBytes = factory.generateSecret(spec).encoded
-            hashBytes.joinToString("") { "%02x".format(it) }
-        } catch (e: Exception) {
-            "KDF_ERROR"
         }
     }
 }

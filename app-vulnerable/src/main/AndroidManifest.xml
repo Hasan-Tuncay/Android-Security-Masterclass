@@ -61,6 +61,16 @@
                 android:resource="@xml/file_paths_vulnerable" />
         </provider>
 
+        <!--
+            ⚠️ VULNERABLE COMPONENT: MASWE-0002 Vector 8 — Path Traversal (CWE-22)
+            This provider is intentionally exported to simulate an insecure file sharing endpoint.
+            It fails to validate the requested file path, allowing attackers to use ../ payloads.
+        -->
+        <provider
+            android:name=".storage.maswe0002.VulnerableFileProvider"
+            android:authorities="${applicationId}.vulnerable.provider"
+            android:exported="true" />
+
     </application>
 
 </manifest>
