@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -68,25 +69,25 @@ enum class MasvsCategory(
             MasweItem(
                 idRes = R.string.maswe_0003_id,
                 titleRes = R.string.maswe_0003_title,
-                route = Maswe0003BackupRoute,
+                route = null,
                 icon = Icons.Default.CloudSync
             ),
             MasweItem(
                 idRes = R.string.maswe_0004_id,
                 titleRes = R.string.maswe_0004_title,
-                route = Maswe0004BackupExcludedRoute,
+                route = null,
                 icon = Icons.Default.CloudOff
             ),
             MasweItem(
                 idRes = R.string.maswe_0006_id,
                 titleRes = R.string.maswe_0006_title,
-                route = Maswe0006PrivateStorageRoute,
+                route = null,
                 icon = Icons.Default.FolderSpecial
             ),
             MasweItem(
                 idRes = R.string.maswe_0007_id,
                 titleRes = R.string.maswe_0007_title,
-                route = Maswe0007SharedStorageRoute,
+                route = null,
                 icon = Icons.Default.FolderShared
             )
         )
@@ -140,6 +141,7 @@ fun DashboardScreen(title: String, onNavigate: (Any) -> Unit) {
 
 @Composable
 fun MasvsCategoryAccordion(category: MasvsCategory, onNavigate: (Any) -> Unit) {
+    val context = androidx.compose.ui.platform.LocalContext.current
     var expanded by remember { mutableStateOf(category.items.isNotEmpty()) }
 
     Card(
@@ -189,8 +191,12 @@ fun MasvsCategoryAccordion(category: MasvsCategory, onNavigate: (Any) -> Unit) {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable(enabled = item.route != null) {
-                                    item.route?.let { onNavigate(it) }
+                                .clickable {
+                                    if (item.route != null) {
+                                        onNavigate(item.route)
+                                    } else {
+                                        android.widget.Toast.makeText(context, "Coming Soon!", android.widget.Toast.LENGTH_SHORT).show()
+                                    }
                                 }
                                 .padding(16.dp),
                             verticalAlignment = Alignment.CenterVertically
