@@ -2,6 +2,8 @@ site_name: Android Security Masterclass
 site_description: "A Hands-on OWASP MASVS/MASTG Security Training Lab for Android Developers & Pentesters"
 repo_url: https://github.com/Hasan-Tuncay/Android-Security-Masterclass
 repo_name: Hasan-Tuncay/Android-Security-Masterclass
+site_url: https://Hasan-Tuncay.github.io/Android-Security-Masterclass/
+use_directory_urls: true
 
 theme:
   name: material
