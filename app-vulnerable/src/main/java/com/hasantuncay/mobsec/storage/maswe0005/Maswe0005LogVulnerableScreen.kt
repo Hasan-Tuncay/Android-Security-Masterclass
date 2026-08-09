@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import com.hasantuncay.mobsec.common.models.Maswe0005Vector
+import com.hasantuncay.mobsec.common.models.storage.Maswe0005Vector
 import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
 import com.hasantuncay.mobsec.common.ui.components.BaseVulnerableScreen
 
@@ -17,6 +17,7 @@ fun Maswe0005LogVulnerableScreen(onBack: () -> Unit) {
     val context = LocalContext.current
 
     BaseVulnerableScreen(
+        meta = Maswe0005Vector.meta,
         vectors = Maswe0005Vector.entries,
         onBack = onBack,
         onVectorClicked = { vector ->

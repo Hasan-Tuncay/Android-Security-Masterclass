@@ -7,7 +7,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.Toast
 import com.hasantuncay.mobsec.R
-import com.hasantuncay.mobsec.common.models.Maswe0005Vector
+import com.hasantuncay.mobsec.common.models.storage.Maswe0005Vector
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor

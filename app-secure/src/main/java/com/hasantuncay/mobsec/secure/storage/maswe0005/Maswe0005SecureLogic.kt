@@ -7,7 +7,7 @@ import android.webkit.WebView
 import android.widget.Toast
 import androidx.security.crypto.EncryptedFile
 import androidx.security.crypto.MasterKey
-import com.hasantuncay.mobsec.common.models.Maswe0005Mitigation
+import com.hasantuncay.mobsec.common.models.storage.Maswe0005Mitigation
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import com.hasantuncay.mobsec.common.utils.DataMaskingUtils
 import com.hasantuncay.mobsec.secure.BuildConfig

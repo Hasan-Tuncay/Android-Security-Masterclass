@@ -18,7 +18,7 @@ import com.google.crypto.tink.Aead
 import com.google.crypto.tink.KeyTemplates
 import com.google.crypto.tink.aead.AeadConfig
 import com.google.crypto.tink.integration.android.AndroidKeysetManager
-import com.hasantuncay.mobsec.common.models.Maswe0001Mitigation
+import com.hasantuncay.mobsec.common.models.storage.Maswe0001Mitigation
 import com.hasantuncay.mobsec.common.utils.DataMaskingUtils
 import com.hasantuncay.mobsec.secure.crypto.KeystoreManager
 import net.sqlcipher.database.SupportFactory
@@ -35,7 +35,7 @@ import java.io.InputStream
 import java.io.OutputStream
 
 /**
- * 🛡️ SECURE IMPLEMENTATION: MASWE-0002
+ * 🛡️ SECURE IMPLEMENTATION: MASWE-0001
  * Sensitive Data Stored With Insufficient Access Restrictions in Internal Locations
  *
  * MASVS:   MASVS-STORAGE-2

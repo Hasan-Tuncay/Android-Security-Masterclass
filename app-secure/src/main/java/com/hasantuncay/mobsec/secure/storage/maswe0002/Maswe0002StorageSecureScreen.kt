@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import com.hasantuncay.mobsec.common.models.Maswe0002Mitigation
+import com.hasantuncay.mobsec.common.models.storage.Maswe0002Mitigation
 import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
 import com.hasantuncay.mobsec.common.ui.components.BaseSecureScreen
 
@@ -23,6 +23,7 @@ fun Maswe0002StorageSecureScreen(onBack: () -> Unit) {
     val context = LocalContext.current
 
     BaseSecureScreen(
+        meta = Maswe0002Mitigation.meta,
         vectors = Maswe0002Mitigation.entries,
         onBack = onBack,
         onVectorClicked = { vector ->

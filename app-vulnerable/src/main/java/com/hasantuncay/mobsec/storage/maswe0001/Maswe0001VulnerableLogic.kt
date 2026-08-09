@@ -20,7 +20,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.hasantuncay.mobsec.R
-import com.hasantuncay.mobsec.common.models.Maswe0001Vector
+import com.hasantuncay.mobsec.common.models.storage.Maswe0001Vector
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,7 +28,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 /**
- * ⚠️ VULNERABLE IMPLEMENTATION: MASWE-0002
+ * ⚠️ VULNERABLE IMPLEMENTATION: MASWE-0001
  * Sensitive Data Stored With Insufficient Access Restrictions in Internal Locations
  *
  * MASVS:   MASVS-STORAGE-2

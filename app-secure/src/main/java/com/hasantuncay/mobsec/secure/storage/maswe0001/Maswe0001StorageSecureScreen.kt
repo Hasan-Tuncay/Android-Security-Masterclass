@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hasantuncay.mobsec.common.R
-import com.hasantuncay.mobsec.common.models.Maswe0001Mitigation
+import com.hasantuncay.mobsec.common.models.storage.Maswe0001Mitigation
 import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
 import kotlinx.coroutines.launch
 
@@ -42,6 +42,7 @@ fun Maswe0001StorageSecureScreen(onBack: () -> Unit) {
     var lastTriggeredMitigation by remember { mutableStateOf<Maswe0001Mitigation?>(null) }
 
     com.hasantuncay.mobsec.common.ui.components.BaseSecureScreen(
+        meta = Maswe0001Mitigation.meta,
         vectors = Maswe0001Mitigation.entries,
         onBack = onBack,
         onVectorClicked = { vector ->

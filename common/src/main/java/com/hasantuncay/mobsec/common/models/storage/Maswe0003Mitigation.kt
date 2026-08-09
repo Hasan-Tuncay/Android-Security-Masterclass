@@ -1,0 +1,57 @@
+package com.hasantuncay.mobsec.common.models.storage
+
+import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DataObject
+import androidx.compose.material.icons.filled.Key
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Storage
+import androidx.compose.ui.graphics.vector.ImageVector
+import com.hasantuncay.mobsec.common.R
+import com.hasantuncay.mobsec.common.models.MasweMitigation
+import com.hasantuncay.mobsec.common.models.MasweScreenMeta
+
+/**
+ * Defines the vulnerability attack vectors demonstrated in the MASWE-0003 module.
+ *
+ * MASWE-0003: Cryptographic Keys Stored Outside of Platform Keystore
+ * MASVS:      MASVS-STORAGE-1, MASVS-CRYPTO-1
+ *
+ * Modes of Introduction (from MASWE repo):
+ * - Insecure Storage Locations: Keys stored in regular config files, prefs, or app data dirs
+ * - Hardcoded Cryptographic Keys: Keys embedded directly in app code or resources
+ * - Insecure Key Import: Importing keys in plaintext instead of using secure wrapped import
+ */
+enum class Maswe0003Mitigation(
+    @StringRes override val titleRes: Int,
+    @StringRes override val msgRes: Int,
+    override val icon: ImageVector
+) : MasweMitigation {
+    INSECURE_STORAGE_LOCATION(
+        titleRes = R.string.maswe_0003_vector_insecure_storage_secure,
+        msgRes = R.string.maswe_0003_msg_insecure_storage_secure,
+        icon = Icons.Default.Storage
+    ),
+
+    HARDCODED_KEY(
+        titleRes = R.string.maswe_0003_vector_hardcoded_key_secure,
+        msgRes = R.string.maswe_0003_msg_hardcoded_key_secure,
+        icon = Icons.Default.Key
+    ),
+
+    INSECURE_KEY_IMPORT(
+        titleRes = R.string.maswe_0003_vector_insecure_key_import_secure,
+        msgRes = R.string.maswe_0003_msg_insecure_key_import_secure,
+        icon = Icons.Default.Lock
+    );
+
+    companion object {
+        val meta = MasweScreenMeta(
+            masweId = "MASWE-0003",
+            titleRes = R.string.maswe_0003_secure_title,
+            descRes = R.string.maswe_0003_secure_desc,
+            contextInfoRes = R.string.maswe_context_info,
+            itemsTitleRes = R.string.maswe_0003_secure_vectors_title
+        )
+    }
+}

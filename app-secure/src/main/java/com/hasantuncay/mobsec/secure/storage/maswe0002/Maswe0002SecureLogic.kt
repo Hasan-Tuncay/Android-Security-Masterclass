@@ -18,7 +18,7 @@ import com.google.crypto.tink.Aead
 import com.google.crypto.tink.KeyTemplates
 import com.google.crypto.tink.aead.AeadConfig
 import com.google.crypto.tink.integration.android.AndroidKeysetManager
-import com.hasantuncay.mobsec.common.models.Maswe0002Mitigation
+import com.hasantuncay.mobsec.common.models.storage.Maswe0002Mitigation
 import com.hasantuncay.mobsec.common.utils.DataMaskingUtils
 import com.hasantuncay.mobsec.secure.crypto.KeystoreManager
 import net.sqlcipher.database.SupportFactory

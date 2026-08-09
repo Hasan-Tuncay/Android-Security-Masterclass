@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.hasantuncay.mobsec.common.R
-import com.hasantuncay.mobsec.common.models.Maswe0001Vector
+import com.hasantuncay.mobsec.common.models.storage.Maswe0001Vector
 import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
 import com.hasantuncay.mobsec.common.ui.components.BaseVulnerableScreen
 
@@ -27,6 +27,7 @@ fun Maswe0001StorageVulnerableScreen(onBack: () -> Unit) {
     val context = LocalContext.current
 
     BaseVulnerableScreen(
+        meta = Maswe0001Vector.meta,
         vectors = Maswe0001Vector.entries,
         onBack = onBack,
         onVectorClicked = { vector ->

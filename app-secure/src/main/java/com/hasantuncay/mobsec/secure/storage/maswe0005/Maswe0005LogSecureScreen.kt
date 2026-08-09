@@ -42,7 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.hasantuncay.mobsec.common.models.Maswe0005Mitigation
+import com.hasantuncay.mobsec.common.models.storage.Maswe0005Mitigation
 import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
 import com.hasantuncay.mobsec.common.ui.components.BaseSecureScreen
 
@@ -54,6 +54,7 @@ fun Maswe0005LogSecureScreen(onBack: () -> Unit) {
     val context = LocalContext.current
 
     BaseSecureScreen(
+        meta = Maswe0005Mitigation.meta,
         vectors = Maswe0005Mitigation.entries,
         onBack = onBack,
         onVectorClicked = { vector ->

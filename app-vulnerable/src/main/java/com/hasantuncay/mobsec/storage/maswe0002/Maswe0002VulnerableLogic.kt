@@ -20,7 +20,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.hasantuncay.mobsec.R
-import com.hasantuncay.mobsec.common.models.Maswe0002Vector
+import com.hasantuncay.mobsec.common.models.storage.Maswe0002Vector
 import com.hasantuncay.mobsec.common.models.data.MasterclassData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
