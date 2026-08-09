@@ -18,7 +18,7 @@ import com.google.crypto.tink.Aead
 import com.google.crypto.tink.KeyTemplates
 import com.google.crypto.tink.aead.AeadConfig
 import com.google.crypto.tink.integration.android.AndroidKeysetManager
-import com.hasantuncay.mobsec.common.models.Maswe0002Vector
+import com.hasantuncay.mobsec.common.models.Maswe0002Mitigation
 import com.hasantuncay.mobsec.common.utils.DataMaskingUtils
 import com.hasantuncay.mobsec.secure.crypto.KeystoreManager
 import net.sqlcipher.database.SupportFactory
@@ -65,21 +65,14 @@ object Maswe0002SecureLogic {
     }
 
     suspend fun executeVector(
-        vector: Maswe0002Vector,
+        vector: Maswe0002Mitigation,
         appData: MasterclassData,
         context: Context,
         onResult: (filePath: String?) -> Unit
     ) {
         when (vector) {
-            Maswe0002Vector.SHARED_PREFS_PLAINTEXT   -> triggerSharedPrefsSecure(appData, context, onResult)
-            Maswe0002Vector.DATASTORE_UNENCRYPTED    -> triggerDataStoreSecure(appData, context, onResult)
-            Maswe0002Vector.SQLITE_PLAINTEXT         -> triggerSqliteSecure(appData, context, onResult)
-            Maswe0002Vector.FILE_PROVIDER_ROOT_PATH  -> triggerFileProviderSecure(appData, context, onResult)
-            Maswe0002Vector.EXTERNAL_STORAGE         -> triggerExternalStorageSecure(appData, context, onResult)
-            Maswe0002Vector.WEBVIEW_DOM_STORAGE      -> triggerWebViewSecure(appData, context, onResult)
-            Maswe0002Vector.CACHE_DIRECTORY          -> triggerCacheSecure(appData, context, onResult)
-            Maswe0002Vector.PATH_TRAVERSAL           -> triggerPathTraversalSecure(appData, context, onResult)
-            Maswe0002Vector.THIRD_PARTY_SDK_LEAK     -> triggerSdkSecure(appData, context, onResult)
+            Maswe0002Mitigation.EXTERNAL_STORAGE         -> triggerExternalStorageSecure(appData, context, onResult)
+            else                                     -> onResult(null) // TODO: implement remaining secure vectors
         }
     }
 

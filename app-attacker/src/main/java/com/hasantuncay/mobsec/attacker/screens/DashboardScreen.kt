@@ -65,7 +65,7 @@ fun DashboardScreen(
             icon = Icons.Default.DataArray,
             exploits = listOf(
                 AttackerExploit(
-                    id = stringResource(id = R.string.format_maswe0001_id, stringResource(id = R.string.exploit_id_sys_logs)),
+                    id = stringResource(id = R.string.format_maswe0005_id, stringResource(id = R.string.exploit_id_sys_logs)),
                     title = stringResource(id = R.string.exploit_title_logcat),
                     description = stringResource(id = R.string.exploit_desc_logcat),
                     cwe = stringResource(id = R.string.exploit_cwe_logcat),

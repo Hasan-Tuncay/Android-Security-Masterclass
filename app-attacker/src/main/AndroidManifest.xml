@@ -26,7 +26,7 @@
 
     <!--
       ⚠️ VULNERABLE SETUP (For educational demonstration only)
-      The attacker app requests READ_LOGS to demonstrate MASWE-0001.
+      The attacker app requests READ_LOGS to demonstrate MASWE-0005.
       On Android 4.1+ (API 16+), this permission is signature-level and will NOT
       be granted automatically. It must be granted via ADB:
       adb shell pm grant com.hasantuncay.mobsec.attacker android.permission.READ_LOGS

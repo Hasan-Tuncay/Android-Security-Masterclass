@@ -5,7 +5,7 @@ import com.google.errorprone.annotations.CompileTimeConstant
 import com.hasantuncay.mobsec.secure.BuildConfig
 
 /**
- * OWASP MASTG-BEST-0002 & MASWE-0001 (Logging Defenses)
+ * OWASP MASTG-BEST-0002 & MASWE-0005 (Logging Defenses)
  *
  * EDUCATIONAL OVERVIEW:
  * This class demonstrates three different approaches to logging and their security implications.

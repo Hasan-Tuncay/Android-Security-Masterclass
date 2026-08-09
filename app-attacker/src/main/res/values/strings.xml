@@ -15,11 +15,11 @@
     <string name="cat_masvs_auth">MASVS-AUTH: Authentication</string>
     <string name="cat_masvs_platform">MASVS-PLATFORM: Platform Interaction</string>
     
-    <string name="format_maswe0001_id">MASWE-0001: %1$s</string>
+    <string name="format_maswe0005_id">MASWE-0005: %1$s</string>
     <string name="format_maswe0002_id">MASWE-0002: %1$s</string>
     <string name="format_maswe0003_id">MASWE-0003: %1$s</string>
     
-    <string name="cat_maswe0001">MASWE-0001: Logging &amp; Info Exposure</string>
+    <string name="cat_maswe0005">MASWE-0005: Logging &amp; Info Exposure</string>
     <string name="cat_maswe0002">MASWE-0002: Insecure Data Storage</string>
     <string name="cat_maswe0003">MASWE-0003: Insecure Communication</string>
     
@@ -86,7 +86,7 @@
     <string name="success_desc">Victim app\'s internal file read via misconfigured FileProvider</string>
 
     <!-- Logcat Exploit Screen -->
-    <string name="logcat_exploit_title">Logcat Snooping (MASWE-0001)</string>
+    <string name="logcat_exploit_title">Logcat Snooping (MASWE-0005)</string>
     <string name="logcat_restricted">RESTRICTED ACCESS</string>
     <string name="logcat_refresh_instruction">Then click the refresh icon on the top right.</string>
     <string name="logcat_access_granted">SYSTEM WIDE LOG ACCESS GRANTED</string>

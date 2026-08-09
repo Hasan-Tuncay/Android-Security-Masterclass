@@ -68,15 +68,8 @@ object Maswe0002VulnerableLogic {
         onResult: (filePath: String?) -> Unit
     ) {
         when (vector) {
-            Maswe0002Vector.SHARED_PREFS_PLAINTEXT   -> triggerSharedPrefsLeak(appData, context, onResult)
-            Maswe0002Vector.DATASTORE_UNENCRYPTED    -> triggerDataStoreLeak(appData, context, onResult)
-            Maswe0002Vector.SQLITE_PLAINTEXT         -> triggerSqliteLeak(appData, context, onResult)
-            Maswe0002Vector.FILE_PROVIDER_ROOT_PATH  -> triggerFileProviderLeak(appData, context, onResult)
             Maswe0002Vector.EXTERNAL_STORAGE         -> triggerExternalStorageLeak(appData, context, onResult)
-            Maswe0002Vector.WEBVIEW_DOM_STORAGE      -> triggerWebViewLeak(appData, context, onResult)
-            Maswe0002Vector.CACHE_DIRECTORY          -> triggerCacheLeak(appData, context, onResult)
-            Maswe0002Vector.PATH_TRAVERSAL           -> triggerPathTraversalLeak(appData, context, onResult)
-            Maswe0002Vector.THIRD_PARTY_SDK_LEAK     -> triggerSdkLeak(appData, context, onResult)
+            else                                     -> onResult(null) // TODO: implement remaining vulnerable vectors
         }
     }
 

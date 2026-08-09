@@ -2,7 +2,7 @@ package com.hasantuncay.mobsec.common.models.data.threat
 
 /**
  * Analytics and Telemetry Data Model.
- * Specifically designed for testing MASWE-0001 (Logging Vulnerabilities), representing
+ * Specifically designed for testing MASWE-0005 (Logging Vulnerabilities), representing
  * data payloads accidentally sent to 3rd party SDKs like Firebase, Crashlytics, or Mixpanel.
  */
 data class AnalyticsLogData(
