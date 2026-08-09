@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0017_desc">Sensitive features enabled without checking device lock state; keys not tied to passcode; stale device-lock assumption at runtime.</string>
+
+    <string name="maswe_0017_id">MASWE-0017</string>
+
+    <string name="maswe_0017_msg_data_not_tied_to_passcode_secure">Key bound with setUserAuthenticationRequired(true). If device passcode is removed, key becomes permanently invalidated.</string>
+
+    <string name="maswe_0017_msg_data_not_tied_to_passcode_vuln">Encryption keys available even when device has no passcode set. User removes PIN — app continues to protect data with accessible keys.</string>
+
+    <string name="maswe_0017_msg_no_secure_lock_check_secure">KeyguardManager.isDeviceSecure() checked on feature entry. If false, user is directed to set a device PIN/pattern before continuing.</string>
+
+    <string name="maswe_0017_msg_no_secure_lock_check_vuln">Payment feature accessible without verifying device has screen lock. On a PIN-less device, any physical access unlocks the vault.</string>
+
+    <string name="maswe_0017_msg_stale_lock_assumption_secure">isDeviceSecure() checked every time a sensitive screen is opened. PIN removal detected immediately — feature blocked until lock restored.</string>
+
+    <string name="maswe_0017_msg_stale_lock_assumption_vuln">isDeviceSecure() checked only at first launch. User later removes PIN — app never re-checks, continues providing full access.</string>
+
+    <string name="maswe_0017_title">Device Secure Lock Not Enforced</string>
+
+    <string name="maswe_0017_vector_data_not_tied_to_passcode_secure">2. Secure: Passcode-Gated Keys</string>
+
+    <string name="maswe_0017_vector_data_not_tied_to_passcode_vuln">2. Keys Usable Without Screen Lock</string>
+
+    <string name="maswe_0017_vector_no_secure_lock_check_secure">1. Secure: KeyguardManager.isDeviceSecure()</string>
+
+    <string name="maswe_0017_vector_no_secure_lock_check_vuln">1. Sensitive Feature Without Lock Check</string>
+
+    <string name="maswe_0017_vector_stale_lock_assumption_secure">3. Secure: Check on Every Sensitive Operation</string>
+
+    <string name="maswe_0017_vector_stale_lock_assumption_vuln">3. Lock Check Only at Onboarding</string>
+</resources>

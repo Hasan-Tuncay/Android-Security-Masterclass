@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0029_id">MASWE-0029</string>
+    <string name="maswe_0029_msg_missing_domain_association_secure">Secure description</string>
+    <string name="maswe_0029_msg_missing_domain_association_vuln">Vulnerable description</string>
+    <string name="maswe_0029_msg_unvalidated_deep_link_input_secure">Secure description</string>
+    <string name="maswe_0029_msg_unvalidated_deep_link_input_vuln">Vulnerable description</string>
+    <string name="maswe_0029_msg_unverified_custom_url_scheme_secure">Secure description</string>
+    <string name="maswe_0029_msg_unverified_custom_url_scheme_vuln">Vulnerable description</string>
+    <string name="maswe_0029_title">Insecure Deep Links</string>
+    <string name="maswe_0029_vector_missing_domain_association_secure">2. Secure: autoVerify Enabled</string>
+    <string name="maswe_0029_vector_missing_domain_association_vuln">2. Missing Domain Association</string>
+    <string name="maswe_0029_vector_unvalidated_deep_link_input_secure">3. Secure: Strict URL Validation</string>
+    <string name="maswe_0029_vector_unvalidated_deep_link_input_vuln">3. Unvalidated Deep Link Input</string>
+    <string name="maswe_0029_vector_unverified_custom_url_scheme_secure">1. Secure: Safe Intent Handling</string>
+    <string name="maswe_0029_vector_unverified_custom_url_scheme_vuln">1. Unverified Custom URL Scheme</string>
+</resources>

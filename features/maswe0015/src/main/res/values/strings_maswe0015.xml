@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0015_desc">No key versioning; unbounded cryptoperiods; superseded keys not retired — old keys remain usable for new operations.</string>
+
+    <string name="maswe_0015_id">MASWE-0015</string>
+
+    <string name="maswe_0015_msg_no_rotation_mechanism_secure">Tink Keyset used with key versioning. New primary key added — old data re-encrypted on next access. Compromise is contained.</string>
+
+    <string name="maswe_0015_msg_no_rotation_mechanism_vuln">Single hardcoded key version 1. If compromised, all past and future data is at risk. No way to rotate without breaking decryption.</string>
+
+    <string name="maswe_0015_msg_superseded_keys_not_retired_secure">Superseded keys demoted to decryption-only. All new encryptions use the current primary key. Old keys eventually destroyed.</string>
+
+    <string name="maswe_0015_msg_superseded_keys_not_retired_vuln">After rotation, old key v1 remains active for encryption. New data still encrypted with the compromised key.</string>
+
+    <string name="maswe_0015_msg_unbounded_cryptoperiod_secure">Key metadata includes expiry date. App checks expiry on launch and rotates expired keys automatically.</string>
+
+    <string name="maswe_0015_msg_unbounded_cryptoperiod_vuln">Encryption key generated at app install, never rotated. Years of data protected by a single key — long cryptoperiod maximizes exposure.</string>
+
+    <string name="maswe_0015_title">Cryptographic Key Rotation Not Implemented</string>
+
+    <string name="maswe_0015_vector_no_rotation_mechanism_secure">1. Secure: Versioned Keyset</string>
+
+    <string name="maswe_0015_vector_no_rotation_mechanism_vuln">1. Single Static Encryption Key</string>
+
+    <string name="maswe_0015_vector_superseded_keys_not_retired_secure">3. Secure: Old Keys Decryption-Only</string>
+
+    <string name="maswe_0015_vector_superseded_keys_not_retired_vuln">3. Old Keys Still Usable for Encryption</string>
+
+    <string name="maswe_0015_vector_unbounded_cryptoperiod_secure">2. Secure: Annual Key Rotation Policy</string>
+
+    <string name="maswe_0015_vector_unbounded_cryptoperiod_vuln">2. Key Created in 2018, Never Rotated</string>
+</resources>

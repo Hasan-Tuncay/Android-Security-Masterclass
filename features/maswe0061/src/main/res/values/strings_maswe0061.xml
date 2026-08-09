@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0061_id">MASWE-0061</string>
+    <string name="maswe_0061_msg_backdoors_or_hidden_switches_secure">No hidden admin flags</string>
+    <string name="maswe_0061_msg_backdoors_or_hidden_switches_vuln">Hidden admin/debug flags found</string>
+    <string name="maswe_0061_msg_debugging_symbols_not_stripped_secure">Symbols stripped with ProGuard/ndk-build</string>
+    <string name="maswe_0061_msg_debugging_symbols_not_stripped_vuln">Symbols accessible to reverse engineering</string>
+    <string name="maswe_0061_msg_testing_utilities_enabled_secure">Test helpers removed from release</string>
+    <string name="maswe_0061_msg_testing_utilities_enabled_vuln">Test helpers left active</string>
+    <string name="maswe_0061_msg_verbose_logging_active_secure">Verbose logs stripped</string>
+    <string name="maswe_0061_msg_verbose_logging_active_vuln">Verbose logs active in build</string>
+    <string name="maswe_0061_title">Debug Artifacts Not Removed</string>
+    <string name="maswe_0061_vector_backdoors_or_hidden_switches_secure">4. Hidden Switches Removed</string>
+    <string name="maswe_0061_vector_backdoors_or_hidden_switches_vuln">4. Backdoors or Hidden Switches</string>
+    <string name="maswe_0061_vector_debugging_symbols_not_stripped_secure">3. Debugging Symbols Stripped</string>
+    <string name="maswe_0061_vector_debugging_symbols_not_stripped_vuln">3. Debugging Symbols Not Stripped</string>
+    <string name="maswe_0061_vector_testing_utilities_enabled_secure">2. Testing Utilities Disabled</string>
+    <string name="maswe_0061_vector_testing_utilities_enabled_vuln">2. Testing Utilities Enabled</string>
+    <string name="maswe_0061_vector_verbose_logging_active_secure">1. Disabled Verbose Logging in Release</string>
+    <string name="maswe_0061_vector_verbose_logging_active_vuln">1. Verbose Logging Active</string>
+</resources>

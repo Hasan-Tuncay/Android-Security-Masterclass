@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0071_id">MASWE-0071</string>
+    <string name="maswe_0071_msg_secure">Secure implementation</string>
+    <string name="maswe_0071_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0071_title">Inadequate Defaults for Privacy Relevant Actions</string>
+    <string name="maswe_0071_vector_secure">1. Secure: Secure Defaults</string>
+    <string name="maswe_0071_vector_vuln">1. Inadequate Defaults</string>
+</resources>

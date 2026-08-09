@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0027_desc">Disabled TLS certificate validation, accepting self-signed certificates, missing hostname verification, broken TrustManager, silent error handling, or permissive SDK trust settings.</string>
+
+    <string name="maswe_0027_id">MASWE-0027</string>
+
+    <string name="maswe_0027_msg_accepting_self_signed_certs_secure">Self-signed certificates rejected unless bundled and pinned in trusted KeyStore.</string>
+
+    <string name="maswe_0027_msg_accepting_self_signed_certs_vuln">TrustManager modified to trust all self-signed or untrusted CA certificates.</string>
+
+    <string name="maswe_0027_msg_disabling_cert_validation_secure">Default TrustManager validates certificate chain against system CA store.</string>
+
+    <string name="maswe_0027_msg_disabling_cert_validation_vuln">TrustManager configured to ignore certificate validation errors completely.</string>
+
+    <string name="maswe_0027_msg_ignoring_hostname_verification_secure">Strict HostnameVerifier verifies server identity against certificate SAN/CN.</string>
+
+    <string name="maswe_0027_msg_ignoring_hostname_verification_vuln">HostnameVerifier overridden with ALLOW_ALL_HOSTNAME_VERIFIER or custom logic returning true.</string>
+
+    <string name="maswe_0027_msg_incorrect_error_handling_secure">SSLException causes immediate request cancellation and aborts operation.</string>
+
+    <string name="maswe_0027_msg_incorrect_error_handling_vuln">SSLHandshakeException caught and swallowed allowing network flow to proceed.</string>
+
+    <string name="maswe_0027_msg_insecure_custom_trust_manager_secure">Custom TrustManager delegates validation to default X509TrustManager.</string>
+
+    <string name="maswe_0027_msg_insecure_custom_trust_manager_vuln">Custom X509TrustManager checkServerTrusted has empty implementation.</string>
+
+    <string name="maswe_0027_msg_third_party_library_secure">Third-party SDK configured to use default platform SSLSocketFactory.</string>
+
+    <string name="maswe_0027_msg_third_party_library_vuln">Third-party SDK configured with custom permissive SSLSocketFactory.</string>
+
+    <string name="maswe_0027_title">Insecure Certificate Validation</string>
+
+    <string name="maswe_0027_vector_accepting_self_signed_certs_secure">2. Secure: Validated Trusted CA Certificates Only</string>
+
+    <string name="maswe_0027_vector_accepting_self_signed_certs_vuln">2. Accepting Self-Signed Certificates</string>
+
+    <string name="maswe_0027_vector_disabling_cert_validation_secure">1. Secure: System Certificate Validation Enforced</string>
+
+    <string name="maswe_0027_vector_disabling_cert_validation_vuln">1. Disabling Certificate Validation</string>
+
+    <string name="maswe_0027_vector_ignoring_hostname_verification_secure">3. Secure: Strict Hostname Verifier Enforced</string>
+
+    <string name="maswe_0027_vector_ignoring_hostname_verification_vuln">3. Ignoring Hostname Verification</string>
+
+    <string name="maswe_0027_vector_incorrect_error_handling_secure">5. Secure: Connection Termination on SSL Exception</string>
+
+    <string name="maswe_0027_vector_incorrect_error_handling_vuln">5. Incorrect Error Handling</string>
+
+    <string name="maswe_0027_vector_insecure_custom_trust_manager_secure">4. Secure: Custom TrustManager Delegation to System</string>
+
+    <string name="maswe_0027_vector_insecure_custom_trust_manager_vuln">4. Insecure Custom TrustManager</string>
+
+    <string name="maswe_0027_vector_third_party_library_secure">6. Secure: Third-Party SDK Strict Trust Policy</string>
+
+    <string name="maswe_0027_vector_third_party_library_vuln">6. Third-Party Library Permissive Trust</string>
+</resources>

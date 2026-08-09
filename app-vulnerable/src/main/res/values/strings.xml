@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">🎯 MobSec Victim</string>
-    <string name="error_attacker_app_not_installed">⚠️ Attacker App is not installed! Please install the app-attacker module first.</string>
+    
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0039_id">MASWE-0039</string>
+    <string name="maswe_0039_msg_external_overlays_not_hidden_secure">Secure description</string>
+    <string name="maswe_0039_msg_external_overlays_not_hidden_vuln">Vulnerable description</string>
+    <string name="maswe_0039_msg_sensitive_screens_not_protected_secure">Secure description</string>
+    <string name="maswe_0039_msg_sensitive_screens_not_protected_vuln">Vulnerable description</string>
+    <string name="maswe_0039_msg_touch_filtering_not_enabled_secure">Secure description</string>
+    <string name="maswe_0039_msg_touch_filtering_not_enabled_vuln">Vulnerable description</string>
+    <string name="maswe_0039_title">App Vulnerable to Overlay Attacks</string>
+    <string name="maswe_0039_vector_external_overlays_not_hidden_secure">2. Secure: Overlays Hidden</string>
+    <string name="maswe_0039_vector_external_overlays_not_hidden_vuln">2. External Overlays Shown</string>
+    <string name="maswe_0039_vector_sensitive_screens_not_protected_secure">3. Secure: Protected Views</string>
+    <string name="maswe_0039_vector_sensitive_screens_not_protected_vuln">3. Sensitive Screens Exposed</string>
+    <string name="maswe_0039_vector_touch_filtering_not_enabled_secure">1. Secure: Touch Filtering On</string>
+    <string name="maswe_0039_vector_touch_filtering_not_enabled_vuln">1. Touch Filtering Not Enabled</string>
+</resources>

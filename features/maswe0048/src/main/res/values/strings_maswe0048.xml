@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0048_id">MASWE-0048</string>
+    <string name="maswe_0048_msg_compromised_build_pipeline_secure">Secure description</string>
+    <string name="maswe_0048_msg_compromised_build_pipeline_vuln">Vulnerable description</string>
+    <string name="maswe_0048_msg_compromised_dependencies_secure">Secure description</string>
+    <string name="maswe_0048_msg_compromised_dependencies_vuln">Vulnerable description</string>
+    <string name="maswe_0048_msg_hidden_functionality_secure">Secure description</string>
+    <string name="maswe_0048_msg_hidden_functionality_vuln">Vulnerable description</string>
+    <string name="maswe_0048_msg_malicious_developer_secure">Secure description</string>
+    <string name="maswe_0048_msg_malicious_developer_vuln">Vulnerable description</string>
+    <string name="maswe_0048_title">Malicious Code Included in the App</string>
+    <string name="maswe_0048_vector_compromised_build_pipeline_secure">3. Secure: Hermetic CI/CD Pipelines</string>
+    <string name="maswe_0048_vector_compromised_build_pipeline_vuln">3. Compromised Build Pipeline</string>
+    <string name="maswe_0048_vector_compromised_dependencies_secure">2. Secure: Dependency Verification</string>
+    <string name="maswe_0048_vector_compromised_dependencies_vuln">2. Compromised Dependencies</string>
+    <string name="maswe_0048_vector_hidden_functionality_secure">4. Secure: Feature Audit Logging</string>
+    <string name="maswe_0048_vector_hidden_functionality_vuln">4. Hidden Functionality / Easter Eggs</string>
+    <string name="maswe_0048_vector_malicious_developer_secure">1. Secure: Peer Code Reviews</string>
+    <string name="maswe_0048_vector_malicious_developer_vuln">1. Malicious Developer Code</string>
+</resources>

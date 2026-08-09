@@ -13,8 +13,10 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.viewinterop.AndroidView
+import com.hasantuncay.mobsec.common.R
 
 enum class MasvsCategoryType(val categoryName: String) {
     STORAGE("MASVS-STORAGE"),
@@ -52,7 +54,7 @@ fun MasweDocScreen(masweId: String, onBack: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "$masweId Docs", fontWeight = FontWeight.Bold) },
+                title = { Text(text = stringResource(id = R.string.maswe_docs_title, masweId), fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.Close, contentDescription = "Close")

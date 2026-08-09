@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0031_id">MASWE-0031</string>
+    <string name="maswe_0031_msg_all_extension_points_allowed_secure">Secure description</string>
+    <string name="maswe_0031_msg_all_extension_points_allowed_vuln">Vulnerable description</string>
+    <string name="maswe_0031_msg_sensitive_data_handed_to_extensions_secure">Secure description</string>
+    <string name="maswe_0031_msg_sensitive_data_handed_to_extensions_vuln">Vulnerable description</string>
+    <string name="maswe_0031_msg_third_party_keyboards_sensitive_input_secure">Secure description</string>
+    <string name="maswe_0031_msg_third_party_keyboards_sensitive_input_vuln">Vulnerable description</string>
+    <string name="maswe_0031_title">Allowing Untrusted App Extensions</string>
+    <string name="maswe_0031_vector_all_extension_points_allowed_secure">1. Secure: Extensions Restricted</string>
+    <string name="maswe_0031_vector_all_extension_points_allowed_vuln">1. All Extension Points Allowed</string>
+    <string name="maswe_0031_vector_sensitive_data_handed_to_extensions_secure">3. Secure: Minimal Data Sharing</string>
+    <string name="maswe_0031_vector_sensitive_data_handed_to_extensions_vuln">3. Sensitive Data Handed Out</string>
+    <string name="maswe_0031_vector_third_party_keyboards_sensitive_input_secure">2. Secure: Keyboards Blocked</string>
+    <string name="maswe_0031_vector_third_party_keyboards_sensitive_input_vuln">2. 3rd-Party Keyboards in Sensitive Input</string>
+</resources>

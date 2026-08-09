@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0062_id">MASWE-0062</string>
+    <string name="maswe_0062_msg_no_integrity_binding_on_requests_secure">Requests signed with MAC/HMAC</string>
+    <string name="maswe_0062_msg_no_integrity_binding_on_requests_vuln">Requests lack cryptographic binding</string>
+    <string name="maswe_0062_msg_tls_only_protection_secure">App-level payload encryption active</string>
+    <string name="maswe_0062_msg_tls_only_protection_vuln">Relying solely on TLS</string>
+    <string name="maswe_0062_title">No App-Level Payload Encryption</string>
+    <string name="maswe_0062_vector_no_integrity_binding_on_requests_secure">2. Request Integrity Signed</string>
+    <string name="maswe_0062_vector_no_integrity_binding_on_requests_vuln">2. No Integrity Binding on Requests</string>
+    <string name="maswe_0062_vector_tls_only_protection_secure">1. Payload Encryption Enabled</string>
+    <string name="maswe_0062_vector_tls_only_protection_vuln">1. TLS-Only Protection</string>
+</resources>

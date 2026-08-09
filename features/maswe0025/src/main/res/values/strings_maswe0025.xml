@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0025_desc">Critical actions confirmed through normal UI only \u2014 no hardware-backed cryptographic binding of the displayed transaction to user approval.</string>
+
+    <string name="maswe_0025_id">MASWE-0025</string>
+
+    <string name="maswe_0025_msg_no_cryptographic_evidence_secure">Transaction hash signed by StrongBox ECDSA key during biometric prompt. Server stores signature. Any dispute verifiable with the user\'s public key.</string>
+
+    <string name="maswe_0025_msg_no_cryptographic_evidence_vuln">Transfer executed with no audit record linking user biometric to the exact transaction. Disputes unprovable \u2014 no evidence of what was approved.</string>
+
+    <string name="maswe_0025_msg_no_trusted_confirmation_path_secure">ConfirmationPrompt shown in StrongBox-isolated TEE UI. Malware cannot overlay or modify the displayed message \u2014 what user sees is what gets signed.</string>
+
+    <string name="maswe_0025_msg_no_trusted_confirmation_path_vuln">Fund transfer confirmed via regular AlertDialog. Malware overlaying the screen shows different amount while user taps confirm on actual transfer.</string>
+
+    <string name="maswe_0025_title">Lack of Non-Repudiation for Critical Actions</string>
+
+    <string name="maswe_0025_vector_no_cryptographic_evidence_secure">2. Secure: ECDSA-Signed Transaction Hash</string>
+
+    <string name="maswe_0025_vector_no_cryptographic_evidence_vuln">2. No Cryptographic Approval Record</string>
+
+    <string name="maswe_0025_vector_no_trusted_confirmation_path_secure">1. Secure: Android Trusted Confirmations</string>
+
+    <string name="maswe_0025_vector_no_trusted_confirmation_path_vuln">1. Critical Action Confirmed Via Normal UI</string>
+</resources>

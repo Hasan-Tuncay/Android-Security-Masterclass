@@ -88,13 +88,6 @@ import kotlinx.serialization.Serializable
 @Serializable data object Maswe0064ResilienceRoute
 @Serializable data object Maswe0065ResilienceRoute
 
-// ── Legacy / Deprecated routes (kept for backward compat) ────────────────────
-@Serializable data object Maswe0002SharedPrefsRoute
-@Serializable data object Maswe0003BackupRoute
-@Serializable data object Maswe0004BackupExcludedRoute
-@Serializable data object Maswe0006PrivateStorageRoute
-@Serializable data object Maswe0007SharedStorageRoute
-
 @Serializable data class MasweDocRoute(val masweId: String)
 
 // ── MASVS-PRIVACY ─────────────────────────────────────────────────────────────

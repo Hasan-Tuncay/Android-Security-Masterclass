@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0046_id">MASWE-0046</string>
+    <string name="maswe_0046_msg_deprecated_cryptographic_providers_secure">Secure description</string>
+    <string name="maswe_0046_msg_deprecated_cryptographic_providers_vuln">Vulnerable description</string>
+    <string name="maswe_0046_msg_deprecated_platform_apis_secure">Secure description</string>
+    <string name="maswe_0046_msg_deprecated_platform_apis_vuln">Vulnerable description</string>
+    <string name="maswe_0046_msg_deprecation_warnings_ignored_secure">Secure description</string>
+    <string name="maswe_0046_msg_deprecation_warnings_ignored_vuln">Vulnerable description</string>
+    <string name="maswe_0046_title">Use of Deprecated APIs or Functionality</string>
+    <string name="maswe_0046_vector_deprecated_cryptographic_providers_secure">1. Secure: Modern Keystore Providers</string>
+    <string name="maswe_0046_vector_deprecated_cryptographic_providers_vuln">1. Deprecated Cryptographic Providers</string>
+    <string name="maswe_0046_vector_deprecated_platform_apis_secure">2. Secure: Current SDK APIs</string>
+    <string name="maswe_0046_vector_deprecated_platform_apis_vuln">2. Deprecated Platform APIs</string>
+    <string name="maswe_0046_vector_deprecation_warnings_ignored_secure">3. Secure: Warnings Treated as Errors</string>
+    <string name="maswe_0046_vector_deprecation_warnings_ignored_vuln">3. Deprecation Warnings Ignored</string>
+</resources>

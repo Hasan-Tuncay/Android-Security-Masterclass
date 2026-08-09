@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0012_desc">java.util.Random in security contexts; time-based seeds; hardcoded or predictable seeds for key generation.</string>
+
+    <string name="maswe_0012_id">MASWE-0012</string>
+
+    <string name="maswe_0012_msg_hardcoded_seed_secure">SecureRandom() instantiated without explicit seed. JVM/OS provides unpredictable entropy automatically.</string>
+
+    <string name="maswe_0012_msg_hardcoded_seed_vuln">Random seeded with literal 0x1337BEEF. Entire sequence reproducible by any attacker who decompiles the APK.</string>
+
+    <string name="maswe_0012_msg_non_random_source_secure">SecureRandom seeded from OS entropy pool (/dev/urandom). No predictable seed — output is indistinguishable from random.</string>
+
+    <string name="maswe_0012_msg_non_random_source_vuln">Random seed derived from current timestamp. Millisecond-precision — attacker who knows approximate time can reproduce entire sequence.</string>
+
+    <string name="maswe_0012_msg_risky_random_api_secure">SecureRandom (CSPRNG) used. Output is cryptographically unpredictable — no known way to predict future values.</string>
+
+    <string name="maswe_0012_msg_risky_random_api_vuln">java.util.Random used to generate session tokens. Predictable LCG algorithm — next values derivable from observed outputs.</string>
+
+    <string name="maswe_0012_title">Improper Random Number Generation</string>
+
+    <string name="maswe_0012_vector_hardcoded_seed_secure">3. Secure: No Explicit Seeding</string>
+
+    <string name="maswe_0012_vector_hardcoded_seed_vuln">3. Hardcoded Seed (0x1337BEEF)</string>
+
+    <string name="maswe_0012_vector_non_random_source_secure">2. Secure: OS Entropy Pool</string>
+
+    <string name="maswe_0012_vector_non_random_source_vuln">2. System.currentTimeMillis() as Seed</string>
+
+    <string name="maswe_0012_vector_risky_random_api_secure">1. Secure: SecureRandom</string>
+
+    <string name="maswe_0012_vector_risky_random_api_vuln">1. java.util.Random for Token Generation</string>
+</resources>

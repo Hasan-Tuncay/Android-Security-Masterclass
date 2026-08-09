@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MASWE-0041 -->
+    <string name="maswe_0041_secure_desc">Secure patterns for MASWE-0041.</string>
+    <string name="maswe_0041_secure_title">MASWE-0041: Secure Implementation</string>
+    <string name="maswe_0041_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0041_vuln_desc">Vulnerability vectors for MASWE-0041.</string>
+    <string name="maswe_0041_vuln_title">MASWE-0041: Vulnerable Implementation</string>
+    <string name="maswe_0041_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0042 -->
+    <string name="maswe_0042_secure_desc">Secure patterns for MASWE-0042.</string>
+    <string name="maswe_0042_secure_title">MASWE-0042: Secure Implementation</string>
+    <string name="maswe_0042_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0042_vuln_desc">Vulnerability vectors for MASWE-0042.</string>
+    <string name="maswe_0042_vuln_title">MASWE-0042: Vulnerable Implementation</string>
+    <string name="maswe_0042_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0043 -->
+    <string name="maswe_0043_secure_desc">Secure patterns for MASWE-0043.</string>
+    <string name="maswe_0043_secure_title">MASWE-0043: Secure Implementation</string>
+    <string name="maswe_0043_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0043_vuln_desc">Vulnerability vectors for MASWE-0043.</string>
+    <string name="maswe_0043_vuln_title">MASWE-0043: Vulnerable Implementation</string>
+    <string name="maswe_0043_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0044 -->
+    <string name="maswe_0044_secure_desc">Secure patterns for MASWE-0044.</string>
+    <string name="maswe_0044_secure_title">MASWE-0044: Secure Implementation</string>
+    <string name="maswe_0044_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0044_vuln_desc">Vulnerability vectors for MASWE-0044.</string>
+    <string name="maswe_0044_vuln_title">MASWE-0044: Vulnerable Implementation</string>
+    <string name="maswe_0044_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0045 -->
+    <string name="maswe_0045_secure_desc">Secure patterns for MASWE-0045.</string>
+    <string name="maswe_0045_secure_title">MASWE-0045: Secure Implementation</string>
+    <string name="maswe_0045_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0045_vuln_desc">Vulnerability vectors for MASWE-0045.</string>
+    <string name="maswe_0045_vuln_title">MASWE-0045: Vulnerable Implementation</string>
+    <string name="maswe_0045_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0046 -->
+    <string name="maswe_0046_secure_desc">Secure patterns for MASWE-0046.</string>
+    <string name="maswe_0046_secure_title">MASWE-0046: Secure Implementation</string>
+    <string name="maswe_0046_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0046_vuln_desc">Vulnerability vectors for MASWE-0046.</string>
+    <string name="maswe_0046_vuln_title">MASWE-0046: Vulnerable Implementation</string>
+    <string name="maswe_0046_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0047 -->
+    <string name="maswe_0047_secure_desc">Secure patterns for MASWE-0047.</string>
+    <string name="maswe_0047_secure_title">MASWE-0047: Secure Implementation</string>
+    <string name="maswe_0047_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0047_vuln_desc">Vulnerability vectors for MASWE-0047.</string>
+    <string name="maswe_0047_vuln_title">MASWE-0047: Vulnerable Implementation</string>
+    <string name="maswe_0047_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0048 -->
+    <string name="maswe_0048_secure_desc">Secure patterns for MASWE-0048.</string>
+    <string name="maswe_0048_secure_title">MASWE-0048: Secure Implementation</string>
+    <string name="maswe_0048_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0048_vuln_desc">Vulnerability vectors for MASWE-0048.</string>
+    <string name="maswe_0048_vuln_title">MASWE-0048: Vulnerable Implementation</string>
+    <string name="maswe_0048_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0049 -->
+    <string name="maswe_0049_secure_desc">Secure patterns for MASWE-0049.</string>
+    <string name="maswe_0049_secure_title">MASWE-0049: Secure Implementation</string>
+    <string name="maswe_0049_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0049_vuln_desc">Vulnerability vectors for MASWE-0049.</string>
+    <string name="maswe_0049_vuln_title">MASWE-0049: Vulnerable Implementation</string>
+    <string name="maswe_0049_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0050 -->
+    <string name="maswe_0050_secure_desc">Secure patterns for MASWE-0050.</string>
+    <string name="maswe_0050_secure_title">MASWE-0050: Secure Implementation</string>
+    <string name="maswe_0050_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0050_vuln_desc">Vulnerability vectors for MASWE-0050.</string>
+    <string name="maswe_0050_vuln_title">MASWE-0050: Vulnerable Implementation</string>
+    <string name="maswe_0050_vuln_vectors_title">Vulnerability Vectors</string>
+
+</resources>

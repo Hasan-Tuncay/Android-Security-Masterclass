@@ -20,6 +20,9 @@ import com.hasantuncay.mobsec.attacker.screens.ExploitReceiverScreen
 import com.hasantuncay.mobsec.attacker.screens.LogcatExploitScreen
 import com.hasantuncay.mobsec.attacker.theme.AttackerTheme
 
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 class AttackerMainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -60,28 +60,24 @@ Do not claim a mitigation works if you have not verified it. Do not reference a 
 
 ```text
 AndroidSecurityMasterclass/
-├── common/                    # Shared module: data models, UI components, navigation
-│   └── models/data/
-│       ├── MasterclassData.kt     # Root data wrapper injected into both apps
-│       ├── compliance/            # GDPR, HIPAA, PCI-DSS data models
-│       ├── threat/                # System, network, device telemetry models
-│       └── classification/        # Data sensitivity classification
+├── common/                    # Shared module: models, UI theme, Dashboard Metadata
+│   └── models/data/           # MasterclassData.kt and regulative data payloads
 │
-├── app-vulnerable/            # Insecure implementations
-│   └── storage/
-│       └── maswe0001/         # One directory per MASWE weakness ID
+├── features/                  # The 78 Isolated Feature Modules
+│   └── maswe0001/             # E.g., MASWE-0001 Feature Module
+│       ├── build.gradle.kts   # Isolated dependencies
+│       └── src/main/java/.../maswe0001/
+│           ├── vulnerable/    # Insecure Implementation & UI
+│           ├── secure/        # Hardened Implementation & UI
+│           └── common/        # Shared vectors, enums, mitigation logic for this module
 │
-├── app-secure/                # Hardened implementations
-│   └── storage/
-│       └── maswe0001/
-│
-├── app-attacker/              # Proof-of-Concept Exploit Application
-│   └── attacker/              # Tools designed to exploit :app-vulnerable components via IPC/FileProvider
+├── app-vulnerable/            # Thin Shell App: Wires vulnerable features together
+├── app-secure/                # Thin Shell App: Wires secure features together
+├── app-attacker/              # Simulated Malware App (IPC Exploits)
 │
 └── docs/
     ├── maswe/                 # One .md file per MASWE weakness
     └── mastg-best/            # One .md file per MASTG best practice
-
 ```
 
 ### The `MasterclassData` Object
@@ -133,7 +129,8 @@ Each enum entry represents one distinct attack vector within the weakness.
 
 ### Step 3 — Implement the Vulnerable Logic
 
-Create `app-vulnerable/src/.../[category]/[maswe_id]/[MasweId]VulnerableLogic.kt`.
+Create a new Gradle module for the vulnerability under `features/masweXXXX/` if it doesn't exist.
+Then create `features/masweXXXX/src/main/java/com/hasantuncay/mobsec/masweXXXX/vulnerable/MasweXXXXVulnerableViewModel.kt`.
 
 Rules for the vulnerable implementation:
 
@@ -144,7 +141,7 @@ Rules for the vulnerable implementation:
 
 ### Step 4 — Implement the Secure Logic
 
-Create `app-secure/src/.../[category]/[maswe_id]/[MasweId]SecureLogic.kt`.
+In the same feature module, create `features/masweXXXX/src/main/java/com/hasantuncay/mobsec/masweXXXX/secure/MasweXXXXSecureViewModel.kt`.
 
 Rules for the secure implementation:
 

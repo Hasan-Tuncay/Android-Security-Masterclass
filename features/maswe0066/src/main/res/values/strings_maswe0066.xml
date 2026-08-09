@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0066_id">MASWE-0066</string>
+    <string name="maswe_0066_msg_secure">Secure implementation</string>
+    <string name="maswe_0066_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0066_title">Inadequate Permission Management</string>
+    <string name="maswe_0066_vector_secure">1. Secure: Minimal Permissions</string>
+    <string name="maswe_0066_vector_vuln">1. Broad Permissions</string>
+</resources>

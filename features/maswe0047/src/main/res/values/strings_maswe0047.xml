@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0047_id">MASWE-0047</string>
+    <string name="maswe_0047_msg_custom_authentication_secure">Secure description</string>
+    <string name="maswe_0047_msg_custom_authentication_vuln">Vulnerable description</string>
+    <string name="maswe_0047_msg_custom_dns_resolution_secure">Secure description</string>
+    <string name="maswe_0047_msg_custom_dns_resolution_vuln">Vulnerable description</string>
+    <string name="maswe_0047_msg_custom_networking_tls_stacks_secure">Secure description</string>
+    <string name="maswe_0047_msg_custom_networking_tls_stacks_vuln">Vulnerable description</string>
+    <string name="maswe_0047_msg_roll_your_own_cryptography_secure">Secure description</string>
+    <string name="maswe_0047_msg_roll_your_own_cryptography_vuln">Vulnerable description</string>
+    <string name="maswe_0047_msg_unmaintained_security_libraries_secure">Secure description</string>
+    <string name="maswe_0047_msg_unmaintained_security_libraries_vuln">Vulnerable description</string>
+    <string name="maswe_0047_title">Using Non-Standard APIs for Security-Critical Functionality</string>
+    <string name="maswe_0047_vector_custom_authentication_secure">4. Secure: Standard OAuth2/OIDC</string>
+    <string name="maswe_0047_vector_custom_authentication_vuln">4. Custom Authentication Protocols</string>
+    <string name="maswe_0047_vector_custom_dns_resolution_secure">3. Secure: System DNS Resolution</string>
+    <string name="maswe_0047_vector_custom_dns_resolution_vuln">3. Custom DNS Resolution</string>
+    <string name="maswe_0047_vector_custom_networking_tls_stacks_secure">2. Secure: Standard OkHttp TLS</string>
+    <string name="maswe_0047_vector_custom_networking_tls_stacks_vuln">2. Custom Networking TLS Stacks</string>
+    <string name="maswe_0047_vector_roll_your_own_cryptography_secure">1. Secure: Standard Crypto Libraries</string>
+    <string name="maswe_0047_vector_roll_your_own_cryptography_vuln">1. Roll-Your-Own Cryptography</string>
+    <string name="maswe_0047_vector_unmaintained_security_libraries_secure">5. Secure: Maintained Dependencies</string>
+    <string name="maswe_0047_vector_unmaintained_security_libraries_vuln">5. Unmaintained Security Libraries</string>
+</resources>

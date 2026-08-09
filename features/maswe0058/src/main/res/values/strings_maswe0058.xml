@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0058_id">MASWE-0058</string>
+    <string name="maswe_0058_msg_hooked_functions_not_detected_secure">Hooking frameworks like Frida and Xposed are detected and blocked.</string>
+    <string name="maswe_0058_msg_hooked_functions_not_detected_vuln">Frida/Xposed hooking framework artifacts are not detected.</string>
+    <string name="maswe_0058_msg_injected_libraries_not_detected_secure">/proc/self/maps is scanned for unexpected injected dynamic libraries.</string>
+    <string name="maswe_0058_msg_injected_libraries_not_detected_vuln">Loaded dynamic shared objects (/proc/self/maps) are not checked.</string>
+    <string name="maswe_0058_msg_no_response_to_tampering_secure">App immediately terminates session, purges keys, and alerts server on tampering.</string>
+    <string name="maswe_0058_msg_no_response_to_tampering_vuln">App silently ignores detected tampering without taking action.</string>
+    <string name="maswe_0058_msg_no_runtime_code_checks_secure">Runtime checksum checks verify executable code segments in memory.</string>
+    <string name="maswe_0058_msg_no_runtime_code_checks_vuln">No runtime memory checks exist to detect modified code sections.</string>
+    <string name="maswe_0058_title">Runtime Code Integrity Not Verified</string>
+    <string name="maswe_0058_vector_hooked_functions_not_detected_secure">3. Secure: Hook &amp; Instrumentation Detection</string>
+    <string name="maswe_0058_vector_hooked_functions_not_detected_vuln">3. Hooked Functions Not Detected</string>
+    <string name="maswe_0058_vector_injected_libraries_not_detected_secure">2. Secure: Native Library Injection Detection</string>
+    <string name="maswe_0058_vector_injected_libraries_not_detected_vuln">2. Injected Libraries Not Detected</string>
+    <string name="maswe_0058_vector_no_response_to_tampering_secure">4. Secure: Automated Active Defensive Action</string>
+    <string name="maswe_0058_vector_no_response_to_tampering_vuln">4. No Response to Tampering</string>
+    <string name="maswe_0058_vector_no_runtime_code_checks_secure">1. Secure: Active Runtime Memory Integrity Checks</string>
+    <string name="maswe_0058_vector_no_runtime_code_checks_vuln">1. No Runtime Code Checks</string>
+</resources>

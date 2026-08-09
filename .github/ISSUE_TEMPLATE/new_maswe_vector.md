@@ -24,7 +24,7 @@ assignees: ''
 The following existing data point(s) must be utilized in this vector to demonstrate the leak:
 *   `MasterclassData.[CATEGORY].[SPECIFIC_FIELD]`
 
-**2. Vulnerable Implementation (:app-vulnerable)**
+**2. Vulnerable Implementation (:features:masweXXXX)**
 *   **Execution Vector:** [Define precisely how the insecure code should be written. e.g., "Implement a custom TrustManager that bypasses all SSL certificate checks and ignores HostnameVerifier."]
 *   **Expected Impact:** [What does this allow the attacker to do? e.g., "Allows MitM proxies like Burp Suite or Charles to intercept cleartext traffic."]
 
@@ -32,15 +32,16 @@ The following existing data point(s) must be utilized in this vector to demonstr
 *   [ ] **Required:** [Describe the PoC exploit. e.g., "Write a BroadcastReceiver that intercepts the implicit Intent containing the token."]
 *   [ ] **Not Applicable:** [Check this if the vulnerability is passive (e.g., local storage dump via ADB) and does not require an active IPC exploit application.]
 
-**4. Secure Implementation (:app-secure)**
+**4. Secure Implementation (:features:masweXXXX)**
 *   **Required Mitigation:** [Define the exact technical solution. e.g., "Implement OkHttp CertificatePinner validating the SHA-256 hash of the target endpoint's public key."]
 
 ---
 
 ### [ACCEPTANCE CRITERIA]
-- [ ] Enum vector added to `common` module.
-- [ ] `:app-vulnerable` logic implemented and heavily commented with security warnings.
-- [ ] `:app-secure` logic implemented and heavily commented with mitigation rationale.
+- [ ] Enum vector added to `:common` module.
+- [ ] `:features:masweXXXX` module created.
+- [ ] Vulnerable logic implemented and heavily commented with security warnings.
+- [ ] Secure logic implemented and heavily commented with mitigation rationale.
 - [ ] Appropriate PoC added to `:app-attacker` (if applicable).
-- [ ] No raw sensitive data written to system buffers/disk in `:app-secure`.
+- [ ] No raw sensitive data written to system buffers/disk in secure components.
 - [ ] Documentation file added under `docs/maswe/MASWE-XXXX.md`.

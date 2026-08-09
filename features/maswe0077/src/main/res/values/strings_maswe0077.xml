@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0077_id">MASWE-0077</string>
+    <string name="maswe_0077_msg_secure">Secure implementation</string>
+    <string name="maswe_0077_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0077_title">Inadequate Data Visibility Controls</string>
+    <string name="maswe_0077_vector_secure">1. Secure: Transparent Visibility</string>
+    <string name="maswe_0077_vector_vuln">1. Hidden Data Visbility</string>
+</resources>

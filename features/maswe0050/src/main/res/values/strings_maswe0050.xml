@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0050_id">MASWE-0050</string>
+    <string name="maswe_0050_msg_insecure_deserialization_secure">Secure description</string>
+    <string name="maswe_0050_msg_insecure_deserialization_vuln">Vulnerable description</string>
+    <string name="maswe_0050_msg_insecure_parsing_secure">Secure description</string>
+    <string name="maswe_0050_msg_insecure_parsing_vuln">Vulnerable description</string>
+    <string name="maswe_0050_msg_missing_validation_at_trust_boundaries_secure">Secure description</string>
+    <string name="maswe_0050_msg_missing_validation_at_trust_boundaries_vuln">Vulnerable description</string>
+    <string name="maswe_0050_msg_unsafe_presentation_of_untrusted_data_secure">Secure description</string>
+    <string name="maswe_0050_msg_unsafe_presentation_of_untrusted_data_vuln">Vulnerable description</string>
+    <string name="maswe_0050_msg_untrusted_data_in_queries_secure">Secure description</string>
+    <string name="maswe_0050_msg_untrusted_data_in_queries_vuln">Vulnerable description</string>
+    <string name="maswe_0050_msg_untrusted_paths_and_archives_secure">Secure description</string>
+    <string name="maswe_0050_msg_untrusted_paths_and_archives_vuln">Vulnerable description</string>
+    <string name="maswe_0050_msg_weakly_validated_uri_handling_secure">Secure description</string>
+    <string name="maswe_0050_msg_weakly_validated_uri_handling_vuln">Vulnerable description</string>
+    <string name="maswe_0050_title">Unsafe Handling of Untrusted Data</string>
+    <string name="maswe_0050_vector_insecure_deserialization_secure">5. Secure: Safe JSON Deserialization</string>
+    <string name="maswe_0050_vector_insecure_deserialization_vuln">5. Insecure Deserialization</string>
+    <string name="maswe_0050_vector_insecure_parsing_secure">4. Secure: Hardened Parser Config</string>
+    <string name="maswe_0050_vector_insecure_parsing_vuln">4. Insecure Parsing</string>
+    <string name="maswe_0050_vector_missing_validation_at_trust_boundaries_secure">1. Secure: Strict Schema Validation</string>
+    <string name="maswe_0050_vector_missing_validation_at_trust_boundaries_vuln">1. Missing Validation at Trust Boundaries</string>
+    <string name="maswe_0050_vector_unsafe_presentation_of_untrusted_data_secure">7. Secure: HTML Encoding &amp; Escaping</string>
+    <string name="maswe_0050_vector_unsafe_presentation_of_untrusted_data_vuln">7. Unsafe Presentation of Untrusted Data</string>
+    <string name="maswe_0050_vector_untrusted_data_in_queries_secure">2. Secure: Parameterized SQL Queries</string>
+    <string name="maswe_0050_vector_untrusted_data_in_queries_vuln">2. Untrusted Data in Queries</string>
+    <string name="maswe_0050_vector_untrusted_paths_and_archives_secure">3. Secure: Canonical Path Validation</string>
+    <string name="maswe_0050_vector_untrusted_paths_and_archives_vuln">3. Untrusted Paths and Archives</string>
+    <string name="maswe_0050_vector_weakly_validated_uri_handling_secure">6. Secure: Strict URI Scheme &amp; Host Check</string>
+    <string name="maswe_0050_vector_weakly_validated_uri_handling_vuln">6. Weakly Validated URI Handling</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0076_id">MASWE-0076</string>
+    <string name="maswe_0076_msg_secure">Secure implementation</string>
+    <string name="maswe_0076_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0076_title">Lack of Proper Data Management Controls</string>
+    <string name="maswe_0076_vector_secure">1. Secure: Strict Data Management</string>
+    <string name="maswe_0076_vector_vuln">1. Weak Data Management</string>
+</resources>

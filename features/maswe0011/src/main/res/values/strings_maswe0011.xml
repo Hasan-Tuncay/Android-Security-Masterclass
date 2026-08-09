@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0011_desc">Verification skipped or result ignored; untrusted/unpinned signer keys; algorithm confusion (accepting \'none\').</string>
+
+    <string name="maswe_0011_id">MASWE-0011</string>
+
+    <string name="maswe_0011_msg_algorithm_confusion_secure">Algorithm hardcoded in verification logic. Only RS256 accepted regardless of what the token header declares.</string>
+
+    <string name="maswe_0011_msg_algorithm_confusion_vuln">JWT library accepts algorithm from token header including \"alg: none\". Attacker strips signature entirely — token always valid.</string>
+
+    <string name="maswe_0011_msg_untrusted_signer_key_secure">Public key hard-pinned in app resources. Verification only succeeds with the expected key — key substitution attacks impossible.</string>
+
+    <string name="maswe_0011_msg_untrusted_signer_key_vuln">Public key for verification fetched from the same payload being verified. Attacker replaces both key and data — signature always valid.</string>
+
+    <string name="maswe_0011_msg_verification_skipped_secure">verify() result explicitly checked. Exception thrown and operation aborted if signature is invalid.</string>
+
+    <string name="maswe_0011_msg_verification_skipped_vuln">verify() called but return value not checked. App proceeds regardless of signature validity — any tampered payload accepted.</string>
+
+    <string name="maswe_0011_title">Improper Verification of Cryptographic Signature</string>
+
+    <string name="maswe_0011_vector_algorithm_confusion_secure">3. Secure: Algorithm Allowlist</string>
+
+    <string name="maswe_0011_vector_algorithm_confusion_vuln">3. Algorithm Confusion (\"none\" accepted)</string>
+
+    <string name="maswe_0011_vector_untrusted_signer_key_secure">2. Secure: Pinned / CA-Validated Key</string>
+
+    <string name="maswe_0011_vector_untrusted_signer_key_vuln">2. Signer Key From Untrusted Source</string>
+
+    <string name="maswe_0011_vector_verification_skipped_secure">1. Secure: Enforce Verification Result</string>
+
+    <string name="maswe_0011_vector_verification_skipped_vuln">1. Signature Verification Result Ignored</string>
+</resources>

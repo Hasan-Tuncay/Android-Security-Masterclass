@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0035_id">MASWE-0035</string>
+    <string name="maswe_0035_msg_deprecated_webview_components_secure">Secure description</string>
+    <string name="maswe_0035_msg_deprecated_webview_components_vuln">Vulnerable description</string>
+    <string name="maswe_0035_msg_safe_browsing_disabled_secure">Secure description</string>
+    <string name="maswe_0035_msg_safe_browsing_disabled_vuln">Vulnerable description</string>
+    <string name="maswe_0035_msg_unrestricted_navigation_secure">Secure description</string>
+    <string name="maswe_0035_msg_unrestricted_navigation_vuln">Vulnerable description</string>
+    <string name="maswe_0035_msg_untrusted_script_inclusion_secure">Secure description</string>
+    <string name="maswe_0035_msg_untrusted_script_inclusion_vuln">Vulnerable description</string>
+    <string name="maswe_0035_msg_untrusted_urls_from_external_secure">Secure description</string>
+    <string name="maswe_0035_msg_untrusted_urls_from_external_vuln">Vulnerable description</string>
+    <string name="maswe_0035_title">WebViews Loading Untrusted Content</string>
+    <string name="maswe_0035_vector_deprecated_webview_components_secure">5. Secure: Modern WebViews</string>
+    <string name="maswe_0035_vector_deprecated_webview_components_vuln">5. Deprecated WebViews</string>
+    <string name="maswe_0035_vector_safe_browsing_disabled_secure">4. Secure: Safe Browsing On</string>
+    <string name="maswe_0035_vector_safe_browsing_disabled_vuln">4. Safe Browsing Disabled</string>
+    <string name="maswe_0035_vector_unrestricted_navigation_secure">1. Secure: Domain Allowlist</string>
+    <string name="maswe_0035_vector_unrestricted_navigation_vuln">1. Unrestricted Navigation</string>
+    <string name="maswe_0035_vector_untrusted_script_inclusion_secure">3. Secure: SRI Checked</string>
+    <string name="maswe_0035_vector_untrusted_script_inclusion_vuln">3. Untrusted Scripts</string>
+    <string name="maswe_0035_vector_untrusted_urls_from_external_secure">2. Secure: Validated URLs</string>
+    <string name="maswe_0035_vector_untrusted_urls_from_external_vuln">2. Untrusted External URLs</string>
+</resources>

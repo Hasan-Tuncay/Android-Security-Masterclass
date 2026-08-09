@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0024_desc">Sessions not invalidated server-side, no logout UI, no re-auth on background resume, cached tokens/data retained, and no inactivity timeout.</string>
+
+    <string name="maswe_0024_id">MASWE-0024</string>
+
+    <string name="maswe_0024_msg_cached_data_not_cleared_secure">Logout explicitly removes all SharedPreferences keys, clears Room DB, and nulls in-memory state. Nothing persists after logout.</string>
+
+    <string name="maswe_0024_msg_cached_data_not_cleared_vuln">Logout only clears in-memory state. Session token persists in SharedPreferences. Next user of device reads it directly from the file system.</string>
+
+    <string name="maswe_0024_msg_missing_client_session_termination_secure">Logout clears EncryptedSharedPrefs, deletes database, revokes Keystore key. Device reset leaves nothing recoverable.</string>
+
+    <string name="maswe_0024_msg_missing_client_session_termination_vuln">App has no logout button. Uninstall leaves encrypted data on device. Shared/stolen device retains full session until reinstall.</string>
+
+    <string name="maswe_0024_msg_missing_inactivity_timeout_secure">UserActivity tracked via MotionEvent. After 5 minutes without input, screen locks and session invalidated. Resuming requires biometric.</string>
+
+    <string name="maswe_0024_msg_missing_inactivity_timeout_vuln">Session stays active forever with no inactivity limit. Unattended device stays logged in indefinitely \u2014 physical access = full access.</string>
+
+    <string name="maswe_0024_msg_no_reauth_on_state_changes_secure">onResume() checks if last auth timestamp &gt; 5 minutes ago. If so, biometric prompt shown before UI is revealed. Background = safe.</string>
+
+    <string name="maswe_0024_msg_no_reauth_on_state_changes_vuln">App backgrounded for 30 minutes and foregrounded without re-auth. Anyone who picks up the unlocked phone has full access.</string>
+
+    <string name="maswe_0024_msg_sessions_not_invalidated_server_secure">Logout calls /auth/revoke endpoint. Server adds token to blocklist. All subsequent requests with the old token return 401.</string>
+
+    <string name="maswe_0024_msg_sessions_not_invalidated_server_vuln">Logout clears local token but server never revokes it. Captured token from network intercept remains valid indefinitely.</string>
+
+    <string name="maswe_0024_title">Sensitive Data Accessible After Session Termination</string>
+
+    <string name="maswe_0024_vector_cached_data_not_cleared_secure">4. Secure: Complete Local Wipe on Logout</string>
+
+    <string name="maswe_0024_vector_cached_data_not_cleared_vuln">4. Session Token in SharedPreferences After Logout</string>
+
+    <string name="maswe_0024_vector_missing_client_session_termination_secure">2. Secure: Logout + Data Wipe</string>
+
+    <string name="maswe_0024_vector_missing_client_session_termination_vuln">2. No Logout Option in App</string>
+
+    <string name="maswe_0024_vector_missing_inactivity_timeout_secure">5. Secure: 5-Minute Inactivity Lock</string>
+
+    <string name="maswe_0024_vector_missing_inactivity_timeout_vuln">5. No Inactivity Timeout</string>
+
+    <string name="maswe_0024_vector_no_reauth_on_state_changes_secure">3. Secure: Re-Auth on Background Resume</string>
+
+    <string name="maswe_0024_vector_no_reauth_on_state_changes_vuln">3. No Re-Auth After Background Resume</string>
+
+    <string name="maswe_0024_vector_sessions_not_invalidated_server_secure">1. Secure: Server-Side Token Revocation</string>
+
+    <string name="maswe_0024_vector_sessions_not_invalidated_server_vuln">1. Server Token Valid After Logout</string>
+</resources>

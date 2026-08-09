@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0067_id">MASWE-0067</string>
+    <string name="maswe_0067_msg_secure">Secure implementation</string>
+    <string name="maswe_0067_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0067_title">Lack of Anonymization or Pseudonymisation Measures</string>
+    <string name="maswe_0067_vector_secure">1. Secure: Pseudonymisation</string>
+    <string name="maswe_0067_vector_vuln">1. Missing Anonymization</string>
+</resources>

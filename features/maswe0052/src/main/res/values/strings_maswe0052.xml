@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0052_id">MASWE-0052</string>
+    <string name="maswe_0052_msg_known_frameworks_not_detected_secure">Secure implementation</string>
+    <string name="maswe_0052_msg_known_frameworks_not_detected_vuln">Vulnerable implementation</string>
+    <string name="maswe_0052_msg_no_response_strategy_secure">Secure implementation</string>
+    <string name="maswe_0052_msg_no_response_strategy_vuln">Vulnerable implementation</string>
+    <string name="maswe_0052_msg_no_virtualization_checks_secure">Secure implementation</string>
+    <string name="maswe_0052_msg_no_virtualization_checks_vuln">Vulnerable implementation</string>
+    <string name="maswe_0052_title">Virtualization Detection Not Implemented</string>
+    <string name="maswe_0052_vector_known_frameworks_not_detected_secure">2. Secure: Known Frameworks Not Detected</string>
+    <string name="maswe_0052_vector_known_frameworks_not_detected_vuln">2. Known Frameworks Not Detected</string>
+    <string name="maswe_0052_vector_no_response_strategy_secure">3. Secure: No Response Strategy</string>
+    <string name="maswe_0052_vector_no_response_strategy_vuln">3. No Response Strategy</string>
+    <string name="maswe_0052_vector_no_virtualization_checks_secure">1. Secure: No Virtualization Checks</string>
+    <string name="maswe_0052_vector_no_virtualization_checks_vuln">1. No Virtualization Checks</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0043_id">MASWE-0043</string>
+    <string name="maswe_0043_msg_no_enforced_update_mechanism_secure">Secure description</string>
+    <string name="maswe_0043_msg_no_enforced_update_mechanism_vuln">Vulnerable description</string>
+    <string name="maswe_0043_title">Enforced Updating Not Implemented</string>
+    <string name="maswe_0043_vector_no_enforced_update_mechanism_secure">1. Secure: Enforced Update Flow</string>
+    <string name="maswe_0043_vector_no_enforced_update_mechanism_vuln">1. No Enforced Update Mechanism</string>
+</resources>

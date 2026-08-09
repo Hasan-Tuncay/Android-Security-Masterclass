@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0044_id">MASWE-0044</string>
+    <string name="maswe_0044_msg_direct_dependencies_secure">Secure description</string>
+    <string name="maswe_0044_msg_direct_dependencies_vuln">Vulnerable description</string>
+    <string name="maswe_0044_msg_dynamically_loaded_dependencies_secure">Secure description</string>
+    <string name="maswe_0044_msg_dynamically_loaded_dependencies_vuln">Vulnerable description</string>
+    <string name="maswe_0044_msg_outdated_platform_security_components_secure">Secure description</string>
+    <string name="maswe_0044_msg_outdated_platform_security_components_vuln">Vulnerable description</string>
+    <string name="maswe_0044_msg_transitive_dependencies_secure">Secure description</string>
+    <string name="maswe_0044_msg_transitive_dependencies_vuln">Vulnerable description</string>
+    <string name="maswe_0044_msg_usage_of_third_party_frameworks_secure">Secure description</string>
+    <string name="maswe_0044_msg_usage_of_third_party_frameworks_vuln">Vulnerable description</string>
+    <string name="maswe_0044_title">Dependencies with Known Vulnerabilities</string>
+    <string name="maswe_0044_vector_direct_dependencies_secure">1. Secure: Audited Direct Dependencies</string>
+    <string name="maswe_0044_vector_direct_dependencies_vuln">1. Direct Vulnerable Dependencies</string>
+    <string name="maswe_0044_vector_dynamically_loaded_dependencies_secure">3. Secure: Verified Code Loading</string>
+    <string name="maswe_0044_vector_dynamically_loaded_dependencies_vuln">3. Dynamically Loaded Dependencies</string>
+    <string name="maswe_0044_vector_outdated_platform_security_components_secure">4. Secure: Updated Provider Installer</string>
+    <string name="maswe_0044_vector_outdated_platform_security_components_vuln">4. Outdated Platform Security Components</string>
+    <string name="maswe_0044_vector_transitive_dependencies_secure">2. Secure: Overridden Transitive Dependencies</string>
+    <string name="maswe_0044_vector_transitive_dependencies_vuln">2. Transitive Vulnerable Dependencies</string>
+    <string name="maswe_0044_vector_usage_of_third_party_frameworks_secure">5. Secure: Hardened Third-Party Integration</string>
+    <string name="maswe_0044_vector_usage_of_third_party_frameworks_vuln">5. Unverified Third-Party Frameworks</string>
+</resources>

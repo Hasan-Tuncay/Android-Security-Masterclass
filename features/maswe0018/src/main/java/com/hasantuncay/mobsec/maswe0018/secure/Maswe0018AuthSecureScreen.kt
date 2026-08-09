@@ -1,0 +1,18 @@
+package com.hasantuncay.mobsec.maswe0018.secure
+
+import com.hasantuncay.mobsec.maswe0018.common.Maswe0018Vector
+import com.hasantuncay.mobsec.maswe0018.common.Maswe0018Mitigation
+import com.hasantuncay.mobsec.maswe0018.R
+import com.hasantuncay.mobsec.common.R as CommonR
+
+import androidx.compose.runtime.Composable
+import com.hasantuncay.mobsec.common.ui.components.BaseSecureScreen
+
+@Composable
+fun Maswe0018AuthSecureScreen(onBack: () -> Unit) {
+    BaseSecureScreen(
+        meta = Maswe0018Mitigation.meta,
+        vectors = Maswe0018Mitigation.entries,
+        onBack = onBack
+    )
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0038_id">MASWE-0038</string>
+    <string name="maswe_0038_msg_excessive_on_screen_disclosure_secure">Secure description</string>
+    <string name="maswe_0038_msg_excessive_on_screen_disclosure_vuln">Vulnerable description</string>
+    <string name="maswe_0038_msg_missing_capture_state_redaction_secure">Secure description</string>
+    <string name="maswe_0038_msg_missing_capture_state_redaction_vuln">Vulnerable description</string>
+    <string name="maswe_0038_msg_missing_platform_screenshot_protection_secure">Secure description</string>
+    <string name="maswe_0038_msg_missing_platform_screenshot_protection_vuln">Vulnerable description</string>
+    <string name="maswe_0038_title">Insufficient Protection of Sensitive Data from Screenshots or Screen Recordings</string>
+    <string name="maswe_0038_vector_excessive_on_screen_disclosure_secure">3. Secure: Minimal Info</string>
+    <string name="maswe_0038_vector_excessive_on_screen_disclosure_vuln">3. Excessive Disclosure</string>
+    <string name="maswe_0038_vector_missing_capture_state_redaction_secure">2. Secure: Capture Detected</string>
+    <string name="maswe_0038_vector_missing_capture_state_redaction_vuln">2. Missing Capture Redaction</string>
+    <string name="maswe_0038_vector_missing_platform_screenshot_protection_secure">1. Secure: FLAG_SECURE Set</string>
+    <string name="maswe_0038_vector_missing_platform_screenshot_protection_vuln">1. Missing FLAG_SECURE</string>
+</resources>

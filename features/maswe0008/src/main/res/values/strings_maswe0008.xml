@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0008_desc">MD5 or SHA-1 used where collision resistance is required; plain hash instead of a KDF for passwords; truncated digests.</string>
+
+    <string name="maswe_0008_id">MASWE-0008</string>
+
+    <string name="maswe_0008_msg_broken_hash_algorithm_secure">SHA-256 used. No practical collision attack exists. NIST-approved for all integrity use cases.</string>
+
+    <string name="maswe_0008_msg_broken_hash_algorithm_vuln">MD5 used to verify file integrity. Collision attacks known since 2004 — attacker can produce two files with the same hash.</string>
+
+    <string name="maswe_0008_msg_truncated_digest_secure">Full 256-bit (32-byte) SHA-256 output retained. 2^128 work required to find a collision.</string>
+
+    <string name="maswe_0008_msg_truncated_digest_vuln">SHA-256 output truncated to first 4 bytes (32 bits). Birthday attack finds collision with only ~65,000 hashes.</string>
+
+    <string name="maswe_0008_msg_wrong_hash_for_job_secure">Password hashed with PBKDF2-HMAC-SHA256 (310,000 iterations + random salt). GPU cracking reduced by 6 orders of magnitude.</string>
+
+    <string name="maswe_0008_msg_wrong_hash_for_job_vuln">Password stored as SHA-256(password). Fast hash — 10 billion guesses/sec on a GPU. Offline cracking trivial.</string>
+
+    <string name="maswe_0008_title">Improper Hashing</string>
+
+    <string name="maswe_0008_vector_broken_hash_algorithm_secure">1. Secure: SHA-256 or SHA-3</string>
+
+    <string name="maswe_0008_vector_broken_hash_algorithm_vuln">1. MD5 / SHA-1 for Integrity Check</string>
+
+    <string name="maswe_0008_vector_truncated_digest_secure">3. Secure: Full Hash Output</string>
+
+    <string name="maswe_0008_vector_truncated_digest_vuln">3. Hash Truncated to 32 bits</string>
+
+    <string name="maswe_0008_vector_wrong_hash_for_job_secure">2. Secure: Argon2 / PBKDF2</string>
+
+    <string name="maswe_0008_vector_wrong_hash_for_job_vuln">2. Plain SHA-256 for Password Storage</string>
+</resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">💀 MobSec Attacker</string>
-    <string name="exploit_receiver_label">Exploit Receiver</string>
 
     <!-- Main Screen -->
     <string name="attacker_main_title_header">⚠️  MobSec Attacker</string>
@@ -19,9 +18,6 @@
     <string name="format_maswe0002_id">MASWE-0002: %1$s</string>
     <string name="format_maswe0003_id">MASWE-0003: %1$s</string>
     
-    <string name="cat_maswe0005">MASWE-0005: Logging &amp; Info Exposure</string>
-    <string name="cat_maswe0002">MASWE-0002: Insecure Data Storage</string>
-    <string name="cat_maswe0003">MASWE-0003: Insecure Communication</string>
     
     <string name="exploit_id_sys_logs">System Logs</string>
     <string name="exploit_title_logcat">Logcat Snooping</string>
@@ -55,7 +51,6 @@
     <string name="target_info_api">Min API</string>
     
     <string name="target_val_package">com.hasantuncay.mobsec</string>
-    <string name="target_val_authority">%1$s.fileprovider</string>
     <string name="target_val_file">shared_prefs/maswe0002_session.xml</string>
     <string name="target_val_method">FLAG_GRANT_READ_URI_PERMISSION + content://</string>
     <string name="target_val_root">NO — Standard Android IPC</string>
@@ -90,4 +85,8 @@
     <string name="logcat_restricted">RESTRICTED ACCESS</string>
     <string name="logcat_refresh_instruction">Then click the refresh icon on the top right.</string>
     <string name="logcat_access_granted">SYSTEM WIDE LOG ACCESS GRANTED</string>
+    <string name="format_cwe">CWE: %1$s</string>
+    <string name="format_status">▸ %1$s</string>
+    <string name="format_label">%1$s: </string>
+    <string name="adb_grant_read_logs">adb shell pm grant com.hasantuncay.mobsec.attacker android.permission.READ_LOGS</string>
 </resources>

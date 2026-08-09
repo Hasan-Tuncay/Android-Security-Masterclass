@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0023_desc">High-risk operations (payments, data changes) allowed with initial login assurance only. No step-up, no transaction binding, no server-side enforcement.</string>
+
+    <string name="maswe_0023_id">MASWE-0023</string>
+
+    <string name="maswe_0023_msg_no_reauth_for_sensitive_secure">Payment requires fresh biometric before each transaction. Session token alone is insufficient \u2014 step-up assertion required.</string>
+
+    <string name="maswe_0023_msg_no_reauth_for_sensitive_vuln">Payment executed using only the session token from initial login. Stolen/leaked session = unauthorized transfers possible.</string>
+
+    <string name="maswe_0023_msg_step_up_not_bound_to_action_secure">Transaction hash (amount + recipient + nonce) signed by Keystore key during biometric. Server verifies signature matches the exact transaction.</string>
+
+    <string name="maswe_0023_msg_step_up_not_bound_to_action_vuln">Single biometric approval can be reused for a different transaction. Attacker modifies the amount after approval \u2014 approval still valid.</string>
+
+    <string name="maswe_0023_msg_step_up_not_server_side_secure">Server requires a short-lived step-up token in addition to session token. No biometric assertion = API rejects with 403. Unpatchable by client.</string>
+
+    <string name="maswe_0023_msg_step_up_not_server_side_vuln">Biometric shown only in app UI. Server accepts the regular session token without step-up assertion. APK patch skips the biometric entirely.</string>
+
+    <string name="maswe_0023_msg_uniform_assurance_level_secure">Low-risk ops (balance view) require session only. Medium (profile change) requires PIN. High (transfer) requires biometric + server step-up.</string>
+
+    <string name="maswe_0023_msg_uniform_assurance_level_vuln">Login grants access to everything: balance view, fund transfer, profile change. Stolen session = full account control.</string>
+
+    <string name="maswe_0023_title">Step-Up Authentication Not Implemented</string>
+
+    <string name="maswe_0023_vector_no_reauth_for_sensitive_secure">1. Secure: Per-Operation Re-Auth</string>
+
+    <string name="maswe_0023_vector_no_reauth_for_sensitive_vuln">1. Payment With Only Login Token</string>
+
+    <string name="maswe_0023_vector_step_up_not_bound_to_action_secure">2. Secure: Transaction-Specific Signature</string>
+
+    <string name="maswe_0023_vector_step_up_not_bound_to_action_vuln">2. Step-Up Not Transaction-Bound</string>
+
+    <string name="maswe_0023_vector_step_up_not_server_side_secure">3. Secure: Server-Enforced Step-Up</string>
+
+    <string name="maswe_0023_vector_step_up_not_server_side_vuln">3. Step-Up Client-Side Only</string>
+
+    <string name="maswe_0023_vector_uniform_assurance_level_secure">4. Secure: Risk-Tiered Auth Levels</string>
+
+    <string name="maswe_0023_vector_uniform_assurance_level_vuln">4. Same Session for All Risk Levels</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0036_id">MASWE-0036</string>
+    <string name="maswe_0036_msg_non_secure_text_entry_secure">Secure description</string>
+    <string name="maswe_0036_msg_non_secure_text_entry_vuln">Vulnerable description</string>
+    <string name="maswe_0036_msg_unmasked_sensitive_values_secure">Secure description</string>
+    <string name="maswe_0036_msg_unmasked_sensitive_values_vuln">Vulnerable description</string>
+    <string name="maswe_0036_title">Unnecessary Exposure of Sensitive Data via the User Interface</string>
+    <string name="maswe_0036_vector_non_secure_text_entry_secure">1. Secure: Password Type</string>
+    <string name="maswe_0036_vector_non_secure_text_entry_vuln">1. Non-Secure Text Entry</string>
+    <string name="maswe_0036_vector_unmasked_sensitive_values_secure">2. Secure: Masked Data</string>
+    <string name="maswe_0036_vector_unmasked_sensitive_values_vuln">2. Unmasked Sensitive Data</string>
+</resources>

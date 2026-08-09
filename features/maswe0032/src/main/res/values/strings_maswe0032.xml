@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0032_id">MASWE-0032</string>
+    <string name="maswe_0032_msg_implicit_intents_internal_secure">Secure description</string>
+    <string name="maswe_0032_msg_implicit_intents_internal_vuln">Vulnerable description</string>
+    <string name="maswe_0032_msg_intent_redirection_secure">Secure description</string>
+    <string name="maswe_0032_msg_intent_redirection_vuln">Vulnerable description</string>
+    <string name="maswe_0032_msg_mutable_pending_intents_secure">Secure description</string>
+    <string name="maswe_0032_msg_mutable_pending_intents_vuln">Vulnerable description</string>
+    <string name="maswe_0032_msg_replayable_pending_intents_secure">Secure description</string>
+    <string name="maswe_0032_msg_replayable_pending_intents_vuln">Vulnerable description</string>
+    <string name="maswe_0032_msg_sticky_broadcasts_secure">Secure description</string>
+    <string name="maswe_0032_msg_sticky_broadcasts_vuln">Vulnerable description</string>
+    <string name="maswe_0032_title">Insecure Intents</string>
+    <string name="maswe_0032_vector_implicit_intents_internal_secure">1. Secure: Explicit Intents Only</string>
+    <string name="maswe_0032_vector_implicit_intents_internal_vuln">1. Implicit Intents Internal</string>
+    <string name="maswe_0032_vector_intent_redirection_secure">2. Secure: Intent Validated</string>
+    <string name="maswe_0032_vector_intent_redirection_vuln">2. Intent Redirection</string>
+    <string name="maswe_0032_vector_mutable_pending_intents_secure">3. Secure: FLAG_IMMUTABLE</string>
+    <string name="maswe_0032_vector_mutable_pending_intents_vuln">3. Mutable Pending Intents</string>
+    <string name="maswe_0032_vector_replayable_pending_intents_secure">4. Secure: FLAG_ONE_SHOT</string>
+    <string name="maswe_0032_vector_replayable_pending_intents_vuln">4. Replayable Pending Intents</string>
+    <string name="maswe_0032_vector_sticky_broadcasts_secure">5. Secure: Standard Broadcasts</string>
+    <string name="maswe_0032_vector_sticky_broadcasts_vuln">5. Sticky Broadcasts</string>
+</resources>

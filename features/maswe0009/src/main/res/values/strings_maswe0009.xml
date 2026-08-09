@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0009_desc">CRC-32 where a MAC is needed; MACs built on weak hashes; fragile constructions; missing replay protection; truncated tags.</string>
+
+    <string name="maswe_0009_id">MASWE-0009</string>
+
+    <string name="maswe_0009_msg_fragile_construction_secure">AES-GCM used — encryption and authentication are atomic. Equivalent to Encrypt-then-MAC, immune to padding oracles.</string>
+
+    <string name="maswe_0009_msg_fragile_construction_vuln">MAC computed over plaintext, then plaintext encrypted (MAC-then-Encrypt). Vulnerable to padding oracle + chosen-ciphertext attacks.</string>
+
+    <string name="maswe_0009_msg_missing_replay_protection_secure">Message includes incrementing sequence number covered by MAC. Replayed messages rejected as sequence already seen.</string>
+
+    <string name="maswe_0009_msg_missing_replay_protection_vuln">Valid authenticated message captured and replayed. Server accepts it — no way to distinguish replay from fresh request.</string>
+
+    <string name="maswe_0009_msg_non_cryptographic_checksum_secure">HMAC-SHA256 used. Forgery requires knowledge of the secret key — computationally infeasible without it.</string>
+
+    <string name="maswe_0009_msg_non_cryptographic_checksum_vuln">CRC-32 used to &quot;verify&quot; message integrity. An attacker can compute any CRC-32 value — trivially forgeable.</string>
+
+    <string name="maswe_0009_msg_truncated_tag_secure">Full 128-bit GCM tag used. Forgery probability is 2^-128 per attempt — computationally infeasible.</string>
+
+    <string name="maswe_0009_msg_truncated_tag_vuln">GCM tag truncated to 4 bytes. Attacker has 1-in-4-billion chance of forging a message — feasible with automation.</string>
+
+    <string name="maswe_0009_msg_weak_hash_based_mac_secure">HMAC-SHA256 used with proper key. SHA-256 has no known collision vulnerabilities.</string>
+
+    <string name="maswe_0009_msg_weak_hash_based_mac_vuln">HMAC built on MD5. MD5 is broken — potential length-extension and collision vulnerabilities affect derived MACs.</string>
+
+    <string name="maswe_0009_msg_weak_or_reused_mac_key_secure">256-bit key generated fresh per session via SecureRandom. Not reused across algorithms or purposes.</string>
+
+    <string name="maswe_0009_msg_weak_or_reused_mac_key_vuln">8-byte MAC key reused across all messages. Low entropy — brute-forceable. Key reuse violates key-separation principles.</string>
+
+    <string name="maswe_0009_title">Improper Use of Message Authentication Code (MAC)</string>
+
+    <string name="maswe_0009_vector_fragile_construction_secure">4. Secure: Encrypt-then-MAC / AES-GCM</string>
+
+    <string name="maswe_0009_vector_fragile_construction_vuln">4. MAC-then-Encrypt Construction</string>
+
+    <string name="maswe_0009_vector_missing_replay_protection_secure">6. Secure: Nonce / Sequence Number</string>
+
+    <string name="maswe_0009_vector_missing_replay_protection_vuln">6. No Replay Protection</string>
+
+    <string name="maswe_0009_vector_non_cryptographic_checksum_secure">1. Secure: HMAC-SHA256</string>
+
+    <string name="maswe_0009_vector_non_cryptographic_checksum_vuln">1. CRC-32 Instead of MAC</string>
+
+    <string name="maswe_0009_vector_truncated_tag_secure">5. Secure: 128-bit Authentication Tag</string>
+
+    <string name="maswe_0009_vector_truncated_tag_vuln">5. 32-bit Authentication Tag</string>
+
+    <string name="maswe_0009_vector_weak_hash_based_mac_secure">2. Secure: HMAC-SHA256</string>
+
+    <string name="maswe_0009_vector_weak_hash_based_mac_vuln">2. HMAC-MD5</string>
+
+    <string name="maswe_0009_vector_weak_or_reused_mac_key_secure">3. Secure: 256-bit Random MAC Key</string>
+
+    <string name="maswe_0009_vector_weak_or_reused_mac_key_vuln">3. Short / Reused MAC Key</string>
+</resources>

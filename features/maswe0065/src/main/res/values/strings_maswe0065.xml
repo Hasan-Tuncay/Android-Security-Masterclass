@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0065_id">MASWE-0065</string>
+    <string name="maswe_0065_msg_artifact_checks_missing_secure">Scans memory maps and default Frida ports</string>
+    <string name="maswe_0065_msg_artifact_checks_missing_vuln">Does not scan for Frida ports / binaries</string>
+    <string name="maswe_0065_msg_no_instrumentation_checks_secure">Frida / Xposed runtime hook detection</string>
+    <string name="maswe_0065_msg_no_instrumentation_checks_vuln">No checks for Frida / Xposed</string>
+    <string name="maswe_0065_msg_no_response_strategy_secure">Immediate exit upon detecting dynamic hook</string>
+    <string name="maswe_0065_msg_no_response_strategy_vuln">No reaction when hooked</string>
+    <string name="maswe_0065_title">Dynamic Analysis Tools Detection</string>
+    <string name="maswe_0065_vector_artifact_checks_missing_secure">2. Artifact Scanning Active</string>
+    <string name="maswe_0065_vector_artifact_checks_missing_vuln">2. Artifact Checks Missing</string>
+    <string name="maswe_0065_vector_no_instrumentation_checks_secure">1. Anti-Instrumentation Active</string>
+    <string name="maswe_0065_vector_no_instrumentation_checks_vuln">1. No Instrumentation Checks</string>
+    <string name="maswe_0065_vector_no_response_strategy_secure">3. Active Countermeasures</string>
+    <string name="maswe_0065_vector_no_response_strategy_vuln">3. No Response Strategy</string>
+</resources>

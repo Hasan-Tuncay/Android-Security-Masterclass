@@ -23,34 +23,46 @@ Instead of hunting for bugs in outdated Java codebases, this project uses a stat
 
 ```mermaid
 graph TD
-    COMMON("🧱 :common<br/>Shared Data · ViewModel<br/>Theme · Navigation")
-    VULN("❌ :app-vulnerable<br/>Insecure Implementations")
-    SEC("✅ :app-secure<br/>Hardened Implementations")
+    COMMON("🧱 :common<br/>Shared Data · Theme<br/>Dashboard Metadata")
+    
+    subgraph FEATURES ["📦 Package-by-Feature (78 Isolated Modules)"]
+        direction LR
+        M1(":features:maswe0001<br/>Storage")
+        M2("...<br/>... ")
+        M78(":features:maswe0078<br/>Privacy")
+    end
+    
+    VULN("❌ :app-vulnerable<br/>Thin Shell Orchestrator")
+    SEC("✅ :app-secure<br/>Thin Shell Orchestrator")
     ATK("😈 :app-attacker<br/>Simulated Malware")
 
-    COMMON -- "Same Data<br/>Same UI" --> VULN
-    COMMON -- "Same Data<br/>Same UI" --> SEC
-    VULN -. "IPC Exploit<br/>Logcat · ContentProvider" .-> ATK
+    COMMON --> FEATURES
+    FEATURES -- "Insecure Logic" --> VULN
+    FEATURES -- "Hardened Logic" --> SEC
+    VULN -. "Active Exploit<br/>IPC / Logcat" .-> ATK
 
     classDef common fill:#4A90D9,stroke:#2C5F8A,color:#fff,stroke-width:2px,font-weight:bold
+    classDef feat fill:#F39C12,stroke:#D35400,color:#fff,stroke-width:2px,font-weight:bold
     classDef vuln fill:#E74C3C,stroke:#C0392B,color:#fff,stroke-width:2px,font-weight:bold
     classDef secure fill:#27AE60,stroke:#1E8449,color:#fff,stroke-width:2px,font-weight:bold
     classDef attacker fill:#8E44AD,stroke:#6C3483,color:#fff,stroke-width:2px,font-weight:bold
 
     class COMMON common
+    class M1,M2,M78 feat
     class VULN vuln
     class SEC secure
     class ATK attacker
 ```
 
-The project consists of **four modules** working in concert:
+The project consists of a **Hyper-Modular "Package-by-Feature"** architecture spanning over 80 modules:
 
-| Module | Role | Status |
+| Module Layer | Role | Status |
 | :--- | :--- | :--- |
-| **`:common`** | Shared data models (`MasterclassData`), MASWE vector enums, ViewModel, UI theme, and navigation. Both apps receive the same high-fidelity data. | Foundation ✅ |
-| **`:app-vulnerable`** | The "Before" state. Implements features with critical, realistic security flaws that violate OWASP MASVS standards. | MASWE-0001 ✅ · MASWE-0002 ✅ |
-| **`:app-secure`** | The "After" state. The exact same UI and features, secured using Jetpack Security, Tink, SQLCipher, ProGuard, and SecureLog. | MASWE-0001 ✅ · MASWE-0002 ✅ |
-| **`:app-attacker`** | A simulated malicious third-party app. Demonstrates **live** IPC exploits (FileProvider path traversal, Logcat snooping) — not theoretical ADB commands, but an actual running process on the device. | Active ✅ |
+| **`:common`** | The foundation. Contains the `MasterclassData` high-fidelity payload generator, Dashboard metadata, core UI theme, and generic navigation components. | Foundation ✅ |
+| **`:features:masweXXXX`** | **78 fully isolated Gradle modules** (0001 to 0078). Each module contains *both* the vulnerable and secure implementations for a single weakness, preventing cross-leakage and enabling massive team scalability. | 78 Modules Auto-Generated ✅ |
+| **`:app-vulnerable`** | A "Thin Shell" orchestrator app. It wires together the insecure components from all 78 feature modules to demonstrate the exact consequence of OWASP violations. | Active ✅ |
+| **`:app-secure`** | A "Thin Shell" orchestrator app. Wires together the secure implementations utilizing modern standards (Jetpack Security, Tink, SQLCipher). | Active ✅ |
+| **`:app-attacker`** | A simulated malicious third-party app. Demonstrates **live** IPC exploits via a secondary process running concurrently on the device. | Active ✅ |
 
 ### 📦 The `MasterclassData` High-Fidelity Data Model
 Unlike other educational projects that use trivial data ("admin:password"), our leak simulations use **regulation-grade** payloads:
@@ -138,17 +150,26 @@ graph LR
     class S1,S2,S3,S4,S5 secure
 ```
 
-### ✅ Completed
-- [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](docs/maswe/MASVS-STORAGE/maswe_001/MASWE-0001-Logging-Leaks.md)
+### 🏗️ Architecture Baseline (78 Independent Feature Modules)
+The project architecture has successfully initialized and scaled out all 78 MASWE vulnerabilities into their own isolated `:features:masweXXXX` Gradle modules.
+
+**Categories Integrated:**
+- 🗄️ **Storage**: MASWE 0001 - 0006
+- 🔐 **Cryptography**: MASWE 0007 - 0017
+- 🔑 **Authentication**: MASWE 0018 - 0025
+- 🌐 **Network**: MASWE 0026 - 0028
+- 📱 **Platform**: MASWE 0029 - 0040
+- 💻 **Code**: MASWE 0041 - 0050
+- 🛡️ **Resilience**: MASWE 0051 - 0065
+- 🕵️ **Privacy**: MASWE 0066 - 0078
+
+### ✅ Completed Logic Implementations
+- [**MASWE-0001**: Sensitive Data Leakage via Logging (CWE-532)](docs/maswe/MASVS-STORAGE/maswe_005/MASWE-0005-Logging-Leaks.md)
 - [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](./docs/mastg-best/MASTG-BEST-0002-ProGuard.md)
 - [**MASWE-0002**: Insecure Local Storage (SharedPreferences, DataStore, SQLite)](./docs/maswe/MASVS-STORAGE/maswe_002/MASWE-0002-Insecure-Storage.md) *(Attacker App PoC Ready)*
 
-### 🚧 In Progress
-
-### ⏳ Upcoming Scenarios
-- **MASWE-0064**: Insecure ContentProvider (IPC Leakage)
-- **MASWE-XXXX**: Deep Link & Intent Hijacking
-- **MASWE-XXXX**: Insecure Network Communication (TLS/SSL Pinning)
+### 🚧 Active Development
+Module logics (0003 through 0078) are actively being fleshed out within their isolated environments. Please refer to [docs/MAPPING_MATRIX.md](docs/MAPPING_MATRIX.md) for the complete 78-vector coverage map.
 
 ## 🛠️ How to Build and Test
 

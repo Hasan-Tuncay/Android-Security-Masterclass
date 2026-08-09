@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0040_id">MASWE-0040</string>
+    <string name="maswe_0040_msg_high_risk_flows_automatable_secure">Secure description</string>
+    <string name="maswe_0040_msg_high_risk_flows_automatable_vuln">Vulnerable description</string>
+    <string name="maswe_0040_msg_secrets_in_accessibility_metadata_secure">Secure description</string>
+    <string name="maswe_0040_msg_secrets_in_accessibility_metadata_vuln">Vulnerable description</string>
+    <string name="maswe_0040_msg_sensitive_fields_not_secure_input_secure">Secure description</string>
+    <string name="maswe_0040_msg_sensitive_fields_not_secure_input_vuln">Vulnerable description</string>
+    <string name="maswe_0040_msg_system_keyboards_exposing_input_secure">Secure description</string>
+    <string name="maswe_0040_msg_system_keyboards_exposing_input_vuln">Vulnerable description</string>
+    <string name="maswe_0040_title">Sensitive Data Leaked via Accessibility Services</string>
+    <string name="maswe_0040_vector_high_risk_flows_automatable_secure">3. Secure: Biometric Required</string>
+    <string name="maswe_0040_vector_high_risk_flows_automatable_vuln">3. Automatable Risk Flows</string>
+    <string name="maswe_0040_vector_secrets_in_accessibility_metadata_secure">1. Secure: Clean Metadata</string>
+    <string name="maswe_0040_vector_secrets_in_accessibility_metadata_vuln">1. Secrets in A11y Metadata</string>
+    <string name="maswe_0040_vector_sensitive_fields_not_secure_input_secure">2. Secure: Password Input Type</string>
+    <string name="maswe_0040_vector_sensitive_fields_not_secure_input_vuln">2. Non-Secure Fields Read</string>
+    <string name="maswe_0040_vector_system_keyboards_exposing_input_secure">4. Secure: Secure Keypad</string>
+    <string name="maswe_0040_vector_system_keyboards_exposing_input_vuln">4. System Keyboard Exposure</string>
+</resources>

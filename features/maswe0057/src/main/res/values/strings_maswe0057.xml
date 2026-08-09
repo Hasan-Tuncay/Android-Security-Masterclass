@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0057_id">MASWE-0057</string>
+    <string name="maswe_0057_msg_downloaded_resources_not_verified_secure">Downloaded assets are verified with signed hashes before usage.</string>
+    <string name="maswe_0057_msg_downloaded_resources_not_verified_vuln">Downloaded assets/dynamic files are processed without signature checks.</string>
+    <string name="maswe_0057_msg_restored_data_not_revalidated_secure">Restored app data is sanitized and revalidated upon initial load.</string>
+    <string name="maswe_0057_msg_restored_data_not_revalidated_vuln">Backup/restored app state is accepted blindly without validation.</string>
+    <string name="maswe_0057_msg_sandbox_files_not_verified_secure">Internal storage files are integrity checked using HMAC/SHA-256.</string>
+    <string name="maswe_0057_msg_sandbox_files_not_verified_vuln">Internal storage files are loaded without checksum validation.</string>
+    <string name="maswe_0057_msg_verification_result_ignored_secure">Failed integrity checks immediately halt execution and invalidate session.</string>
+    <string name="maswe_0057_msg_verification_result_ignored_vuln">Failed integrity check results are logged but execution continues.</string>
+    <string name="maswe_0057_title">App Resources Integrity Not Verified</string>
+    <string name="maswe_0057_vector_downloaded_resources_not_verified_secure">2. Secure: Downloaded Resource Verification</string>
+    <string name="maswe_0057_vector_downloaded_resources_not_verified_vuln">2. Downloaded Resources Not Verified</string>
+    <string name="maswe_0057_vector_restored_data_not_revalidated_secure">3. Secure: Restored Data Revalidation</string>
+    <string name="maswe_0057_vector_restored_data_not_revalidated_vuln">3. Restored Data Not Revalidated</string>
+    <string name="maswe_0057_vector_sandbox_files_not_verified_secure">1. Secure: Sandbox File Integrity Checks</string>
+    <string name="maswe_0057_vector_sandbox_files_not_verified_vuln">1. Sandbox Files Not Verified</string>
+    <string name="maswe_0057_vector_verification_result_ignored_secure">4. Secure: Enforce Verification Failures</string>
+    <string name="maswe_0057_vector_verification_result_ignored_vuln">4. Verification Result Ignored</string>
+</resources>

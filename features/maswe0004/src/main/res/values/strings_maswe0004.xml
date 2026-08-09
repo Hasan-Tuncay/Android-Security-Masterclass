@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0004_desc">API keys, passwords, or tokens baked into source code, resources, or native libraries — extractable via static analysis. (Coming soon)</string>
+
+    <string name="maswe_0004_id">MASWE-0004</string>
+
+    <string name="maswe_0004_msg_assets_secure">Secrets moved to remote config or Android Keystore. APK contains no sensitive values.</string>
+
+    <string name="maswe_0004_msg_assets_vuln">API key in strings.xml is trivially accessible — apktool decodes resources without needing to decompile Kotlin.</string>
+
+    <string name="maswe_0004_msg_build_leftovers_secure">Build variants enforce different configs. Release build contains no debug endpoints or verbose logging.</string>
+
+    <string name="maswe_0004_msg_build_leftovers_vuln">Debug API base URL and logging flag accidentally shipped in the release build — network interceptors could target staging.</string>
+
+    <string name="maswe_0004_msg_library_secure">SDK initialized server-side or with a short-lived token fetched at launch. No secret in APK.</string>
+
+    <string name="maswe_0004_msg_library_vuln">Analytics/push SDK initialized with hardcoded write key bundled in the APK.</string>
+
+    <string name="maswe_0004_msg_source_code_secure">Secret fetched at runtime from a secure backend. Never present in compiled code.</string>
+
+    <string name="maswe_0004_msg_source_code_vuln">API key hardcoded as a String constant — extractable via JADX or strings command on APK.</string>
+
+    <string name="maswe_0004_title">Sensitive Data Hardcoded in the App Package</string>
+
+    <string name="maswe_0004_vector_assets_secure">2. Secure: Remote Config / Keystore</string>
+
+    <string name="maswe_0004_vector_assets_vuln">2. Secret in strings.xml / assets/</string>
+
+    <string name="maswe_0004_vector_build_leftovers_secure">4. Secure: Build-Variant Separation</string>
+
+    <string name="maswe_0004_vector_build_leftovers_vuln">4. Staging Endpoint / Debug Flag Left in Release</string>
+
+    <string name="maswe_0004_vector_library_secure">3. Secure: Server-Side SDK Init</string>
+
+    <string name="maswe_0004_vector_library_vuln">3. Secret in Third-Party Library Config</string>
+
+    <string name="maswe_0004_vector_source_code_secure">1. Secure: Runtime Secret Fetch</string>
+
+    <string name="maswe_0004_vector_source_code_vuln">1. API Key in Source Code</string>
+</resources>

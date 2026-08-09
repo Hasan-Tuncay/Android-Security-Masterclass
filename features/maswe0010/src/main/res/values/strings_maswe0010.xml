@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0010_desc">Deprecated signature algorithms (SHA1withRSA); insufficient key length; predictable ECDSA nonces; key reuse across purposes.</string>
+
+    <string name="maswe_0010_id">MASWE-0010</string>
+
+    <string name="maswe_0010_msg_insufficient_key_length_secure">2048-bit RSA or P-256 ECDSA used. Meets NIST minimum for signatures through 2030+.</string>
+
+    <string name="maswe_0010_msg_insufficient_key_length_vuln">512-bit RSA key. Factorable with public cloud computing in hours. Any attacker can forge signatures.</string>
+
+    <string name="maswe_0010_msg_key_reuse_across_purposes_secure">Separate RSA key pairs for encryption and signing. Key separation per NIST SP 800-57 enforced.</string>
+
+    <string name="maswe_0010_msg_key_reuse_across_purposes_vuln">RSA key pair used for both decryption and signing. Cross-protocol attacks can recover private key material.</string>
+
+    <string name="maswe_0010_msg_predictable_nonce_secure">Nonce derived deterministically per RFC 6979. Same nonce never reused. Private key cannot be extracted.</string>
+
+    <string name="maswe_0010_msg_predictable_nonce_vuln">ECDSA nonce k hardcoded to 1 for two different messages. Private key fully recoverable with simple algebra from two signatures.</string>
+
+    <string name="maswe_0010_msg_weak_signature_algorithm_secure">SHA256withECDSA used. NIST-approved, provides 128-bit security, faster than RSA.</string>
+
+    <string name="maswe_0010_msg_weak_signature_algorithm_vuln">Document signed with SHA1withRSA. SHA-1 is broken for signatures — collision attacks enable signature forgery.</string>
+
+    <string name="maswe_0010_title">Improper Generation of Cryptographic Signatures</string>
+
+    <string name="maswe_0010_vector_insufficient_key_length_secure">2. Secure: 2048-bit RSA / P-256 ECDSA</string>
+
+    <string name="maswe_0010_vector_insufficient_key_length_vuln">2. 512-bit RSA Signing Key</string>
+
+    <string name="maswe_0010_vector_key_reuse_across_purposes_secure">4. Secure: Dedicated Signing Key</string>
+
+    <string name="maswe_0010_vector_key_reuse_across_purposes_vuln">4. Same Key for Signing and Decryption</string>
+
+    <string name="maswe_0010_vector_predictable_nonce_secure">3. Secure: RFC 6979 Deterministic Nonce</string>
+
+    <string name="maswe_0010_vector_predictable_nonce_vuln">3. ECDSA Nonce Reuse</string>
+
+    <string name="maswe_0010_vector_weak_signature_algorithm_secure">1. Secure: SHA256withRSA / ECDSA</string>
+
+    <string name="maswe_0010_vector_weak_signature_algorithm_vuln">1. SHA1withRSA Signature</string>
+</resources>

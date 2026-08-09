@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0001_desc">Data written to SharedPrefs, DataStore, SQLite, or files without encryption — readable via root, ADB backup, or forensic tools.</string>
+
+    <string name="maswe_0001_id">MASWE-0001</string>
+
+    <string name="maswe_0001_msg_cache_secure">PDF encrypted via Tink and wiped securely.</string>
+
+    <string name="maswe_0001_msg_cache_vuln">Plaintext PDF left in cacheDir indefinitely.</string>
+
+    <string name="maswe_0001_msg_datastore_secure">DataStore encrypted with AES-256-GCM via Tink. Content unreadable.</string>
+
+    <string name="maswe_0001_msg_datastore_vuln">Written to files/datastore/ — binary ≠ encrypted. Check Logcat!</string>
+
+    <string name="maswe_0001_msg_file_provider_secure">FileProvider restricted to images/ only. Traversal URI rejected.</string>
+
+    <string name="maswe_0001_msg_file_provider_vuln">content:// URI generated — logged to Logcat. A second app could read this!</string>
+
+    <string name="maswe_0001_msg_path_traversal_secure">Provider canonicalizes paths and rejects ../ payloads.</string>
+
+    <string name="maswe_0001_msg_path_traversal_vuln">Exported provider allows ../ payload. Attackers can read internal sandbox!</string>
+
+    <string name="maswe_0001_msg_sdk_leak_secure">PII masked/hashed before sending to SDK. No plaintext on disk.</string>
+
+    <string name="maswe_0001_msg_sdk_leak_vuln">Analytics SDK cached PII unencrypted in analytics_shadow.db!</string>
+
+    <string name="maswe_0001_msg_shared_prefs_secure">Migrated to encrypted DataStore. No plaintext on disk.</string>
+
+    <string name="maswe_0001_msg_shared_prefs_vuln">Written to shared_prefs/maswe0002_session.xml — plaintext token visible!</string>
+
+    <string name="maswe_0001_msg_sqlite_secure">Room DB encrypted via SQLCipher. Hex dump shows no plaintext.</string>
+
+    <string name="maswe_0001_msg_sqlite_vuln">Written to databases/maswe0002_vuln.db — check Logcat for WAL path!</string>
+
+    <string name="maswe_0001_msg_webview_secure">DOM storage disabled or data encrypted.</string>
+
+    <string name="maswe_0001_msg_webview_vuln">JWT leaked to localStorage via JS. Check /app_webview/</string>
+
+
+
+
+    <string name="maswe_0001_title">Sensitive Data Stored Unencrypted in Private Storage</string>
+
+    <string name="maswe_0001_ui_adb_verification">ADB Verification:</string>
+
+    <string name="maswe_0001_ui_location_label">📁 Location:</string>
+
+    <string name="maswe_0001_ui_vector_triggered">Vector Triggered — Data Written to Disk</string>
+
+    <string name="maswe_0001_ui_writing_storage">Writing to storage…</string>
+
+    <string name="maswe_0001_vector_cache_secure">7. Secure Auto-Cleaning Cache</string>
+
+    <string name="maswe_0001_vector_cache_vuln">7. Cache Directory Exposure (CWE-200)</string>
+
+    <string name="maswe_0001_vector_datastore_secure">2. Secure DataStore (Encrypted)</string>
+
+    <string name="maswe_0001_vector_datastore_vuln">2. DataStore Unencrypted (.preferences_pb)</string>
+
+    <string name="maswe_0001_vector_file_provider_secure">4. Secure FileProvider (Narrow Path)</string>
+
+    <string name="maswe_0001_vector_file_provider_vuln">4. FileProvider Root-Path Misconfiguration</string>
+
+    <string name="maswe_0001_vector_path_traversal_secure">8. Secure Provider (Canonical Check)</string>
+
+    <string name="maswe_0001_vector_path_traversal_vuln">8. Path Traversal ContentProvider (CWE-22)</string>
+
+    <string name="maswe_0001_vector_sdk_leak_secure">9. Secure SDK Masking</string>
+
+    <string name="maswe_0001_vector_sdk_leak_vuln">9. 3rd Party SDK Shadow Leak</string>
+
+    <string name="maswe_0001_vector_shared_prefs_secure">1. Secure SharedPreferences (DataStore+Tink)</string>
+
+    <string name="maswe_0001_vector_shared_prefs_vuln">1. SharedPreferences Plaintext Leak</string>
+
+    <string name="maswe_0001_vector_sqlite_secure">3. Secure Room (SQLCipher Encrypted)</string>
+
+    <string name="maswe_0001_vector_sqlite_vuln">3. Room / SQLite Plaintext + WAL Exposure</string>
+
+    <string name="maswe_0001_vector_webview_secure">6. Secure WebView Config</string>
+
+    <string name="maswe_0001_vector_webview_vuln">6. WebView DOM Storage (CWE-312)</string>
+
+    <string name="maswe_0001_vuln_desc">These vectors demonstrate writing data to unprotected private storage locations.</string>
+
+    <string name="maswe_0001_vuln_title">MASWE-0001: Private Storage (VULNERABLE)</string>
+
+    <string name="maswe_0001_vuln_vectors_title">Private Storage Vulnerability Vectors</string>
+
+    <string name="maswe_0001_written_to">Written to: %1$s</string>
+</resources>

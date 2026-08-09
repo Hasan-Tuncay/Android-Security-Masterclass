@@ -31,12 +31,12 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Extension
 import androidx.compose.material.icons.filled.Keyboard
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Replay
 import androidx.compose.material.icons.filled.Campaign
-import androidx.compose.material.icons.filled.Message
+import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Javascript
 import androidx.compose.material.icons.filled.FolderOpen
@@ -61,7 +61,7 @@ import androidx.compose.material.icons.filled.VpnKey
 import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.material.icons.filled.SystemUpdate
 import androidx.compose.material.icons.filled.SystemUpdateAlt
-import androidx.compose.material.icons.filled.LibraryBooks
+import androidx.compose.material.icons.automirrored.filled.LibraryBooks
 import androidx.compose.material.icons.filled.AccountTree
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Memory
@@ -77,7 +77,7 @@ import androidx.compose.material.icons.filled.BuildCircle
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.filled.CloudDownload
 import androidx.compose.material.icons.filled.Apps
-import androidx.compose.material.icons.filled.Rule
+import androidx.compose.material.icons.automirrored.filled.Rule
 import androidx.compose.material.icons.filled.DataArray
 import androidx.compose.material.icons.filled.Preview
 import androidx.compose.material.icons.filled.Search
@@ -101,7 +101,7 @@ import androidx.compose.material.icons.filled.Subtitles
 import androidx.compose.material.icons.filled.DoorBack
 import androidx.compose.material.icons.filled.AvTimer
 import androidx.compose.material.icons.filled.AutoFixOff
-import androidx.compose.material.icons.filled.FactCheck
+import androidx.compose.material.icons.automirrored.filled.FactCheck
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Policy
 import androidx.compose.material.icons.filled.DataUsage
@@ -199,167 +199,9 @@ import com.hasantuncay.mobsec.common.navigation.Maswe0076PrivacyRoute
 import com.hasantuncay.mobsec.common.navigation.Maswe0077PrivacyRoute
 import com.hasantuncay.mobsec.common.navigation.Maswe0078PrivacyRoute
 import com.hasantuncay.mobsec.common.navigation.DataVaultRoute
-
-data class MasweItem(
-    @StringRes val idRes: Int,
-    @StringRes val titleRes: Int,
-    val route: Any?,
-    val icon: ImageVector = Icons.Default.BugReport
-)
-
-enum class MasvsCategory(
-    @StringRes val titleRes: Int,
-    val items: List<MasweItem>
-) {
-    STORAGE(
-        titleRes = R.string.masvs_storage,
-        items = listOf(
-            MasweItem(
-                idRes = R.string.maswe_0001_id,
-                titleRes = R.string.maswe_0001_title,
-                route = Maswe0001StorageRoute,
-                icon = Icons.Default.NoEncryption
-            ),
-            MasweItem(
-                idRes = R.string.maswe_0002_id,
-                titleRes = R.string.maswe_0002_title,
-                route = Maswe0002StorageRoute,
-                icon = Icons.Default.FolderShared
-            ),
-            MasweItem(
-                idRes = R.string.maswe_0003_id,
-                titleRes = R.string.maswe_0003_title,
-                route = Maswe0003StorageRoute,
-                icon = Icons.Default.CloudSync
-            ),
-            MasweItem(
-                idRes = R.string.maswe_0004_id,
-                titleRes = R.string.maswe_0004_title,
-                route = Maswe0004StorageRoute,
-                icon = Icons.Default.CloudOff
-            ),
-            MasweItem(
-                idRes = R.string.maswe_0005_id,
-                titleRes = R.string.maswe_0005_title,
-                route = Maswe0005LogRoute,
-                icon = Icons.Default.DataArray
-            ),
-            MasweItem(
-                idRes = R.string.maswe_0006_id,
-                titleRes = R.string.maswe_0006_title,
-                route = Maswe0006StorageRoute,
-                icon = Icons.Default.FolderSpecial
-            )
-        )
-    ),
-    CRYPTO(
-        titleRes = R.string.masvs_crypto,
-        items = listOf(
-            MasweItem(idRes = R.string.maswe_0007_id, titleRes = R.string.maswe_0007_title, route = Maswe0007CryptoRoute, icon = Icons.Default.NoEncryption),
-            MasweItem(idRes = R.string.maswe_0008_id, titleRes = R.string.maswe_0008_title, route = Maswe0008CryptoRoute, icon = Icons.Default.DataArray),
-            MasweItem(idRes = R.string.maswe_0009_id, titleRes = R.string.maswe_0009_title, route = Maswe0009CryptoRoute, icon = Icons.Default.DataObject),
-            MasweItem(idRes = R.string.maswe_0010_id, titleRes = R.string.maswe_0010_title, route = Maswe0010CryptoRoute, icon = Icons.Default.Build),
-            MasweItem(idRes = R.string.maswe_0011_id, titleRes = R.string.maswe_0011_title, route = Maswe0011CryptoRoute, icon = Icons.Default.BugReport),
-            MasweItem(idRes = R.string.maswe_0012_id, titleRes = R.string.maswe_0012_title, route = Maswe0012CryptoRoute, icon = Icons.Default.FolderSpecial),
-            MasweItem(idRes = R.string.maswe_0013_id, titleRes = R.string.maswe_0013_title, route = Maswe0013CryptoRoute, icon = Icons.Default.CloudOff),
-            MasweItem(idRes = R.string.maswe_0014_id, titleRes = R.string.maswe_0014_title, route = Maswe0014CryptoRoute, icon = Icons.Default.FolderShared),
-            MasweItem(idRes = R.string.maswe_0015_id, titleRes = R.string.maswe_0015_title, route = Maswe0015CryptoRoute, icon = Icons.Default.CloudSync),
-            MasweItem(idRes = R.string.maswe_0016_id, titleRes = R.string.maswe_0016_title, route = Maswe0016CryptoRoute, icon = Icons.Default.Lock),
-            MasweItem(idRes = R.string.maswe_0017_id, titleRes = R.string.maswe_0017_title, route = Maswe0017CryptoRoute, icon = Icons.Default.NoEncryption)
-        )
-    ),
-    NETWORK(
-        titleRes = R.string.masvs_network,
-        items = listOf(
-            MasweItem(idRes = R.string.maswe_0026_id, titleRes = R.string.maswe_0026_title, route = Maswe0026NetworkRoute, icon = Icons.Default.NoEncryption),
-            MasweItem(idRes = R.string.maswe_0027_id, titleRes = R.string.maswe_0027_title, route = Maswe0027NetworkRoute, icon = Icons.Default.Block),
-            MasweItem(idRes = R.string.maswe_0028_id, titleRes = R.string.maswe_0028_title, route = Maswe0028NetworkRoute, icon = Icons.Default.BugReport)
-        )
-    ),
-    AUTH(
-        titleRes = R.string.masvs_auth,
-        items = listOf(
-            MasweItem(idRes = R.string.maswe_0018_id, titleRes = R.string.maswe_0018_title, route = Maswe0018AuthRoute, icon = Icons.Default.Security),
-            MasweItem(idRes = R.string.maswe_0019_id, titleRes = R.string.maswe_0019_title, route = Maswe0019AuthRoute, icon = Icons.Default.VpnKey),
-            MasweItem(idRes = R.string.maswe_0020_id, titleRes = R.string.maswe_0020_title, route = Maswe0020AuthRoute, icon = Icons.Default.Fingerprint),
-            MasweItem(idRes = R.string.maswe_0021_id, titleRes = R.string.maswe_0021_title, route = Maswe0021AuthRoute, icon = Icons.Default.NoEncryption),
-            MasweItem(idRes = R.string.maswe_0022_id, titleRes = R.string.maswe_0022_title, route = Maswe0022AuthRoute, icon = Icons.Default.Key),
-            MasweItem(idRes = R.string.maswe_0023_id, titleRes = R.string.maswe_0023_title, route = Maswe0023AuthRoute, icon = Icons.Default.Lock),
-            MasweItem(idRes = R.string.maswe_0024_id, titleRes = R.string.maswe_0024_title, route = Maswe0024AuthRoute, icon = Icons.AutoMirrored.Filled.ExitToApp),
-            MasweItem(idRes = R.string.maswe_0025_id, titleRes = R.string.maswe_0025_title, route = Maswe0025AuthRoute, icon = Icons.Default.Verified)
-        )
-    ),
-    PLATFORM(
-        titleRes = R.string.masvs_platform,
-        items = listOf(
-            MasweItem(idRes = R.string.maswe_0029_id, titleRes = R.string.maswe_0029_title, route = Maswe0029PlatformRoute, icon = Icons.Default.Link),
-            MasweItem(idRes = R.string.maswe_0030_id, titleRes = R.string.maswe_0030_title, route = Maswe0030PlatformRoute, icon = Icons.Default.ContentCopy),
-            MasweItem(idRes = R.string.maswe_0031_id, titleRes = R.string.maswe_0031_title, route = Maswe0031PlatformRoute, icon = Icons.Default.Extension),
-            MasweItem(idRes = R.string.maswe_0032_id, titleRes = R.string.maswe_0032_title, route = Maswe0032PlatformRoute, icon = Icons.Default.Send),
-            MasweItem(idRes = R.string.maswe_0033_id, titleRes = R.string.maswe_0033_title, route = Maswe0033PlatformRoute, icon = Icons.Default.Language),
-            MasweItem(idRes = R.string.maswe_0034_id, titleRes = R.string.maswe_0034_title, route = Maswe0034PlatformRoute, icon = Icons.Default.FolderOpen),
-            MasweItem(idRes = R.string.maswe_0035_id, titleRes = R.string.maswe_0035_title, route = Maswe0035PlatformRoute, icon = Icons.Default.Explore),
-            MasweItem(idRes = R.string.maswe_0036_id, titleRes = R.string.maswe_0036_title, route = Maswe0036PlatformRoute, icon = Icons.Default.Visibility),
-            MasweItem(idRes = R.string.maswe_0037_id, titleRes = R.string.maswe_0037_title, route = Maswe0037PlatformRoute, icon = Icons.Default.Notifications),
-            MasweItem(idRes = R.string.maswe_0038_id, titleRes = R.string.maswe_0038_title, route = Maswe0038PlatformRoute, icon = Icons.Default.Screenshot),
-            MasweItem(idRes = R.string.maswe_0039_id, titleRes = R.string.maswe_0039_title, route = Maswe0039PlatformRoute, icon = Icons.Default.Layers),
-            MasweItem(idRes = R.string.maswe_0040_id, titleRes = R.string.maswe_0040_title, route = Maswe0040PlatformRoute, icon = Icons.Default.Accessibility)
-        )
-    ),
-    CODE(
-        titleRes = R.string.masvs_code,
-        items = listOf(
-            MasweItem(idRes = R.string.maswe_0041_id, titleRes = R.string.maswe_0041_title, route = Maswe0041CodeRoute, icon = Icons.Default.DeviceUnknown),
-            MasweItem(idRes = R.string.maswe_0042_id, titleRes = R.string.maswe_0042_title, route = Maswe0042CodeRoute, icon = Icons.Default.SystemUpdate),
-            MasweItem(idRes = R.string.maswe_0043_id, titleRes = R.string.maswe_0043_title, route = Maswe0043CodeRoute, icon = Icons.Default.SystemUpdateAlt),
-            MasweItem(idRes = R.string.maswe_0044_id, titleRes = R.string.maswe_0044_title, route = Maswe0044CodeRoute, icon = Icons.Default.LibraryBooks),
-            MasweItem(idRes = R.string.maswe_0045_id, titleRes = R.string.maswe_0045_title, route = Maswe0045CodeRoute, icon = Icons.Default.Memory),
-            MasweItem(idRes = R.string.maswe_0046_id, titleRes = R.string.maswe_0046_title, route = Maswe0046CodeRoute, icon = Icons.Default.NoEncryption),
-            MasweItem(idRes = R.string.maswe_0047_id, titleRes = R.string.maswe_0047_title, route = Maswe0047CodeRoute, icon = Icons.Default.SettingsEthernet),
-            MasweItem(idRes = R.string.maswe_0048_id, titleRes = R.string.maswe_0048_title, route = Maswe0048CodeRoute, icon = Icons.Default.PersonOff),
-            MasweItem(idRes = R.string.maswe_0049_id, titleRes = R.string.maswe_0049_title, route = Maswe0049CodeRoute, icon = Icons.Default.Apps),
-            MasweItem(idRes = R.string.maswe_0050_id, titleRes = R.string.maswe_0050_title, route = Maswe0050CodeRoute, icon = Icons.Default.Rule)
-        )
-    ),
-    RESILIENCE(
-        titleRes = R.string.masvs_resilience,
-        items = listOf(
-            MasweItem(idRes = R.string.maswe_0051_id, titleRes = R.string.maswe_0051_title, route = Maswe0051ResilienceRoute, icon = Icons.Default.DeviceUnknown),
-            MasweItem(idRes = R.string.maswe_0052_id, titleRes = R.string.maswe_0052_title, route = Maswe0052ResilienceRoute, icon = Icons.Default.LaptopWindows),
-            MasweItem(idRes = R.string.maswe_0053_id, titleRes = R.string.maswe_0053_title, route = Maswe0053ResilienceRoute, icon = Icons.Default.Android),
-            MasweItem(idRes = R.string.maswe_0054_id, titleRes = R.string.maswe_0054_title, route = Maswe0054ResilienceRoute, icon = Icons.Default.VerifiedUser),
-            MasweItem(idRes = R.string.maswe_0055_id, titleRes = R.string.maswe_0055_title, route = Maswe0055ResilienceRoute, icon = Icons.Default.PestControl),
-            MasweItem(idRes = R.string.maswe_0056_id, titleRes = R.string.maswe_0056_title, route = Maswe0056ResilienceRoute, icon = Icons.Default.Verified),
-            MasweItem(idRes = R.string.maswe_0057_id, titleRes = R.string.maswe_0057_title, route = Maswe0057ResilienceRoute, icon = Icons.Default.FolderOpen),
-            MasweItem(idRes = R.string.maswe_0058_id, titleRes = R.string.maswe_0058_title, route = Maswe0058ResilienceRoute, icon = Icons.Default.Memory),
-            MasweItem(idRes = R.string.maswe_0059_id, titleRes = R.string.maswe_0059_title, route = Maswe0059ResilienceRoute, icon = Icons.Default.CodeOff),
-            MasweItem(idRes = R.string.maswe_0060_id, titleRes = R.string.maswe_0060_title, route = Maswe0060ResilienceRoute, icon = Icons.Default.Image),
-            MasweItem(idRes = R.string.maswe_0061_id, titleRes = R.string.maswe_0061_title, route = Maswe0061ResilienceRoute, icon = Icons.Default.BugReport),
-            MasweItem(idRes = R.string.maswe_0062_id, titleRes = R.string.maswe_0062_title, route = Maswe0062ResilienceRoute, icon = Icons.Default.VpnKey),
-            MasweItem(idRes = R.string.maswe_0063_id, titleRes = R.string.maswe_0063_title, route = Maswe0063ResilienceRoute, icon = Icons.Default.BuildCircle),
-            MasweItem(idRes = R.string.maswe_0064_id, titleRes = R.string.maswe_0064_title, route = Maswe0064ResilienceRoute, icon = Icons.Default.PestControl),
-            MasweItem(idRes = R.string.maswe_0065_id, titleRes = R.string.maswe_0065_title, route = Maswe0065ResilienceRoute, icon = Icons.Default.AutoFixOff)
-        )
-    ),
-    PRIVACY(
-        titleRes = R.string.masvs_privacy,
-        items = listOf(
-            MasweItem(idRes = R.string.maswe_0066_id, titleRes = R.string.maswe_0066_title, route = Maswe0066PrivacyRoute, icon = Icons.Default.Security),
-            MasweItem(idRes = R.string.maswe_0067_id, titleRes = R.string.maswe_0067_title, route = Maswe0067PrivacyRoute, icon = Icons.Default.Keyboard),
-            MasweItem(idRes = R.string.maswe_0068_id, titleRes = R.string.maswe_0068_title, route = Maswe0068PrivacyRoute, icon = Icons.Default.Visibility),
-            MasweItem(idRes = R.string.maswe_0069_id, titleRes = R.string.maswe_0069_title, route = Maswe0069PrivacyRoute, icon = Icons.Default.ContentCopy),
-            MasweItem(idRes = R.string.maswe_0070_id, titleRes = R.string.maswe_0070_title, route = Maswe0070PrivacyRoute, icon = Icons.Default.Share),
-            MasweItem(idRes = R.string.maswe_0071_id, titleRes = R.string.maswe_0071_title, route = Maswe0071PrivacyRoute, icon = Icons.Default.Settings),
-            MasweItem(idRes = R.string.maswe_0072_id, titleRes = R.string.maswe_0072_title, route = Maswe0072PrivacyRoute, icon = Icons.Default.Policy),
-            MasweItem(idRes = R.string.maswe_0073_id, titleRes = R.string.maswe_0073_title, route = Maswe0073PrivacyRoute, icon = Icons.Default.DataUsage),
-            MasweItem(idRes = R.string.maswe_0074_id, titleRes = R.string.maswe_0074_title, route = Maswe0074PrivacyRoute, icon = Icons.Default.Language),
-            MasweItem(idRes = R.string.maswe_0075_id, titleRes = R.string.maswe_0075_title, route = Maswe0075PrivacyRoute, icon = Icons.Default.Build),
-            MasweItem(idRes = R.string.maswe_0076_id, titleRes = R.string.maswe_0076_title, route = Maswe0076PrivacyRoute, icon = Icons.Default.Storage),
-            MasweItem(idRes = R.string.maswe_0077_id, titleRes = R.string.maswe_0077_title, route = Maswe0077PrivacyRoute, icon = Icons.Default.VisibilityOff),
-            MasweItem(idRes = R.string.maswe_0078_id, titleRes = R.string.maswe_0078_title, route = Maswe0078PrivacyRoute, icon = Icons.Default.FactCheck)
-        )
-    )
-}
+import com.hasantuncay.mobsec.common.models.DashboardRegistry
+import com.hasantuncay.mobsec.common.models.MasvsCategoryData
+import com.hasantuncay.mobsec.common.models.MasweItemData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -396,7 +238,7 @@ fun DashboardScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(MasvsCategory.values()) { category ->
+            items(DashboardRegistry.categories) { category ->
                 MasvsCategoryAccordion(category, onNavigate, onOpenDocumentation)
             }
         }
@@ -405,7 +247,7 @@ fun DashboardScreen(
 
 @Composable
 fun MasvsCategoryAccordion(
-    category: MasvsCategory, 
+    category: MasvsCategoryData, 
     onNavigate: (Any) -> Unit,
     onOpenDocumentation: (String) -> Unit = {}
 ) {
@@ -463,7 +305,7 @@ fun MasvsCategoryAccordion(
                                     if (item.route != null) {
                                         onNavigate(item.route)
                                     } else {
-                                        android.widget.Toast.makeText(context, "Coming Soon!", android.widget.Toast.LENGTH_SHORT).show()
+                                        android.widget.Toast.makeText(context, context.getString(R.string.msg_coming_soon), android.widget.Toast.LENGTH_SHORT).show()
                                     }
                                 }
                                 .padding(16.dp),
@@ -478,28 +320,28 @@ fun MasvsCategoryAccordion(
                             Spacer(modifier = Modifier.width(16.dp))
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = stringResource(id = item.idRes),
+                                    text = item.meta.masweId,
                                     style = MaterialTheme.typography.labelLarge,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                    text = stringResource(id = item.titleRes),
+                                    text = stringResource(id = item.meta.titleRes),
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                             // DOCS Button for Documentation
-                            if (item.idRes != 0) {
-                                val masweIdStr = stringResource(id = item.idRes)
+                            if (item.meta.masweId.isNotEmpty()) {
+                                val masweIdStr = item.meta.masweId
                                 OutlinedButton(
                                     onClick = { onOpenDocumentation(masweIdStr) },
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
                                     modifier = Modifier.height(32.dp)
                                 ) {
                                     Text(
-                                        text = "DOCS",
+                                        text = stringResource(id = R.string.btn_docs),
                                         style = MaterialTheme.typography.labelSmall,
                                         fontWeight = FontWeight.Bold
                                     )

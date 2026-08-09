@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0002_desc">Data written to external/shared storage (SD card, Downloads) that any app or attacker can read without root.</string>
+
+    <string name="maswe_0002_id">MASWE-0002</string>
+
+    <string name="maswe_0002_msg_external_storage_secure">Redirected to encrypted internal storage. External path not used.</string>
+
+    <string name="maswe_0002_msg_external_storage_vuln">Written to /sdcard/Android/data/…/files/ — visible without root on API &lt; 29!</string>
+
+    <string name="maswe_0002_msg_hardcoded_key_secure">Encryption key generated and stored in Android Keystore. Impossible to extract from APK.</string>
+
+    <string name="maswe_0002_msg_hardcoded_key_vuln">Data encrypted but key is hardcoded in source — reverse engineer with apktool to extract!</string>
+
+    <string name="maswe_0002_msg_key_on_fs_secure">Key stored exclusively in Android Keystore. Only the app can use it.</string>
+
+    <string name="maswe_0002_msg_key_on_fs_vuln">Encryption key stored in /sdcard/…/secret.key alongside encrypted file — trivially extracted!</string>
+
+    <string name="maswe_0002_msg_key_reuse_secure">Key bound to device hardware via Android Keystore. Data cannot be migrated and decrypted on another device.</string>
+
+    <string name="maswe_0002_msg_key_reuse_vuln">Static key embedded in APK allows data cloned from one device to be decrypted on another.</string>
+
+    <string name="maswe_0002_msg_weak_encryption_secure">Data encrypted with AES-256-GCM. Authenticated, non-deterministic, and secure.</string>
+
+    <string name="maswe_0002_msg_weak_encryption_vuln">Data encrypted with AES/ECB — identical plaintext blocks produce identical ciphertext blocks (penguin attack).</string>
+
+    <string name="maswe_0002_title">Sensitive Data Stored Unencrypted Outside of Private Storage</string>
+
+    <string name="maswe_0002_ui_adb_verification">ADB Verification:</string>
+
+    <string name="maswe_0002_ui_location_label">📁 Location:</string>
+
+    <string name="maswe_0002_ui_vector_triggered">Vector Triggered — Data Written to Disk</string>
+
+    <string name="maswe_0002_ui_writing_storage">Writing to storage…</string>
+
+    <string name="maswe_0002_vector_external_storage_secure">5. Secure: Internal Encrypted Storage</string>
+
+    <string name="maswe_0002_vector_external_storage_vuln">5. External Storage Sensitive Data Leak</string>
+
+    <string name="maswe_0002_vector_hardcoded_key_secure">2. Secure: Keystore-Derived Key</string>
+
+    <string name="maswe_0002_vector_hardcoded_key_vuln">2. External Storage + Hardcoded Key</string>
+
+    <string name="maswe_0002_vector_key_on_fs_secure">3. Secure: Key in Android Keystore</string>
+
+    <string name="maswe_0002_vector_key_on_fs_vuln">3. External Storage + Key on Filesystem</string>
+
+    <string name="maswe_0002_vector_key_reuse_secure">5. Secure: Device-Bound Key</string>
+
+    <string name="maswe_0002_vector_key_reuse_vuln">5. Encryption Key Reused Across Devices</string>
+
+    <string name="maswe_0002_vector_weak_encryption_secure">4. Secure: AES-256-GCM Encryption</string>
+
+    <string name="maswe_0002_vector_weak_encryption_vuln">4. External Storage + Weak Encryption (ECB)</string>
+
+    <string name="maswe_0002_written_to">Written to: %1$s</string>
+</resources>

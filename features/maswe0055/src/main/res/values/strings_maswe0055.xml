@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0055_id">MASWE-0055</string>
+    <string name="maswe_0055_msg_abuse_prone_capabilities_ignored_secure">Secure implementation</string>
+    <string name="maswe_0055_msg_abuse_prone_capabilities_ignored_vuln">Vulnerable implementation</string>
+    <string name="maswe_0055_msg_insufficient_response_strategy_secure">Secure implementation</string>
+    <string name="maswe_0055_msg_insufficient_response_strategy_vuln">Vulnerable implementation</string>
+    <string name="maswe_0055_msg_no_hostile_environment_checks_secure">Secure implementation</string>
+    <string name="maswe_0055_msg_no_hostile_environment_checks_vuln">Vulnerable implementation</string>
+    <string name="maswe_0055_msg_no_response_strategy_secure">Secure implementation</string>
+    <string name="maswe_0055_msg_no_response_strategy_vuln">Vulnerable implementation</string>
+    <string name="maswe_0055_title">Hostile Environment Not Handled</string>
+    <string name="maswe_0055_vector_abuse_prone_capabilities_ignored_secure">2. Secure: Abuse Prone Capabilities Ignored</string>
+    <string name="maswe_0055_vector_abuse_prone_capabilities_ignored_vuln">2. Abuse Prone Capabilities Ignored</string>
+    <string name="maswe_0055_vector_insufficient_response_strategy_secure">4. Secure: Insufficient Response Strategy</string>
+    <string name="maswe_0055_vector_insufficient_response_strategy_vuln">4. Insufficient Response Strategy</string>
+    <string name="maswe_0055_vector_no_hostile_environment_checks_secure">1. Secure: No Hostile Environment Checks</string>
+    <string name="maswe_0055_vector_no_hostile_environment_checks_vuln">1. No Hostile Environment Checks</string>
+    <string name="maswe_0055_vector_no_response_strategy_secure">3. Secure: No Response Strategy</string>
+    <string name="maswe_0055_vector_no_response_strategy_vuln">3. No Response Strategy</string>
+</resources>

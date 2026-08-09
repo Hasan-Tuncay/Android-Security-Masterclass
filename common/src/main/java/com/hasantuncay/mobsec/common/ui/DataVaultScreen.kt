@@ -13,7 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.hasantuncay.mobsec.common.R
-import com.hasantuncay.mobsec.common.models.data.LocalMasterclassViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.hasantuncay.mobsec.common.viewmodel.MasterclassDataViewModel
 import com.hasantuncay.mobsec.common.ui.components.AnalyticsLogCard
 import com.hasantuncay.mobsec.common.ui.components.GdprPiiCard
 import com.hasantuncay.mobsec.common.ui.components.PciDssCard
@@ -22,8 +23,10 @@ import com.hasantuncay.mobsec.common.ui.components.UserDataCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DataVaultScreen(onBack: () -> Unit) {
-    val viewModel = LocalMasterclassViewModel.current
+fun DataVaultScreen(
+    onBack: () -> Unit,
+    viewModel: MasterclassDataViewModel = hiltViewModel()
+) {
     val appData by viewModel.masterclassData.collectAsState()
     val scrollState = rememberScrollState()
 

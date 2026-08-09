@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0073_id">MASWE-0073</string>
+    <string name="maswe_0073_msg_secure">Secure implementation</string>
+    <string name="maswe_0073_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0073_title">Inadequate Data Collection Declarations</string>
+    <string name="maswe_0073_vector_secure">1. Secure: Declared Data Collection</string>
+    <string name="maswe_0073_vector_vuln">1. Hidden Data Collection</string>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0019_desc">Login fields incompatible with autofill frameworks, no OTC autofill, missing website association, embedded WebView login, and no passkey/FIDO2 support.</string>
+
+    <string name="maswe_0019_id">MASWE-0019</string>
+
+    <string name="maswe_0019_msg_embedded_custom_login_secure">AppAuth + Chrome Custom Tabs used. Auth runs in a separate process \u2014 app cannot access tokens or intercept the flow.</string>
+
+    <string name="maswe_0019_msg_embedded_custom_login_vuln">OAuth flow handled in WebView. App can intercept all URLs, inject JavaScript, and read session cookies \u2014 violates OAuth 2.0 BCP.</string>
+
+    <string name="maswe_0019_msg_missing_website_association_secure">assetlinks.json published on website + android:autoVerify=\"true\" on App Links. Password managers share credentials seamlessly between web and app.</string>
+
+    <string name="maswe_0019_msg_missing_website_association_vuln">No assetlinks.json or Associated Domains entitlement. Credentials saved for the website are not offered by password managers on the app.</string>
+
+    <string name="maswe_0019_msg_no_autofill_in_credential_fields_secure">AUTOFILL_HINT_USERNAME and AUTOFILL_HINT_PASSWORD set. Password managers auto-populate fields securely without user copy-paste.</string>
+
+    <string name="maswe_0019_msg_no_autofill_in_credential_fields_vuln">Login EditText has no autofillHints. Password managers cannot identify the field \u2014 users must type credentials manually every time.</string>
+
+    <string name="maswe_0019_msg_no_otc_autofill_secure">SmsRetrieverClient + User Consent API used. OTC auto-fills with one tap \u2014 no clipboard exposure, no manual input.</string>
+
+    <string name="maswe_0019_msg_no_otc_autofill_vuln">2FA code sent by SMS, user must manually read and type it. No OTC autofill hint \u2014 error-prone and slower than necessary.</string>
+
+    <string name="maswe_0019_msg_no_passwordless_auth_secure">Android Credential Manager with passkey support integrated. Users can register and authenticate with device biometrics \u2014 no password needed.</string>
+
+    <string name="maswe_0019_msg_no_passwordless_auth_vuln">Password-only login. No passkey option offered. Users resort to weak reused passwords or insecure practices.</string>
+
+    <string name="maswe_0019_title">Lack of Auto-fill Support for Credential Providers</string>
+
+    <string name="maswe_0019_vector_embedded_custom_login_secure">4. Secure: CustomTabsIntent / AppAuth</string>
+
+    <string name="maswe_0019_vector_embedded_custom_login_vuln">4. OAuth in Embedded WebView</string>
+
+    <string name="maswe_0019_vector_missing_website_association_secure">3. Secure: assetlinks.json + App Links</string>
+
+    <string name="maswe_0019_vector_missing_website_association_vuln">3. No Digital Asset Links</string>
+
+    <string name="maswe_0019_vector_no_autofill_in_credential_fields_secure">1. Secure: autofillHints Declared</string>
+
+    <string name="maswe_0019_vector_no_autofill_in_credential_fields_vuln">1. No Autofill Hints on Login Fields</string>
+
+    <string name="maswe_0019_vector_no_otc_autofill_secure">2. Secure: SMS User Consent API</string>
+
+    <string name="maswe_0019_vector_no_otc_autofill_vuln">2. No SMS OTC Autofill</string>
+
+    <string name="maswe_0019_vector_no_passwordless_auth_secure">5. Secure: Credential Manager + Passkeys</string>
+
+    <string name="maswe_0019_vector_no_passwordless_auth_vuln">5. No Passkey / FIDO2 Support</string>
+</resources>

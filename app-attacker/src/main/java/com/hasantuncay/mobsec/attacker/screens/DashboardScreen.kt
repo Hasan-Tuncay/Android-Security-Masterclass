@@ -304,12 +304,12 @@ fun ExploitCard(exploit: AttackerExploit, modifier: Modifier = Modifier) {
             Text(text = exploit.title, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 15.sp)
             Text(text = exploit.description, color = AttackerTextDim, fontSize = 12.sp, lineHeight = 18.sp)
 
-            Text(text = "CWE: ${exploit.cwe}", color = AttackerYellow, fontSize = 11.sp, fontFamily = FontFamily.Monospace)
+            Text(text = stringResource(id = R.string.format_cwe, exploit.cwe), color = AttackerYellow, fontSize = 11.sp, fontFamily = FontFamily.Monospace)
 
             Divider(color = Color.White.copy(alpha = 0.1f))
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text(text = "▸ ${exploit.status}", color = AttackerGreen, fontFamily = FontFamily.Monospace, fontSize = 11.sp)
+                Text(text = stringResource(id = R.string.format_status, exploit.status), color = AttackerGreen, fontFamily = FontFamily.Monospace, fontSize = 11.sp)
                 Button(
                     onClick = { exploit.onActivate?.invoke() },
                     colors = ButtonDefaults.buttonColors(containerColor = AttackerRed),
@@ -392,7 +392,7 @@ fun TargetInfoCard() {
 @Composable
 fun TargetInfoRow(label: String, value: String) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        Text(text = "$label: ", color = AttackerTextDim, fontSize = 11.sp, modifier = Modifier.weight(0.4f))
+        Text(text = stringResource(id = R.string.format_label, label), color = AttackerTextDim, fontSize = 11.sp, modifier = Modifier.weight(0.4f))
         Text(text = value, color = Color.White, fontSize = 11.sp, modifier = Modifier.weight(0.6f), fontFamily = FontFamily.Monospace)
     }
 }

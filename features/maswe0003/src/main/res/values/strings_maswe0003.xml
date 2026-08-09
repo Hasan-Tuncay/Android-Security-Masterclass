@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0003_desc">Hardcoded or file-based keys that bypass Android Keystore — extractable without device compromise. (Coming soon)</string>
+
+    <string name="maswe_0003_id">MASWE-0003</string>
+
+    <string name="maswe_0003_msg_hardcoded_key_secure">Key generated at runtime via KeyGenerator and stored in Android Keystore. Never in code.</string>
+
+    <string name="maswe_0003_msg_hardcoded_key_vuln">AES key hardcoded as byte array in source. Extractable with apktool or JADX in seconds.</string>
+
+    <string name="maswe_0003_msg_insecure_key_import_secure">Key imported using Android Keystore wrapped import API — key material never exposed in plaintext.</string>
+
+    <string name="maswe_0003_msg_insecure_key_import_vuln">Key material passed in plaintext to importKey() — briefly exposed in memory and logs.</string>
+
+    <string name="maswe_0003_msg_insecure_storage_secure">Key generated inside Android Keystore. Never leaves the secure hardware enclave.</string>
+
+    <string name="maswe_0003_msg_insecure_storage_vuln">AES key serialized and written to shared_prefs/crypto_key.xml — plaintext on disk!</string>
+
+    <string name="maswe_0003_title">Cryptographic Keys Stored Outside of Platform Keystore</string>
+
+    <string name="maswe_0003_vector_hardcoded_key_secure">2. Secure: Runtime Key Generation</string>
+
+    <string name="maswe_0003_vector_hardcoded_key_vuln">2. Hardcoded Cryptographic Key</string>
+
+    <string name="maswe_0003_vector_insecure_key_import_secure">3. Secure: Wrapped Key Import</string>
+
+    <string name="maswe_0003_vector_insecure_key_import_vuln">3. Plaintext Key Import</string>
+
+    <string name="maswe_0003_vector_insecure_storage_secure">1. Secure: Android Keystore</string>
+
+    <string name="maswe_0003_vector_insecure_storage_vuln">1. Key in SharedPreferences / File</string>
+</resources>

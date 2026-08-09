@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0033_id">MASWE-0033</string>
+    <string name="maswe_0033_msg_app_owned_scripts_page_world_secure">Secure description</string>
+    <string name="maswe_0033_msg_app_owned_scripts_page_world_vuln">Vulnerable description</string>
+    <string name="maswe_0033_msg_bridges_reachable_by_untrusted_secure">Secure description</string>
+    <string name="maswe_0033_msg_bridges_reachable_by_untrusted_vuln">Vulnerable description</string>
+    <string name="maswe_0033_msg_globally_exposed_bridges_secure">Secure description</string>
+    <string name="maswe_0033_msg_globally_exposed_bridges_vuln">Vulnerable description</string>
+    <string name="maswe_0033_msg_over_exposed_bridges_secure">Secure description</string>
+    <string name="maswe_0033_msg_over_exposed_bridges_vuln">Vulnerable description</string>
+    <string name="maswe_0033_msg_sensitive_data_in_bridge_replies_secure">Secure description</string>
+    <string name="maswe_0033_msg_sensitive_data_in_bridge_replies_vuln">Vulnerable description</string>
+    <string name="maswe_0033_msg_unvalidated_bridge_messages_secure">Secure description</string>
+    <string name="maswe_0033_msg_unvalidated_bridge_messages_vuln">Vulnerable description</string>
+    <string name="maswe_0033_title">Sensitive Native Functionality Exposed in WebViews</string>
+    <string name="maswe_0033_vector_app_owned_scripts_page_world_secure">4. Secure: Isolated Context</string>
+    <string name="maswe_0033_vector_app_owned_scripts_page_world_vuln">4. App Scripts in Page World</string>
+    <string name="maswe_0033_vector_bridges_reachable_by_untrusted_secure">1. Secure: Scoped Bridges</string>
+    <string name="maswe_0033_vector_bridges_reachable_by_untrusted_vuln">1. Bridges Reachable</string>
+    <string name="maswe_0033_vector_globally_exposed_bridges_secure">3. Secure: Explicit Methods</string>
+    <string name="maswe_0033_vector_globally_exposed_bridges_vuln">3. Globally Exposed Bridges</string>
+    <string name="maswe_0033_vector_over_exposed_bridges_secure">6. Secure: Least Privilege</string>
+    <string name="maswe_0033_vector_over_exposed_bridges_vuln">6. Over Exposed Bridges</string>
+    <string name="maswe_0033_vector_sensitive_data_in_bridge_replies_secure">5. Secure: Masked Replies</string>
+    <string name="maswe_0033_vector_sensitive_data_in_bridge_replies_vuln">5. Sensitive Data in Replies</string>
+    <string name="maswe_0033_vector_unvalidated_bridge_messages_secure">2. Secure: Input Sanitized</string>
+    <string name="maswe_0033_vector_unvalidated_bridge_messages_vuln">2. Unvalidated Bridge Messages</string>
+</resources>

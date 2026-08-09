@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0034_id">MASWE-0034</string>
+    <string name="maswe_0034_msg_file_access_enabled_secure">Secure description</string>
+    <string name="maswe_0034_msg_file_access_enabled_vuln">Vulnerable description</string>
+    <string name="maswe_0034_msg_insecure_custom_resource_loading_secure">Secure description</string>
+    <string name="maswe_0034_msg_insecure_custom_resource_loading_vuln">Vulnerable description</string>
+    <string name="maswe_0034_msg_overly_broad_file_read_grants_secure">Secure description</string>
+    <string name="maswe_0034_msg_overly_broad_file_read_grants_vuln">Vulnerable description</string>
+    <string name="maswe_0034_msg_universal_access_from_file_urls_secure">Secure description</string>
+    <string name="maswe_0034_msg_universal_access_from_file_urls_vuln">Vulnerable description</string>
+    <string name="maswe_0034_title">WebViews Allow Access to Local Resources with Untrusted Content</string>
+    <string name="maswe_0034_vector_file_access_enabled_secure">1. Secure: File Access Disabled</string>
+    <string name="maswe_0034_vector_file_access_enabled_vuln">1. File Access Enabled</string>
+    <string name="maswe_0034_vector_insecure_custom_resource_loading_secure">3. Secure: Validated Assets</string>
+    <string name="maswe_0034_vector_insecure_custom_resource_loading_vuln">3. Insecure Resource Loading</string>
+    <string name="maswe_0034_vector_overly_broad_file_read_grants_secure">4. Secure: Scoped Read</string>
+    <string name="maswe_0034_vector_overly_broad_file_read_grants_vuln">4. Broad File Read</string>
+    <string name="maswe_0034_vector_universal_access_from_file_urls_secure">2. Secure: Universal Access False</string>
+    <string name="maswe_0034_vector_universal_access_from_file_urls_vuln">2. Universal File Access</string>
+</resources>

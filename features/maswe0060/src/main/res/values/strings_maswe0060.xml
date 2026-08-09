@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0060_id">MASWE-0060</string>
+    <string name="maswe_0060_msg_identifiers_left_meaningful_secure">Resource names and path identifiers are obfuscated to short random strings.</string>
+    <string name="maswe_0060_msg_identifiers_left_meaningful_vuln">Resource names (e.g. res/layout/activity_login.xml) reveal app architecture.</string>
+    <string name="maswe_0060_msg_resources_left_in_clear_secure">Asset files and sensitive raw resources are encrypted at rest inside APK.</string>
+    <string name="maswe_0060_msg_resources_left_in_clear_vuln">Raw XMLs, assets, and config files stored unencrypted in APK.</string>
+    <string name="maswe_0060_title">Resource Obfuscation Not Implemented</string>
+    <string name="maswe_0060_vector_identifiers_left_meaningful_secure">2. Secure: Resource Name Obfuscation (AndResGuard/R8)</string>
+    <string name="maswe_0060_vector_identifiers_left_meaningful_vuln">2. Identifiers Left Meaningful</string>
+    <string name="maswe_0060_vector_resources_left_in_clear_secure">1. Secure: Encrypted Asset &amp; Resource Packaging</string>
+    <string name="maswe_0060_vector_resources_left_in_clear_vuln">1. Resources Left in Clear</string>
+</resources>

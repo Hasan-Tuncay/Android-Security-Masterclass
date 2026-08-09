@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0070_id">MASWE-0070</string>
+    <string name="maswe_0070_msg_secure">Secure implementation</string>
+    <string name="maswe_0070_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0070_title">Inadequate Awareness for Privacy Relevant Actions</string>
+    <string name="maswe_0070_vector_secure">1. Secure: Privacy Awareness</string>
+    <string name="maswe_0070_vector_vuln">1. No Privacy Awareness</string>
+</resources>

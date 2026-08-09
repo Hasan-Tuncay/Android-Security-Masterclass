@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0064_id">MASWE-0064</string>
+    <string name="maswe_0064_msg_no_debugger_checks_secure">Detects attached debuggers actively</string>
+    <string name="maswe_0064_msg_no_debugger_checks_vuln">No debugger attachment detection</string>
+    <string name="maswe_0064_msg_no_response_strategy_secure">Terminates process or wipes keys on debugger</string>
+    <string name="maswe_0064_msg_no_response_strategy_vuln">Does not react when debugger detected</string>
+    <string name="maswe_0064_msg_one_time_checks_secure">Periodic runtime debugger checks</string>
+    <string name="maswe_0064_msg_one_time_checks_vuln">Checks only once at startup</string>
+    <string name="maswe_0064_title">Debugger Detection Not Implemented</string>
+    <string name="maswe_0064_vector_no_debugger_checks_secure">1. Continuous Debugger Checks</string>
+    <string name="maswe_0064_vector_no_debugger_checks_vuln">1. No Debugger Checks</string>
+    <string name="maswe_0064_vector_no_response_strategy_secure">3. Defensive Response Strategy</string>
+    <string name="maswe_0064_vector_no_response_strategy_vuln">3. No Response Strategy</string>
+    <string name="maswe_0064_vector_one_time_checks_secure">2. Periodic Debugger Detection</string>
+    <string name="maswe_0064_vector_one_time_checks_vuln">2. One-Time Checks</string>
+</resources>

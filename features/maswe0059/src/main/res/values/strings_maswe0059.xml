@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0059_id">MASWE-0059</string>
+    <string name="maswe_0059_msg_no_obfuscation_applied_secure">Classes and methods are minified and renamed with non-meaningful identifiers.</string>
+    <string name="maswe_0059_msg_no_obfuscation_applied_vuln">Bytecode retains all class, method, and field names in cleartext.</string>
+    <string name="maswe_0059_msg_obfuscation_without_hardening_secure">Renaming combined with native C/C++ core logic and anti-decompiler tricks.</string>
+    <string name="maswe_0059_msg_obfuscation_without_hardening_vuln">Basic renaming applied without anti-decompilation or native protections.</string>
+    <string name="maswe_0059_msg_security_relevant_logic_readable_secure">Sensitive strings and control flow are obfuscated and encrypted.</string>
+    <string name="maswe_0059_msg_security_relevant_logic_readable_vuln">Crypto &amp; auth logic retains readable control flow and strings.</string>
+    <string name="maswe_0059_title">Code Obfuscation Not Implemented</string>
+    <string name="maswe_0059_vector_no_obfuscation_applied_secure">1. Secure: Full ProGuard/R8 Obfuscation</string>
+    <string name="maswe_0059_vector_no_obfuscation_applied_vuln">1. No Obfuscation Applied</string>
+    <string name="maswe_0059_vector_obfuscation_without_hardening_secure">3. Secure: Obfuscation Hardened with Native/Anti-Decompilation</string>
+    <string name="maswe_0059_vector_obfuscation_without_hardening_vuln">3. Obfuscation Without Hardening</string>
+    <string name="maswe_0059_vector_security_relevant_logic_readable_secure">2. Secure: Control Flow Flattening &amp; String Encryption</string>
+    <string name="maswe_0059_vector_security_relevant_logic_readable_vuln">2. Security-Relevant Logic Readable</string>
+</resources>

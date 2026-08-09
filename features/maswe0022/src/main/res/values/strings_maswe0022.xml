@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0022_desc">setInvalidatedByBiometricEnrollment(false), missing biometryCurrentSet, or silent key recreation after invalidation \u2014 new enrollments don\'t revoke access.</string>
+
+    <string name="maswe_0022_id">MASWE-0022</string>
+
+    <string name="maswe_0022_msg_invalidation_disabled_secure">Key automatically invalidated when new biometric enrolled. App detects KeyPermanentlyInvalidatedException and requires re-authentication to restore access.</string>
+
+    <string name="maswe_0022_msg_invalidation_disabled_vuln">Key survives new biometric enrollment. Attacker enrolls their fingerprint \u2014 their biometric now unlocks the key without the real user knowing.</string>
+
+    <string name="maswe_0022_msg_invalidation_not_enabled_secure">Key explicitly tied to biometric set at creation time. Any change to the enrolled biometrics invalidates the key automatically.</string>
+
+    <string name="maswe_0022_msg_invalidation_not_enabled_vuln">Key accessible to any enrolled biometric, past or future. New fingerprint added after key creation = immediate unauthorized access.</string>
+
+    <string name="maswe_0022_msg_unsafe_invalidation_recovery_secure">On invalidation, user forced through full re-authentication flow (password + 2FA) before new key is generated and old data migrated.</string>
+
+    <string name="maswe_0022_msg_unsafe_invalidation_recovery_vuln">App catches KeyPermanentlyInvalidatedException and silently generates a new key. Attacker enrolls biometric, app auto-resets, attacker gains access.</string>
+
+    <string name="maswe_0022_title">Crypto Keys Not Invalidated on New Biometric Enrollment</string>
+
+    <string name="maswe_0022_vector_invalidation_disabled_secure">1. Secure: setInvalidatedByBiometricEnrollment(true)</string>
+
+    <string name="maswe_0022_vector_invalidation_disabled_vuln">1. setInvalidatedByBiometricEnrollment(false)</string>
+
+    <string name="maswe_0022_vector_invalidation_not_enabled_secure">2. Secure: Scoped to Current Biometric Set</string>
+
+    <string name="maswe_0022_vector_invalidation_not_enabled_vuln">2. Key Not Scoped to Current Biometric Set</string>
+
+    <string name="maswe_0022_vector_unsafe_invalidation_recovery_secure">3. Secure: Identity Re-Verification Before Recovery</string>
+
+    <string name="maswe_0022_vector_unsafe_invalidation_recovery_vuln">3. Silent Key Recreation After Invalidation</string>
+</resources>

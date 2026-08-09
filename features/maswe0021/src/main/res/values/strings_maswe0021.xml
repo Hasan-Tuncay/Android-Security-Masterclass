@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0021_desc">DEVICE_CREDENTIAL permitted for sensitive operations, generic auth policies allowing passcode fallback, ops not bound to biometric-only keystore keys.</string>
+
+    <string name="maswe_0021_id">MASWE-0021</string>
+
+    <string name="maswe_0021_msg_device_credential_for_sensitive_secure">Authenticator set to BIOMETRIC_STRONG only. No PIN/pattern fallback \u2014 face or fingerprint required for every sensitive operation.</string>
+
+    <string name="maswe_0021_msg_device_credential_for_sensitive_vuln">Authenticator set to DEVICE_CREDENTIAL. Payment authorized with PIN/pattern \u2014 shoulder-surfed or guessed credential bypasses biometric requirement.</string>
+
+    <string name="maswe_0021_msg_generic_auth_policy_secure">Only BIOMETRIC_STRONG accepted. Enrollment check ensures strong biometric is available before enabling sensitive features.</string>
+
+    <string name="maswe_0021_msg_generic_auth_policy_vuln">BiometricManager allows BIOMETRIC_WEAK | DEVICE_CREDENTIAL. Attacker who knows device PIN can fully bypass biometric requirement.</string>
+
+    <string name="maswe_0021_msg_not_bound_to_biometric_key_secure">Keystore key created with BIOMETRIC_STRONG and no device-credential fallback. Operation only executes if genuine biometric unlocks the key.</string>
+
+    <string name="maswe_0021_msg_not_bound_to_biometric_key_vuln">Biometric prompt shown but sensitive operation proceeds from app logic, not a Keystore key. Callback bypass defeats the protection entirely.</string>
+
+    <string name="maswe_0021_title">Fallback to Non-biometric Credentials Allowed</string>
+
+    <string name="maswe_0021_vector_device_credential_for_sensitive_secure">1. Secure: BIOMETRIC_STRONG Only</string>
+
+    <string name="maswe_0021_vector_device_credential_for_sensitive_vuln">1. DEVICE_CREDENTIAL for Payment Auth</string>
+
+    <string name="maswe_0021_vector_generic_auth_policy_secure">2. Secure: Biometrics-Only Policy</string>
+
+    <string name="maswe_0021_vector_generic_auth_policy_vuln">2. Generic Auth Policy (Passcode Fallback)</string>
+
+    <string name="maswe_0021_vector_not_bound_to_biometric_key_secure">3. Secure: Biometric-Bound Keystore Key</string>
+
+    <string name="maswe_0021_vector_not_bound_to_biometric_key_vuln">3. UI-Only Biometric Prompt</string>
+</resources>

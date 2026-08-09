@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MASWE-0001 -->
+    <string name="maswe_0001_secure_desc">These vectors apply the correct mitigation (encryption, etc.) to private storage.</string>
+    <string name="maswe_0001_secure_title">MASWE-0001: Private Storage (SECURE)</string>
+    <string name="maswe_0001_secure_vectors_title">Private Storage Secure Mitigations</string>
+
+    <!-- MASWE-0002 -->
+    <string name="maswe_0002_secure_desc">Each vector applies the correct mitigation: encryption, access control, or storage relocation. The underlying sensitive data is never written in a recoverable plaintext form.</string>
+    <string name="maswe_0002_secure_title">MASWE-0002: Insecure Storage (SECURE)</string>
+    <string name="maswe_0002_secure_vectors_title">Secure Mitigations (Defense Simulations)</string>
+    <string name="maswe_0002_vuln_desc">Each vector below writes sensitive data to a different unprotected storage location. Trigger a vector, then verify the plaintext content using ADB or a file manager on a rooted device.</string>
+    <string name="maswe_0002_vuln_title">MASWE-0002: Insecure Storage (VULNERABLE)</string>
+    <string name="maswe_0002_vuln_vectors_title">Vulnerability Vectors (Attack Simulations)</string>
+
+    <!-- MASWE-0003 -->
+    <string name="maswe_0003_secure_desc">Secure patterns for MASWE-0003.</string>
+    <string name="maswe_0003_secure_title">MASWE-0003: Secure Implementation</string>
+    <string name="maswe_0003_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0003_vuln_desc">Vulnerability vectors for MASWE-0003.</string>
+    <string name="maswe_0003_vuln_title">MASWE-0003: Vulnerable Implementation</string>
+    <string name="maswe_0003_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0004 -->
+    <string name="maswe_0004_secure_desc">Secure patterns for MASWE-0004.</string>
+    <string name="maswe_0004_secure_title">MASWE-0004: Secure Implementation</string>
+    <string name="maswe_0004_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0004_vuln_desc">Vulnerability vectors for MASWE-0004.</string>
+    <string name="maswe_0004_vuln_title">MASWE-0004: Vulnerable Implementation</string>
+    <string name="maswe_0004_vuln_vectors_title">Vulnerability Vectors</string>
+
+    <!-- MASWE-0005 -->
+    <string name="maswe_0005_secure_desc">Review the sensitive data below. The secure vectors will safely process the data without leaking it to logs or plaintext files.</string>
+    <string name="maswe_0005_secure_title">MASWE-0005: Logging (SECURE)</string>
+    <string name="maswe_0005_secure_vectors_title">Secure Mitigations (Defense Simulations)</string>
+    <string name="maswe_0005_vuln_desc">Review the sensitive data below, then trigger the vulnerability vectors to see how the data leaks.</string>
+    <string name="maswe_0005_vuln_title">MASWE-0005: Logging (VULNERABLE)</string>
+    <string name="maswe_0005_vuln_vectors_title">Vulnerability Vectors (Attack Simulations)</string>
+
+    <!-- MASWE-0006 -->
+    <string name="maswe_0006_secure_desc">Secure patterns for MASWE-0006.</string>
+    <string name="maswe_0006_secure_title">MASWE-0006: Secure Implementation</string>
+    <string name="maswe_0006_secure_vectors_title">Secure Vectors</string>
+    <string name="maswe_0006_vuln_desc">Vulnerability vectors for MASWE-0006.</string>
+    <string name="maswe_0006_vuln_title">MASWE-0006: Vulnerable Implementation</string>
+    <string name="maswe_0006_vuln_vectors_title">Vulnerability Vectors</string>
+
+</resources>

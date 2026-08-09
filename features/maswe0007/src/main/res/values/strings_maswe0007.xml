@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0007_desc">Broken algorithms (DES, RC4), reused IVs, ECB mode, weak padding, insufficient key length, or XOR/Base64 passed off as encryption.</string>
+
+    <string name="maswe_0007_id">MASWE-0007</string>
+
+    <string name="maswe_0007_msg_broken_algo_secure">Data encrypted with AES-256-GCM. NIST-approved, authenticated, and computationally infeasible to break.</string>
+
+    <string name="maswe_0007_msg_broken_algo_vuln">Data encrypted with DES — key is only 56-bit, broken since 1999. Brute-forced in under 24 hours with modern hardware.</string>
+
+    <string name="maswe_0007_msg_ecb_mode_secure">AES-GCM used — each block is unique, authenticated, and indistinguishable from random.</string>
+
+    <string name="maswe_0007_msg_ecb_mode_vuln">AES/ECB used — identical plaintext blocks produce identical ciphertext blocks. Data patterns fully visible in ciphertext.</string>
+
+    <string name="maswe_0007_msg_key_length_secure">256-bit AES key. Provides 128-bit security strength — infeasible to brute-force.</string>
+
+    <string name="maswe_0007_msg_key_length_vuln">64-bit AES key used — far below the 128-bit minimum. Brute-forceable with modern hardware.</string>
+
+    <string name="maswe_0007_msg_key_reuse_secure">Separate keys generated for encryption and signing. Key separation enforced per NIST SP 800-57.</string>
+
+    <string name="maswe_0007_msg_key_reuse_vuln">Same RSA key used for both encryption and signing. Cross-protocol attacks can break one use case using the other.</string>
+
+    <string name="maswe_0007_msg_non_crypto_secure">Real AES-256-GCM encryption with Keystore-backed key. Not reversible without the key.</string>
+
+    <string name="maswe_0007_msg_non_crypto_vuln">Data &quot;encrypted&quot; with XOR and encoded as Base64. Trivially reversible — provides zero security.</string>
+
+    <string name="maswe_0007_msg_reused_iv_secure">Fresh random 16-byte IV generated via SecureRandom for every encryption. IV prepended to ciphertext.</string>
+
+    <string name="maswe_0007_msg_reused_iv_vuln">IV hardcoded to all-zeros. Two ciphertexts encrypted with the same key+IV reveal XOR of plaintexts — full plaintext recovery possible.</string>
+
+    <string name="maswe_0007_msg_risky_padding_secure">AES-GCM authenticates ciphertext before decryption. Padding oracle attacks are impossible.</string>
+
+    <string name="maswe_0007_msg_risky_padding_vuln">AES/CBC/PKCS5Padding with observable error response. 128 requests per byte — full plaintext recoverable via padding oracle attack.</string>
+
+    <string name="maswe_0007_title">Improper Encryption</string>
+
+    <string name="maswe_0007_vector_broken_algo_secure">1. Secure: AES-256-GCM</string>
+
+    <string name="maswe_0007_vector_broken_algo_vuln">1. Broken Algorithm (DES / RC4)</string>
+
+    <string name="maswe_0007_vector_ecb_mode_secure">4. Secure: CBC or GCM Mode</string>
+
+    <string name="maswe_0007_vector_ecb_mode_vuln">4. ECB Mode (Penguin Attack)</string>
+
+    <string name="maswe_0007_vector_key_length_secure">5. Secure: AES-256</string>
+
+    <string name="maswe_0007_vector_key_length_vuln">5. Insufficient Key Length (AES-64)</string>
+
+    <string name="maswe_0007_vector_key_reuse_secure">6. Secure: Separate Keys per Purpose</string>
+
+    <string name="maswe_0007_vector_key_reuse_vuln">6. Key Reuse (Encrypt + Sign Same Key)</string>
+
+    <string name="maswe_0007_vector_non_crypto_secure">7. Secure: Real Encryption (AES-GCM)</string>
+
+    <string name="maswe_0007_vector_non_crypto_vuln">7. XOR / Base64 Obfuscation</string>
+
+    <string name="maswe_0007_vector_reused_iv_secure">2. Secure: Random IV per Encryption</string>
+
+    <string name="maswe_0007_vector_reused_iv_vuln">2. Reused / Hardcoded IV (AES-CBC)</string>
+
+    <string name="maswe_0007_vector_risky_padding_secure">3. Secure: AES-GCM (No Padding Oracle)</string>
+
+    <string name="maswe_0007_vector_risky_padding_vuln">3. Padding Oracle (PKCS#7 + CBC)</string>
+</resources>

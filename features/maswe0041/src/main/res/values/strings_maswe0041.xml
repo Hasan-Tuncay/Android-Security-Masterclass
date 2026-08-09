@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0041_id">MASWE-0041</string>
+    <string name="maswe_0041_msg_known_vulnerable_platform_supported_secure">Secure description</string>
+    <string name="maswe_0041_msg_known_vulnerable_platform_supported_vuln">Vulnerable description</string>
+    <string name="maswe_0041_msg_low_min_version_modern_assumptions_secure">Secure description</string>
+    <string name="maswe_0041_msg_low_min_version_modern_assumptions_vuln">Vulnerable description</string>
+    <string name="maswe_0041_title">Running on a Recent Platform Version Not Ensured</string>
+    <string name="maswe_0041_vector_known_vulnerable_platform_supported_secure">2. Secure: Block Vulnerable Platforms</string>
+    <string name="maswe_0041_vector_known_vulnerable_platform_supported_vuln">2. Known Vulnerable Platform Supported</string>
+    <string name="maswe_0041_vector_low_min_version_modern_assumptions_secure">1. Secure: Enforced Modern Min SDK</string>
+    <string name="maswe_0041_vector_low_min_version_modern_assumptions_vuln">1. Low Min Version Modern Assumptions</string>
+</resources>

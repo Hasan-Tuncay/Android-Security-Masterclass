@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0078_id">MASWE-0078</string>
+    <string name="maswe_0078_msg_secure">Secure implementation</string>
+    <string name="maswe_0078_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0078_title">Inadequate or Ambiguous User Consent Mechanisms</string>
+    <string name="maswe_0078_vector_secure">1. Secure: Explicit Consent</string>
+    <string name="maswe_0078_vector_vuln">1. Ambiguous Consent</string>
+</resources>

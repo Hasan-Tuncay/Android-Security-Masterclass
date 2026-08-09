@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0069_id">MASWE-0069</string>
+    <string name="maswe_0069_msg_secure">Secure implementation</string>
+    <string name="maswe_0069_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0069_title">Usage of Non-Privacy-Preserving Functionality</string>
+    <string name="maswe_0069_vector_secure">1. Secure: Privacy Preserving</string>
+    <string name="maswe_0069_vector_vuln">1. Non-Privacy Features</string>
+</resources>

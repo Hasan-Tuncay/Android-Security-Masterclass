@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0028_desc">Misconfigured CertificatePinner, dynamic pins fetched over unencrypted HTTP, custom pinning accepting incorrect certificate chains, or missing backup pins.</string>
+
+    <string name="maswe_0028_id">MASWE-0028</string>
+
+    <string name="maswe_0028_msg_dynamic_pinning_without_security_secure">Dynamic pins fetched over HTTPS with digital signature verification prior to updating local pins.</string>
+
+    <string name="maswe_0028_msg_dynamic_pinning_without_security_vuln">Pins updated at runtime by fetching remote JSON over HTTP without signature verification.</string>
+
+    <string name="maswe_0028_msg_improper_pinning_library_config_secure">CertificatePinner configured with valid leaf and intermediate SPKI hashes for exact domains.</string>
+
+    <string name="maswe_0028_msg_improper_pinning_library_config_vuln">CertificatePinner configured with mismatched domain pattern or incorrect pin hash format.</string>
+
+    <string name="maswe_0028_msg_improper_validation_logic_secure">Pinning verifies SubjectPublicKeyInfo SHA-256 hash against expected pin set.</string>
+
+    <string name="maswe_0028_msg_improper_validation_logic_vuln">Custom certificate pinning logic checks certificate subject string instead of public key hash.</string>
+
+    <string name="maswe_0028_msg_lack_of_backup_pins_secure">Primary leaf pin configured along with backup CA/intermediate pins for smooth rotation.</string>
+
+    <string name="maswe_0028_msg_lack_of_backup_pins_vuln">Only single leaf pin defined; key rotation causes complete app bricking.</string>
+
+    <string name="maswe_0028_title">Insecure Identity Pinning</string>
+
+    <string name="maswe_0028_vector_dynamic_pinning_without_security_secure">2. Secure: Dynamic Pins Over Authenticated Channel</string>
+
+    <string name="maswe_0028_vector_dynamic_pinning_without_security_vuln">2. Dynamic Pinning Without Security</string>
+
+    <string name="maswe_0028_vector_improper_pinning_library_config_secure">1. Secure: Properly Configured CertificatePinner</string>
+
+    <string name="maswe_0028_vector_improper_pinning_library_config_vuln">1. Improper Pinning Library Config</string>
+
+    <string name="maswe_0028_vector_improper_validation_logic_secure">3. Secure: Strict SPKI Certificate Chain Match</string>
+
+    <string name="maswe_0028_vector_improper_validation_logic_vuln">3. Improper Validation Logic</string>
+
+    <string name="maswe_0028_vector_lack_of_backup_pins_secure">4. Secure: Primary + Backup Pins Configured</string>
+
+    <string name="maswe_0028_vector_lack_of_backup_pins_vuln">4. Lack of Backup Pins</string>
+</resources>

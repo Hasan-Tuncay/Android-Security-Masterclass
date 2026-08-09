@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0054_id">MASWE-0054</string>
+    <string name="maswe_0054_msg_client_side_only_verification_secure">Secure implementation</string>
+    <string name="maswe_0054_msg_client_side_only_verification_vuln">Vulnerable implementation</string>
+    <string name="maswe_0054_msg_incomplete_evidence_validation_secure">Secure implementation</string>
+    <string name="maswe_0054_msg_incomplete_evidence_validation_vuln">Vulnerable implementation</string>
+    <string name="maswe_0054_msg_missing_freshness_guarantees_secure">Secure implementation</string>
+    <string name="maswe_0054_msg_missing_freshness_guarantees_vuln">Vulnerable implementation</string>
+    <string name="maswe_0054_msg_no_attestation_integrated_secure">Secure implementation</string>
+    <string name="maswe_0054_msg_no_attestation_integrated_vuln">Vulnerable implementation</string>
+    <string name="maswe_0054_msg_verdicts_not_enforced_secure">Secure implementation</string>
+    <string name="maswe_0054_msg_verdicts_not_enforced_vuln">Vulnerable implementation</string>
+    <string name="maswe_0054_title">App Attestation Not Integrated</string>
+    <string name="maswe_0054_vector_client_side_only_verification_secure">2. Secure: Client Side Only Verification</string>
+    <string name="maswe_0054_vector_client_side_only_verification_vuln">2. Client Side Only Verification</string>
+    <string name="maswe_0054_vector_incomplete_evidence_validation_secure">5. Secure: Incomplete Evidence Validation</string>
+    <string name="maswe_0054_vector_incomplete_evidence_validation_vuln">5. Incomplete Evidence Validation</string>
+    <string name="maswe_0054_vector_missing_freshness_guarantees_secure">3. Secure: Missing Freshness Guarantees</string>
+    <string name="maswe_0054_vector_missing_freshness_guarantees_vuln">3. Missing Freshness Guarantees</string>
+    <string name="maswe_0054_vector_no_attestation_integrated_secure">1. Secure: No Attestation Integrated</string>
+    <string name="maswe_0054_vector_no_attestation_integrated_vuln">1. No Attestation Integrated</string>
+    <string name="maswe_0054_vector_verdicts_not_enforced_secure">4. Secure: Verdicts Not Enforced</string>
+    <string name="maswe_0054_vector_verdicts_not_enforced_vuln">4. Verdicts Not Enforced</string>
+</resources>

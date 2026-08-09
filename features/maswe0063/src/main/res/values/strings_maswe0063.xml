@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0063_id">MASWE-0063</string>
+    <string name="maswe_0063_msg_misconfigured_build_settings_secure">android:debuggable=false enforced</string>
+    <string name="maswe_0063_msg_misconfigured_build_settings_vuln">android:debuggable=true in release</string>
+    <string name="maswe_0063_msg_webview_debugging_enabled_secure">WebView remote debugging disabled</string>
+    <string name="maswe_0063_msg_webview_debugging_enabled_vuln">WebView.setWebContentsDebuggingEnabled(true)</string>
+    <string name="maswe_0063_title">Debug Mechanisms Not Disabled</string>
+    <string name="maswe_0063_vector_misconfigured_build_settings_secure">1. Enforced Release Build Settings</string>
+    <string name="maswe_0063_vector_misconfigured_build_settings_vuln">1. Misconfigured Build Settings</string>
+    <string name="maswe_0063_vector_webview_debugging_enabled_secure">2. WebView Debugging Disabled</string>
+    <string name="maswe_0063_vector_webview_debugging_enabled_vuln">2. WebView Debugging Enabled</string>
+</resources>

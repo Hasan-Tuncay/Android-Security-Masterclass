@@ -1,0 +1,62 @@
+site_name: Android Security Masterclass
+site_description: "A Hands-on OWASP MASVS/MASTG Security Training Lab for Android Developers & Pentesters"
+repo_url: https://github.com/hasantuncay/Android-Security-Masterclass
+repo_name: hasantuncay/Android-Security-Masterclass
+
+theme:
+  name: material
+  logo: material/shield-lock-outline
+  favicon: material/shield-lock-outline
+  font:
+    text: Inter
+    code: Roboto Mono
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.instant
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed
+  - tables
+  - attr_list
+  - md_in_html
+
+nav:
+  - 🏠 Home: index.md
+  - 📜 Whitepaper: whitepaper.md
+  - 🗺️ Mapping Matrix: mapping_matrix.md
+  - 🛡️ OWASP Application: owasp_application.md
+  - 🔍 SAST Pipeline: sast_pipeline.md

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0056_id">MASWE-0056</string>
+    <string name="maswe_0056_msg_missing_server_attestation_verification_secure">Play Integrity token is cryptographically verified on trusted backend.</string>
+    <string name="maswe_0056_msg_missing_server_attestation_verification_vuln">Play Integrity token is not verified on backend.</string>
+    <string name="maswe_0056_msg_no_packaged_app_integrity_verification_secure">App integrity is verified against signature and checksum.</string>
+    <string name="maswe_0056_msg_no_packaged_app_integrity_verification_vuln">App integrity is not verified against tampered APKs.</string>
+    <string name="maswe_0056_msg_no_server_verified_app_integrity_secure">App integrity is validated remotely via server endpoints.</string>
+    <string name="maswe_0056_msg_no_server_verified_app_integrity_vuln">App integrity relies only on local client checks.</string>
+    <string name="maswe_0056_msg_outdated_signing_schemes_secure">App enforces APK Signature Scheme v2+ with rollback protection.</string>
+    <string name="maswe_0056_msg_outdated_signing_schemes_vuln">App uses legacy APK signature scheme v1 only.</string>
+    <string name="maswe_0056_title">App Attestation Not Implemented</string>
+    <string name="maswe_0056_vector_missing_server_attestation_verification_secure">3. Secure: Server Attestation Verification</string>
+    <string name="maswe_0056_vector_missing_server_attestation_verification_vuln">3. Missing Server Attestation Verification</string>
+    <string name="maswe_0056_vector_no_packaged_app_integrity_verification_secure">1. Secure: Packaged App Integrity Verification</string>
+    <string name="maswe_0056_vector_no_packaged_app_integrity_verification_vuln">1. No Packaged App Integrity Verification</string>
+    <string name="maswe_0056_vector_no_server_verified_app_integrity_secure">2. Secure: Server-Verified App Integrity</string>
+    <string name="maswe_0056_vector_no_server_verified_app_integrity_vuln">2. No Server-Verified App Integrity</string>
+    <string name="maswe_0056_vector_outdated_signing_schemes_secure">4. Secure: Modern APK Signature Scheme v2/v3/v4</string>
+    <string name="maswe_0056_vector_outdated_signing_schemes_vuln">4. Outdated Signing Schemes</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0018_desc">Unintentionally exported components, missing permissions on IPC, unverified callers, overbroad URI grants, open local ports, and unauthenticated deep links.</string>
+
+    <string name="maswe_0018_id">MASWE-0018</string>
+
+    <string name="maswe_0018_msg_auth_material_not_validated_secure">RS256 signature verified against pinned public key before any claim is used. Invalid or tampered JWTs are rejected outright.</string>
+
+    <string name="maswe_0018_msg_auth_material_not_validated_vuln">JWT payload decoded and trusted without verifying the signature. Attacker forges arbitrary claims \u2014 any user ID, any role.</string>
+
+    <string name="maswe_0018_msg_caller_not_verified_secure">checkCallingPermission() / enforceCallingPermission() called at every sensitive entry point. Unauthorized callers receive SecurityException.</string>
+
+    <string name="maswe_0018_msg_caller_not_verified_vuln">Binder service exposes sensitive operations without checking who called. Any app can invoke privileged methods.</string>
+
+    <string name="maswe_0018_msg_missing_auth_on_deep_links_secure">Deep link contains a one-time HMAC-signed token. Server verifies token before executing the action. Replayed or forged links are rejected.</string>
+
+    <string name="maswe_0018_msg_missing_auth_on_deep_links_vuln">Password-reset deep link triggers reset for any email passed in the URI. No token, no server confirmation \u2014 exploitable by any app.</string>
+
+    <string name="maswe_0018_msg_missing_permissions_on_exports_secure">Custom signature-level permission declared and required. Only apps signed with the same certificate can invoke the component.</string>
+
+    <string name="maswe_0018_msg_missing_permissions_on_exports_vuln">Component exported with no permission requirement. Any third-party app can invoke it without any declared relationship.</string>
+
+    <string name="maswe_0018_msg_overbroad_data_grants_secure">Single-file URI grant without PERSISTABLE flag. Access automatically revoked when receiver no longer holds it.</string>
+
+    <string name="maswe_0018_msg_overbroad_data_grants_vuln">FLAG_GRANT_PERSISTABLE_URI_PERMISSION used for entire content directory. Receiver retains access to all files forever.</string>
+
+    <string name="maswe_0018_msg_unintentionally_exported_secure">android:exported=\"false\" set explicitly. Component invisible to all other apps \u2014 cannot be bound or started externally.</string>
+
+    <string name="maswe_0018_msg_unintentionally_exported_vuln">Service exported via default (API &lt; 31 default is exported). Any app can bind and call internal methods.</string>
+
+    <string name="maswe_0018_msg_unprotected_local_network_secure">Local server requires a session token generated at launch and stored only in app memory. Requests without the token are rejected with 401.</string>
+
+    <string name="maswe_0018_msg_unprotected_local_network_vuln">Local HTTP server on 127.0.0.1:8080 with no authentication. Any app with INTERNET permission can access data via localhost.</string>
+
+    <string name="maswe_0018_title">Lack of Authentication on App Components</string>
+
+    <string name="maswe_0018_vector_auth_material_not_validated_secure">6. Secure: Full JWT Signature Validation</string>
+
+    <string name="maswe_0018_vector_auth_material_not_validated_vuln">6. Token Accepted Without Signature Check</string>
+
+    <string name="maswe_0018_vector_caller_not_verified_secure">3. Secure: checkCallingPermission()</string>
+
+    <string name="maswe_0018_vector_caller_not_verified_vuln">3. IPC Caller Not Verified</string>
+
+    <string name="maswe_0018_vector_missing_auth_on_deep_links_secure">7. Secure: Server-Verified Deep Link</string>
+
+    <string name="maswe_0018_vector_missing_auth_on_deep_links_vuln">7. Unauthenticated Deep Link Action</string>
+
+    <string name="maswe_0018_vector_missing_permissions_on_exports_secure">2. Secure: Signature Permission</string>
+
+    <string name="maswe_0018_vector_missing_permissions_on_exports_vuln">2. Exported Without Permission</string>
+
+    <string name="maswe_0018_vector_overbroad_data_grants_secure">4. Secure: Scoped One-Time URI Grant</string>
+
+    <string name="maswe_0018_vector_overbroad_data_grants_vuln">4. Overbroad Persistent URI Grant</string>
+
+    <string name="maswe_0018_vector_unintentionally_exported_secure">1. Secure: Explicit exported=false</string>
+
+    <string name="maswe_0018_vector_unintentionally_exported_vuln">1. Unintentionally Exported Component</string>
+
+    <string name="maswe_0018_vector_unprotected_local_network_secure">5. Secure: Token-Authenticated Local Server</string>
+
+    <string name="maswe_0018_vector_unprotected_local_network_vuln">5. Unauthenticated Local HTTP Server</string>
+</resources>

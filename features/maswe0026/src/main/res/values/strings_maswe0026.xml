@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0026_desc">Cleartext network traffic allowed in NSC, HTTP endpoints used, raw unencrypted TCP/FTP/BLE sockets, low level socket API, and third-party library misconfigurations.</string>
+
+    <string name="maswe_0026_id">MASWE-0026</string>
+
+    <string name="maswe_0026_msg_cleartext_allowed_in_nsc_secure">cleartextTrafficPermitted set to false globally in network_security_config.xml.</string>
+
+    <string name="maswe_0026_msg_cleartext_allowed_in_nsc_vuln">cleartextTrafficPermitted is set to true in network security config allowing unencrypted traffic across the app.</string>
+
+    <string name="maswe_0026_msg_cross_platform_misconfiguration_secure">Cross-platform network client configured to respect platform security settings and enforce HTTPS.</string>
+
+    <string name="maswe_0026_msg_cross_platform_misconfiguration_vuln">Flutter/React Native network engine configured to ignore platform cleartext policies.</string>
+
+    <string name="maswe_0026_msg_http_instead_of_https_secure">All network endpoints strictly use https:// scheme with TLS transport encryption.</string>
+
+    <string name="maswe_0026_msg_http_instead_of_https_vuln">App endpoints use http:// URLs transmitting sensitive requests and credentials in cleartext.</string>
+
+    <string name="maswe_0026_msg_low_level_network_api_secure">SSLSocket created via SSLSocketFactory with modern TLS protocols enabled.</string>
+
+    <string name="maswe_0026_msg_low_level_network_api_vuln">Raw java.net.Socket used directly for network IO without wrapping in SSLSocket.</string>
+
+    <string name="maswe_0026_msg_non_http_insecure_protocol_secure">App uses encrypted transport protocols such as SFTP and TLS-encapsulated socket connections.</string>
+
+    <string name="maswe_0026_msg_non_http_insecure_protocol_vuln">App uses unencrypted FTP or telnet protocols to exchange files and commands over network.</string>
+
+    <string name="maswe_0026_msg_third_party_library_secure">All third-party SDKs configured explicitly to transmit telemetry over HTTPS/TLS.</string>
+
+    <string name="maswe_0026_msg_third_party_library_vuln">Analytics or ad SDK uses unencrypted HTTP endpoints by default in background.</string>
+
+    <string name="maswe_0026_msg_unencrypted_m2m_channel_secure">BLE payload encrypted at application layer using AES-GCM prior to transmission.</string>
+
+    <string name="maswe_0026_msg_unencrypted_m2m_channel_vuln">Bluetooth RFCOMM or BLE characteristics transmit plaintext payloads without device pairing or app encryption.</string>
+
+    <string name="maswe_0026_title">Network Traffic Not Encrypted</string>
+
+    <string name="maswe_0026_vector_cleartext_allowed_in_nsc_secure">1. Secure: Cleartext Traffic Disabled in NSC</string>
+
+    <string name="maswe_0026_vector_cleartext_allowed_in_nsc_vuln">1. Cleartext Allowed in Network Security Config</string>
+
+    <string name="maswe_0026_vector_cross_platform_misconfiguration_secure">6. Secure: Strictly Configured Cross-Platform Engine</string>
+
+    <string name="maswe_0026_vector_cross_platform_misconfiguration_vuln">6. Cross-Platform Misconfiguration</string>
+
+    <string name="maswe_0026_vector_http_instead_of_https_secure">2. Secure: HTTPS Only Endpoints</string>
+
+    <string name="maswe_0026_vector_http_instead_of_https_vuln">2. HTTP Instead of HTTPS</string>
+
+    <string name="maswe_0026_vector_low_level_network_api_secure">5. Secure: SSLSocket with TLS Enabled</string>
+
+    <string name="maswe_0026_vector_low_level_network_api_vuln">5. Low-Level Network API (Plain Socket)</string>
+
+    <string name="maswe_0026_vector_non_http_insecure_protocol_secure">3. Secure: Encrypted Protocols (SFTP/TLS)</string>
+
+    <string name="maswe_0026_vector_non_http_insecure_protocol_vuln">3. Non-HTTP Insecure Protocol</string>
+
+    <string name="maswe_0026_vector_third_party_library_secure">7. Secure: Third-Party Libraries Enforce TLS</string>
+
+    <string name="maswe_0026_vector_third_party_library_vuln">7. Third-Party Library Insecure Default</string>
+
+    <string name="maswe_0026_vector_unencrypted_m2m_channel_secure">4. Secure: Application-Layer BLE Encryption</string>
+
+    <string name="maswe_0026_vector_unencrypted_m2m_channel_vuln">4. Unencrypted M2M/Bluetooth Channel</string>
+</resources>

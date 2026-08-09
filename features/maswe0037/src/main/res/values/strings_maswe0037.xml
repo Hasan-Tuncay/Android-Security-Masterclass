@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0037_id">MASWE-0037</string>
+    <string name="maswe_0037_msg_no_lock_screen_redaction_secure">Secure description</string>
+    <string name="maswe_0037_msg_no_lock_screen_redaction_vuln">Vulnerable description</string>
+    <string name="maswe_0037_msg_sensitive_content_in_notifications_secure">Secure description</string>
+    <string name="maswe_0037_msg_sensitive_content_in_notifications_vuln">Vulnerable description</string>
+    <string name="maswe_0037_title">Unnecessary Exposure of Sensitive Data via Notifications</string>
+    <string name="maswe_0037_vector_no_lock_screen_redaction_secure">2. Secure: VISIBILITY_PRIVATE</string>
+    <string name="maswe_0037_vector_no_lock_screen_redaction_vuln">2. No Lock Screen Redaction</string>
+    <string name="maswe_0037_vector_sensitive_content_in_notifications_secure">1. Secure: Generic Message</string>
+    <string name="maswe_0037_vector_sensitive_content_in_notifications_vuln">1. Sensitive Notifications</string>
+</resources>

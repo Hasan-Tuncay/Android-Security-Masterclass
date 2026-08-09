@@ -18,9 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.hasantuncay.mobsec.common.R
 import com.hasantuncay.mobsec.common.models.MasweItem
 import com.hasantuncay.mobsec.common.models.MasweScreenMeta
 import kotlinx.coroutines.launch
+import com.hasantuncay.mobsec.common.models.UiState
 
 /**
  * Rendering mode for the unified MASWE screen.
@@ -48,7 +50,8 @@ fun <T : MasweItem> BaseMasweScreen(
     meta: MasweScreenMeta,
     items: List<T>,
     onBack: () -> Unit,
-    onItemClicked: (suspend (T) -> String?)? = null,
+    onItemClicked: ((T) -> Unit)? = null,
+    uiState: UiState<String?> = UiState.Idle,
     content: @Composable (ColumnScope.() -> Unit)? = null
 ) {
     if (items.isEmpty()) return
@@ -78,13 +81,12 @@ fun <T : MasweItem> BaseMasweScreen(
     }
 
     val coroutineScope = rememberCoroutineScope()
-    var lastResultPath by remember { mutableStateOf<String?>(null) }
     var lastTriggeredItem by remember { mutableStateOf<T?>(null) }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("$masweId ($modeLabel)") },
+                title = { Text(stringResource(id = R.string.maswe_title_format, masweId, modeLabel)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -164,10 +166,7 @@ fun <T : MasweItem> BaseMasweScreen(
                         isActive = lastTriggeredItem == item,
                         onClick = {
                             lastTriggeredItem = item
-                            lastResultPath = null
-                            coroutineScope.launch {
-                                lastResultPath = onItemClicked(item)
-                            }
+                            onItemClicked(item)
                         }
                     )
                 } else {
@@ -203,19 +202,48 @@ fun <T : MasweItem> BaseMasweScreen(
                 }
             }
 
-            // Result card animation
+            // Result card animations with UiState
             if (onItemClicked != null) {
                 AnimatedVisibility(
-                    visible = lastTriggeredItem != null,
+                    visible = uiState is UiState.Loading,
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator(modifier = Modifier.padding(16.dp))
+                    }
+                }
+
+                AnimatedVisibility(
+                    visible = uiState is UiState.Success && lastTriggeredItem != null,
                     enter = expandVertically() + fadeIn(),
                     exit = shrinkVertically() + fadeOut()
                 ) {
+                    val resultPath = (uiState as? UiState.Success)?.data
                     lastTriggeredItem?.let { item ->
                         InteractiveResultCard(
-                            resultPath = lastResultPath,
-                            adbCommand = item.getAdbCommand(lastResultPath),
+                            resultPath = resultPath,
+                            adbCommand = item.getAdbCommand(resultPath),
                             isSecure = mode == ScreenMode.SECURE,
                             messageText = stringResource(id = item.msgRes)
+                        )
+                    }
+                }
+
+                AnimatedVisibility(
+                    visible = uiState is UiState.Error,
+                    enter = expandVertically() + fadeIn(),
+                    exit = shrinkVertically() + fadeOut()
+                ) {
+                    val errorMessage = (uiState as? UiState.Error)?.message ?: ""
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "Error: $errorMessage",
+                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            modifier = Modifier.padding(16.dp)
                         )
                     }
                 }
@@ -238,7 +266,7 @@ fun <T : MasweItem> BaseMasweScreen(
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "Full implementations for $masweId are under development.",
+                            text = stringResource(id = R.string.maswe_under_development, masweId),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onTertiaryContainer
                         )

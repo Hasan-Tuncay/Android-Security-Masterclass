@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0016_desc">Keys usable without user auth; key available on locked device; key migrates via backup; unbounded auth validity window.</string>
+
+    <string name="maswe_0016_id">MASWE-0016</string>
+
+    <string name="maswe_0016_msg_hardware_without_restriction_secure">StrongBox key + setUserAuthenticationRequired(true) + setUnlockedDeviceRequired(true). Hardware + software defense-in-depth.</string>
+
+    <string name="maswe_0016_msg_hardware_without_restriction_vuln">Key in StrongBox but no user auth or unlock requirement. Hardware protects key from extraction but not from misuse by any process.</string>
+
+    <string name="maswe_0016_msg_no_user_auth_requirement_secure">Key created with setUserAuthenticationRequired(true) + setUserAuthenticationValidityDurationSeconds(-1). Each use requires fresh biometric.</string>
+
+    <string name="maswe_0016_msg_no_user_auth_requirement_vuln">Keystore key created without setUserAuthenticationRequired(). App unlocked — any process with app UID can use the key.</string>
+
+    <string name="maswe_0016_msg_not_device_bound_secure">StrongBox-backed key. Bound to device hardware — cannot be extracted or migrated. Data unrecoverable on different device.</string>
+
+    <string name="maswe_0016_msg_not_device_bound_vuln">Keystore key without device-binding. Google Backup includes key material — restored on new device, data decryptable without original hardware.</string>
+
+    <string name="maswe_0016_msg_unbounded_auth_validity_secure">setUserAuthenticationValidityDurationSeconds(-1). Each key operation requires a fresh biometric prompt — zero coasting window.</string>
+
+    <string name="maswe_0016_msg_unbounded_auth_validity_vuln">setUserAuthenticationValidityDurationSeconds(86400). One biometric scan authorizes all key uses for 24 hours — including by malware.</string>
+
+    <string name="maswe_0016_msg_usable_while_locked_secure">Key created with setUnlockedDeviceRequired(true). Key becomes unavailable the moment screen locks — no background access possible.</string>
+
+    <string name="maswe_0016_msg_usable_while_locked_vuln">Key has no device-lock restriction. Background service can decrypt sensitive data while device is locked — attack surface during theft.</string>
+
+    <string name="maswe_0016_title">Cryptographic Key Access Not Restricted</string>
+
+    <string name="maswe_0016_vector_hardware_without_restriction_secure">5. Secure: StrongBox + Auth + Unlock Required</string>
+
+    <string name="maswe_0016_vector_hardware_without_restriction_vuln">5. StrongBox Key, No Access Restrictions</string>
+
+    <string name="maswe_0016_vector_no_user_auth_requirement_secure">1. Secure: Biometric-Gated Key</string>
+
+    <string name="maswe_0016_vector_no_user_auth_requirement_vuln">1. Key Usable Without Biometrics</string>
+
+    <string name="maswe_0016_vector_not_device_bound_secure">3. Secure: setIsStrongBoxBacked(true)</string>
+
+    <string name="maswe_0016_vector_not_device_bound_vuln">3. Key Migrates via Google Backup</string>
+
+    <string name="maswe_0016_vector_unbounded_auth_validity_secure">4. Secure: Per-Operation Auth</string>
+
+    <string name="maswe_0016_vector_unbounded_auth_validity_vuln">4. Auth Valid for 24 Hours</string>
+
+    <string name="maswe_0016_vector_usable_while_locked_secure">2. Secure: UnlockedDeviceRequired</string>
+
+    <string name="maswe_0016_vector_usable_while_locked_vuln">2. Key Available on Locked Device</string>
+</resources>

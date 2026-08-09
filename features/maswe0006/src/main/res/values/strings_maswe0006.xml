@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="maswe_0006_desc">App data included in ADB or cloud backups, allowing sensitive data extraction without root. (Coming soon)</string>
+
+    <string name="maswe_0006_id">MASWE-0006</string>
+
+    <string name="maswe_0006_msg_auto_backup_secure">backup_rules.xml excludes all sensitive files and databases from cloud backup.</string>
+
+    <string name="maswe_0006_msg_auto_backup_vuln">App data included in Google cloud backup by default. Credentials extractable from any signed-in device.</string>
+
+    <string name="maswe_0006_msg_d2d_transfer_secure">data_extraction_rules.xml disables cloud and device transfer for sensitive files.</string>
+
+    <string name="maswe_0006_msg_d2d_transfer_vuln">Session tokens and credentials migrate uncontrolled during Google\u2019s device-to-device transfer.</string>
+
+    <string name="maswe_0006_msg_local_backup_secure">android:allowBackup="false" in Manifest. ADB backup command returns empty archive.</string>
+
+    <string name="maswe_0006_msg_local_backup_vuln">Sensitive DB exported via `adb backup` — extractable on any laptop without root.</string>
+
+    <string name="maswe_0006_msg_unencrypted_backup_secure">Database encrypted with SQLCipher before backup. Backup file is unreadable without the Keystore-bound key.</string>
+
+    <string name="maswe_0006_msg_unencrypted_backup_vuln">Plaintext database included in backup — anyone with the backup file can open it directly in SQLite Browser.</string>
+
+    <string name="maswe_0006_title">Sensitive Data Not Excluded From Backup</string>
+
+    <string name="maswe_0006_vector_auto_backup_secure">1. Secure: Backup Exclusion Rules</string>
+
+    <string name="maswe_0006_vector_auto_backup_vuln">1. Auto Backup — No Exclusion Rules</string>
+
+    <string name="maswe_0006_vector_d2d_transfer_secure">3. Secure: Transfer Exclusion</string>
+
+    <string name="maswe_0006_vector_d2d_transfer_vuln">3. Device-to-Device Migration</string>
+
+    <string name="maswe_0006_vector_local_backup_secure">2. Secure: allowBackup=false</string>
+
+    <string name="maswe_0006_vector_local_backup_vuln">2. ADB Local Backup (adb backup)</string>
+
+    <string name="maswe_0006_vector_unencrypted_backup_secure">4. Secure: Encrypted Before Backup</string>
+
+    <string name="maswe_0006_vector_unencrypted_backup_vuln">4. Sensitive Data Unencrypted in Backup</string>
+</resources>

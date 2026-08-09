@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0074_id">MASWE-0074</string>
+    <string name="maswe_0074_msg_secure">Secure implementation</string>
+    <string name="maswe_0074_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0074_title">Inadequate Tracking Domains Declarations</string>
+    <string name="maswe_0074_vector_secure">1. Secure: Disclosed Tracking</string>
+    <string name="maswe_0074_vector_vuln">1. Undisclosed Tracking</string>
+</resources>

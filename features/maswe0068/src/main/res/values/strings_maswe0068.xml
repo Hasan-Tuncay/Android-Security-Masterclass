@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0068_id">MASWE-0068</string>
+    <string name="maswe_0068_msg_secure">Secure implementation</string>
+    <string name="maswe_0068_msg_vuln">Vulnerable implementation</string>
+    <string name="maswe_0068_title">Incorrect Use of Identifiers for User Tracking</string>
+    <string name="maswe_0068_vector_secure">1. Secure: Proper Tracking</string>
+    <string name="maswe_0068_vector_vuln">1. Improper Identifiers</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0049_id">MASWE-0049</string>
+    <string name="maswe_0049_msg_code_from_other_packages_secure">Secure description</string>
+    <string name="maswe_0049_msg_code_from_other_packages_vuln">Vulnerable description</string>
+    <string name="maswe_0049_msg_downloaded_code_without_verification_secure">Secure description</string>
+    <string name="maswe_0049_msg_downloaded_code_without_verification_vuln">Vulnerable description</string>
+    <string name="maswe_0049_msg_loading_from_writable_locations_secure">Secure description</string>
+    <string name="maswe_0049_msg_loading_from_writable_locations_vuln">Vulnerable description</string>
+    <string name="maswe_0049_title">Unsafe Dynamic Code Loading</string>
+    <string name="maswe_0049_vector_code_from_other_packages_secure">3. Secure: Strict Context Isolation</string>
+    <string name="maswe_0049_vector_code_from_other_packages_vuln">3. Code from External Packages</string>
+    <string name="maswe_0049_vector_downloaded_code_without_verification_secure">2. Secure: Cryptographic Hash Verification</string>
+    <string name="maswe_0049_vector_downloaded_code_without_verification_vuln">2. Unverified Remote Code Loading</string>
+    <string name="maswe_0049_vector_loading_from_writable_locations_secure">1. Secure: Read-Only Internal Storage</string>
+    <string name="maswe_0049_vector_loading_from_writable_locations_vuln">1. Loading from Writable Locations</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0030_id">MASWE-0030</string>
+    <string name="maswe_0030_msg_clipboard_not_cleared_secure">Secure description</string>
+    <string name="maswe_0030_msg_clipboard_not_cleared_vuln">Vulnerable description</string>
+    <string name="maswe_0030_msg_clipboard_not_marked_sensitive_secure">Secure description</string>
+    <string name="maswe_0030_msg_clipboard_not_marked_sensitive_vuln">Vulnerable description</string>
+    <string name="maswe_0030_msg_sensitive_data_copyable_secure">Secure description</string>
+    <string name="maswe_0030_msg_sensitive_data_copyable_vuln">Vulnerable description</string>
+    <string name="maswe_0030_msg_universal_clipboard_not_restricted_secure">Secure description</string>
+    <string name="maswe_0030_msg_universal_clipboard_not_restricted_vuln">Vulnerable description</string>
+    <string name="maswe_0030_msg_untrusted_clipboard_input_secure">Secure description</string>
+    <string name="maswe_0030_msg_untrusted_clipboard_input_vuln">Vulnerable description</string>
+    <string name="maswe_0030_title">Improper Use of the Clipboard</string>
+    <string name="maswe_0030_vector_clipboard_not_cleared_secure">4. Secure: Timed Clear</string>
+    <string name="maswe_0030_vector_clipboard_not_cleared_vuln">4. Clipboard Not Cleared</string>
+    <string name="maswe_0030_vector_clipboard_not_marked_sensitive_secure">2. Secure: IS_SENSITIVE flag</string>
+    <string name="maswe_0030_vector_clipboard_not_marked_sensitive_vuln">2. Clipboard Not Marked Sensitive</string>
+    <string name="maswe_0030_vector_sensitive_data_copyable_secure">1. Secure: Copy Disabled</string>
+    <string name="maswe_0030_vector_sensitive_data_copyable_vuln">1. Sensitive Data Copyable</string>
+    <string name="maswe_0030_vector_universal_clipboard_not_restricted_secure">3. Secure: Local Only</string>
+    <string name="maswe_0030_vector_universal_clipboard_not_restricted_vuln">3. Universal Clipboard Unrestricted</string>
+    <string name="maswe_0030_vector_untrusted_clipboard_input_secure">5. Secure: Input Sanitized</string>
+    <string name="maswe_0030_vector_untrusted_clipboard_input_vuln">5. Untrusted Clipboard Input</string>
+</resources>

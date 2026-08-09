@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -34,11 +36,19 @@ dependencies {
     api(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    
-    // Cryptography and Security
+
+    // DataStore (needed by EncryptedDataStoreSerializer)
+    api(libs.androidx.datastore.preferences)
+    api(libs.androidx.datastore)
+
+    // Security & Cryptography (needed by KeystoreManager and EncryptedDataStoreSerializer)
     api(libs.androidx.security.crypto)
-    
-    // Networking (Ktor & OkHttp)
+    api(libs.tink.android)
+    api(libs.bouncycastle.bcprov)
+    api(libs.bouncycastle.bcpkix)
+
+    implementation(libs.timber)
+    api(libs.androidx.navigation3.runtime)
     api(libs.okhttp.logging)
     api(libs.ktor.client.core)
     api(libs.ktor.client.okhttp)
@@ -48,4 +58,7 @@ dependencies {
     
     // Utilities
     api(libs.timber)
+    api(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    api(libs.androidx.hilt.navigation.compose)
 }

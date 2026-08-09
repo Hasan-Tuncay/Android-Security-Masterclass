@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="maswe_0042_id">MASWE-0042</string>
+    <string name="maswe_0042_msg_compatibility_behaviors_left_secure">Secure description</string>
+    <string name="maswe_0042_msg_compatibility_behaviors_left_vuln">Vulnerable description</string>
+    <string name="maswe_0042_msg_outdated_target_version_secure">Secure description</string>
+    <string name="maswe_0042_msg_outdated_target_version_vuln">Vulnerable description</string>
+    <string name="maswe_0042_title">Latest Platform Version Not Targeted</string>
+    <string name="maswe_0042_vector_compatibility_behaviors_left_secure">2. Secure: Modern Behavior Adapters</string>
+    <string name="maswe_0042_vector_compatibility_behaviors_left_vuln">2. Compatibility Behaviors Left</string>
+    <string name="maswe_0042_vector_outdated_target_version_secure">1. Secure: Latest Target SDK</string>
+    <string name="maswe_0042_vector_outdated_target_version_vuln">1. Outdated Target Version</string>
+</resources>
