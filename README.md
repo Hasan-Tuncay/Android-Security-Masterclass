@@ -100,6 +100,11 @@ The following modules have their business logic and attack/defense simulations f
 2. **MASWE-0002 (External Storage)**: Demonstrates the risks of exporting PII to world-readable external volumes and the dangers of hardcoded/filesystem encryption keys. Secured via Keystore hardware-backed keys.
 3. **MASWE-0005 (Logging Leaks)**: Demonstrates data bleeding into system logcat, network interceptors, and 3rd party SDK telemetry. Secured via ProGuard stripping (`-assumenosideeffects`) and SecureLog wrappers.
 
+### ✅ Completed Logic Implementations
+- [**MASWE-0005**: Sensitive Data Leakage via Logging (CWE-532)](docs/maswe/MASVS-STORAGE/maswe_005/MASWE-0005-Logging-Leaks.md)
+- [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](docs/mastg-best/MASTG-BEST-0002-ProGuard.md)
+- [**MASWE-0001 & 0002**: Insecure Storage (Private & External)](docs/maswe/MASVS-STORAGE/maswe_002/MASWE-0002-Insecure-Storage.md) *(Attacker App PoC Ready)*
+
 *(See the `docs/mapping_matrix.md` on the MkDocs site for the full 78-vector breakdown).*
 
 ---
