@@ -7,8 +7,8 @@ use_directory_urls: true
 
 theme:
   name: material
-  logo: material/shield-lock-outline
-  favicon: material/shield-lock-outline
+  icon:
+    logo: material/shield-lock-outline
   font:
     text: Inter
     code: Roboto Mono
