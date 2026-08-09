@@ -105,7 +105,7 @@ The following modules have their business logic and attack/defense simulations f
 - [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](mastg-best/MASTG-BEST-0002-ProGuard.md)
 - [**MASWE-0001 & 0002**: Insecure Storage (Private & External)](maswe/MASVS-STORAGE/maswe_002/MASWE-0002-Insecure-Storage.md) *(Attacker App PoC Ready)*
 
-*(See the `mapping_matrix.md` on the MkDocs site for the full 78-vector breakdown).*
+*(See the [Mapping Matrix](mapping_matrix/) on the MkDocs site for the full 78-vector breakdown).*
 
 ---
 
