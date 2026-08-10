@@ -105,7 +105,7 @@ The following modules have their business logic and attack/defense simulations f
 - [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](mastg-best/MASTG-BEST-0002-ProGuard.md)
 - [**MASWE-0001 & 0002**: Insecure Storage (Private & External)](maswe/MASVS-STORAGE/maswe_002/MASWE-0002-Insecure-Storage.md) *(Attacker App PoC Ready)*
 
-*(See the [Mapping Matrix](mapping_matrix.md) on the MkDocs site for the full 78-vector breakdown).*
+*(See the `docs/mapping_matrix.md` on the MkDocs site for the full 78-vector breakdown).*
 
 ---
 
@@ -162,7 +162,7 @@ This project is created strictly for **educational purposes**. The vulnerabiliti
 
 ## 🤝 How to Contribute
 
-We welcome contributions from the community! Please read our comprehensive **[Contributing Guide](CONTRIBUTING.md)** before opening a Pull Request. It covers our project philosophy (Package-by-Feature Mirror Architecture), coding standards, and the step-by-step process for generating and implementing logic inside the `:features:masweXXXX` modules.
+We welcome contributions from the community! Please read our comprehensive **[Contributing Guide](https://github.com/Hasan-Tuncay/Android-Security-Masterclass/blob/main/CONTRIBUTING.md)** before opening a Pull Request. It covers our project philosophy (Package-by-Feature Mirror Architecture), coding standards, and the step-by-step process for generating and implementing logic inside the `:features:masweXXXX` modules.
 
 ---
 

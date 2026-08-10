@@ -162,7 +162,7 @@ This project is created strictly for **educational purposes**. The vulnerabiliti
 
 ## 🤝 How to Contribute
 
-We welcome contributions from the community! Please read our comprehensive **[Contributing Guide](CONTRIBUTING.md)** before opening a Pull Request. It covers our project philosophy (Package-by-Feature Mirror Architecture), coding standards, and the step-by-step process for generating and implementing logic inside the `:features:masweXXXX` modules.
+We welcome contributions from the community! Please read our comprehensive **[Contributing Guide](https://github.com/Hasan-Tuncay/Android-Security-Masterclass/blob/main/CONTRIBUTING.md)** before opening a Pull Request. It covers our project philosophy (Package-by-Feature Mirror Architecture), coding standards, and the step-by-step process for generating and implementing logic inside the `:features:masweXXXX` modules.
 
 ---
 
