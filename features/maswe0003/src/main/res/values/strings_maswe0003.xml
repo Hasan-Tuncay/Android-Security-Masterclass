@@ -30,4 +30,9 @@
     <string name="maswe_0003_vector_insecure_storage_secure">1. Secure: Android Keystore</string>
 
     <string name="maswe_0003_vector_insecure_storage_vuln">1. Key in SharedPreferences / File</string>
+    <string name="maswe_0003_vuln_title">MASWE-0003: Key Storage (VULNERABLE)</string>
+    <string name="maswe_0003_vuln_vectors_title">Key Storage Vulnerability Vectors</string>
+
+    <string name="maswe_0003_secure_title">MASWE-0003: Key Storage (SECURE)</string>
+    <string name="maswe_0003_secure_vectors_title">Key Storage Mitigations</string>
 </resources>

@@ -35,9 +35,9 @@
 
     <string name="maswe_0002_ui_writing_storage">Writing to storage…</string>
 
-    <string name="maswe_0002_vector_external_storage_secure">5. Secure: Internal Encrypted Storage</string>
+    <string name="maswe_0002_vector_external_storage_secure">1. Secure: Internal Encrypted Storage</string>
 
-    <string name="maswe_0002_vector_external_storage_vuln">5. External Storage Sensitive Data Leak</string>
+    <string name="maswe_0002_vector_external_storage_vuln">1. External Storage Sensitive Data Leak</string>
 
     <string name="maswe_0002_vector_hardcoded_key_secure">2. Secure: Keystore-Derived Key</string>
 

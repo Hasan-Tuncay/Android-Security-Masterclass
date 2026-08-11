@@ -56,7 +56,8 @@ data class AttackerCategory(
 fun DashboardScreen(
     onOpenExploitReceiver: () -> Unit,
     onOpenPathTraversalExploit: () -> Unit,
-    onOpenLogcatExploit: () -> Unit
+    onOpenLogcatExploit: () -> Unit,
+    onOpenExternalStorageExploit: () -> Unit
 ) {
     // 1. DYNAMIC DATA STRUCTURE (Groups exploits by MASVS Category)
     val categories = listOf(
@@ -64,29 +65,30 @@ fun DashboardScreen(
             title = stringResource(id = R.string.cat_masvs_storage),
             icon = Icons.Default.DataArray,
             exploits = listOf(
+
                 AttackerExploit(
-                    id = stringResource(id = R.string.format_maswe0005_id, stringResource(id = R.string.exploit_id_sys_logs)),
-                    title = stringResource(id = R.string.exploit_title_logcat),
-                    description = stringResource(id = R.string.exploit_desc_logcat),
-                    cwe = stringResource(id = R.string.exploit_cwe_logcat),
-                    status = stringResource(id = R.string.exploit_status_logcat),
-                    onActivate = onOpenLogcatExploit
-                ),
-                AttackerExploit(
-                    id = stringResource(id = R.string.format_maswe0002_id, stringResource(id = R.string.exploit_id_v4)),
-                    title = stringResource(id = R.string.exploit_title_v4),
-                    description = stringResource(id = R.string.exploit_desc_v4),
-                    cwe = stringResource(id = R.string.exploit_cwe_v4),
-                    status = stringResource(id = R.string.exploit_status_v4),
+                    id = stringResource(id = R.string.format_maswe0001_id, stringResource(id = R.string.exploit_id_v5)),
+                    title = stringResource(id = R.string.exploit_title_v5),
+                    description = stringResource(id = R.string.exploit_desc_v5),
+                    cwe = stringResource(id = R.string.exploit_cwe_v5),
+                    status = stringResource(id = R.string.exploit_status_v5),
                     onActivate = onOpenExploitReceiver
                 ),
                 AttackerExploit(
-                    id = stringResource(id = R.string.format_maswe0002_id, stringResource(id = R.string.exploit_id_v8)),
-                    title = stringResource(id = R.string.exploit_title_v8),
-                    description = stringResource(id = R.string.exploit_desc_v8),
-                    cwe = stringResource(id = R.string.exploit_cwe_v8),
-                    status = stringResource(id = R.string.exploit_status_v8),
+                    id = stringResource(id = R.string.format_maswe0001_id, stringResource(id = R.string.exploit_id_v5_path)),
+                    title = stringResource(id = R.string.exploit_title_v5_path),
+                    description = stringResource(id = R.string.exploit_desc_v5_path),
+                    cwe = stringResource(id = R.string.exploit_cwe_v5_path),
+                    status = stringResource(id = R.string.exploit_status_v5_path),
                     onActivate = onOpenPathTraversalExploit
+                ),
+                AttackerExploit(
+                    id = stringResource(id = R.string.exploit_id_maswe0002),
+                    title = stringResource(id = R.string.exploit_title_external_storage),
+                    description = stringResource(id = R.string.exploit_desc_external_storage),
+                    cwe = stringResource(id = R.string.exploit_cwe_external_storage),
+                    status = stringResource(id = R.string.exploit_status_external_storage),
+                    onActivate = onOpenExternalStorageExploit
                 )
             )
         ),
@@ -117,6 +119,30 @@ fun DashboardScreen(
         AttackerCategory(
             title = stringResource(id = R.string.cat_masvs_platform),
             icon = Icons.Default.Android,
+            exploits = listOf(
+                AttackerExploit(
+                    id = stringResource(id = R.string.format_maswe0005_id, stringResource(id = R.string.exploit_id_sys_logs)),
+                    title = stringResource(id = R.string.exploit_title_logcat),
+                    description = stringResource(id = R.string.exploit_desc_logcat),
+                    cwe = stringResource(id = R.string.exploit_cwe_logcat),
+                    status = stringResource(id = R.string.exploit_status_logcat),
+                    onActivate = onOpenLogcatExploit
+                )
+            )
+        ),
+        AttackerCategory(
+            title = stringResource(id = R.string.cat_masvs_code),
+            icon = Icons.Default.Code,
+            exploits = emptyList()
+        ),
+        AttackerCategory(
+            title = stringResource(id = R.string.cat_masvs_resilience),
+            icon = Icons.Default.SecurityUpdate,
+            exploits = emptyList()
+        ),
+        AttackerCategory(
+            title = stringResource(id = R.string.cat_masvs_privacy),
+            icon = Icons.Default.PrivacyTip,
             exploits = emptyList()
         )
     )

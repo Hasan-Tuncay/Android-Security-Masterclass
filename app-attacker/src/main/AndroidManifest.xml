@@ -32,6 +32,7 @@
       adb shell pm grant com.hasantuncay.mobsec.attacker android.permission.READ_LOGS
     -->
     <uses-permission android:name="android.permission.READ_LOGS" tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
 
     <application
         android:name=".MobSecAttackerApp"

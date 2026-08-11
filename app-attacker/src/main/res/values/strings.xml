@@ -13,9 +13,12 @@
     <string name="cat_masvs_crypto">MASVS-CRYPTO: Cryptography</string>
     <string name="cat_masvs_auth">MASVS-AUTH: Authentication</string>
     <string name="cat_masvs_platform">MASVS-PLATFORM: Platform Interaction</string>
+    <string name="cat_masvs_code">MASVS-CODE: Code Quality</string>
+    <string name="cat_masvs_resilience">MASVS-RESILIENCE: Resilience</string>
+    <string name="cat_masvs_privacy">MASVS-PRIVACY: Privacy</string>
     
     <string name="format_maswe0005_id">MASWE-0005: %1$s</string>
-    <string name="format_maswe0002_id">MASWE-0002: %1$s</string>
+    <string name="format_maswe0001_id">MASWE-0001: %1$s</string>
     <string name="format_maswe0003_id">MASWE-0003: %1$s</string>
     
     
@@ -25,17 +28,23 @@
     <string name="exploit_cwe_logcat">CWE-532, CWE-538</string>
     <string name="exploit_status_logcat">ACTIVE — System Access Required</string>
 
-    <string name="exploit_id_v4">Vector 4</string>
-    <string name="exploit_title_v4">FileProvider Root-Path Exploitation</string>
-    <string name="exploit_desc_v4">Reads victim app\'s internal SharedPreferences file via a misconfigured FileProvider that uses &lt;root-path&gt;.</string>
-    <string name="exploit_cwe_v4">CWE-284, CWE-22</string>
-    <string name="exploit_status_v4">ARMED — Waiting for victim app</string>
+    <string name="exploit_id_v5">Vector 5</string>
+    <string name="exploit_title_v5">FileProvider Root-Path Exploitation</string>
+    <string name="exploit_desc_v5">Reads victim app\'s internal SharedPreferences file via a misconfigured FileProvider that uses &lt;root-path&gt;.</string>
+    <string name="exploit_cwe_v5">CWE-284, CWE-22</string>
+    <string name="exploit_status_v5">ARMED — Waiting for victim app</string>
 
-    <string name="exploit_id_v8">Vector 8</string>
-    <string name="exploit_title_v8">FileProvider Path Traversal</string>
-    <string name="exploit_desc_v8">Sends a ../../../ URI payload to the vulnerable File Provider to steal internal sandbox data (session XML).</string>
-    <string name="exploit_cwe_v8">CWE-22, CWE-284</string>
-    <string name="exploit_status_v8">ACTIVE — Payload Ready</string>
+    <string name="exploit_id_v5_path">Vector 5 (Path Traversal)</string>
+    <string name="exploit_title_v5_path">FileProvider Path Traversal</string>
+    <string name="exploit_desc_v5_path">Sends a ../../../ URI payload to the vulnerable File Provider to steal internal sandbox data.</string>
+    <string name="exploit_cwe_v5_path">CWE-22, CWE-284</string>
+    <string name="exploit_status_v5_path">ACTIVE — Payload Ready</string>
+
+    <string name="exploit_id_maswe0002">MASWE-0002</string>
+    <string name="exploit_title_external_storage">External Storage Decryptor</string>
+    <string name="exploit_desc_external_storage">Scans /sdcard/Android/data/com.hasantuncay.mobsec/files for vulnerable MASWE-0002 files and decrypts them. (Requires API &lt;= 29 or Root)</string>
+    <string name="exploit_cwe_external_storage">CWE-922, CWE-312, CWE-732</string>
+    <string name="exploit_status_external_storage">ACTIVE — READ_EXTERNAL_STORAGE needed</string>
 
     <string name="exploit_id_vx">Vector X</string>
     <string name="exploit_title_vx">MitM Traffic Interception</string>
@@ -51,7 +60,7 @@
     <string name="target_info_api">Min API</string>
     
     <string name="target_val_package">com.hasantuncay.mobsec</string>
-    <string name="target_val_file">shared_prefs/maswe0002_session.xml</string>
+    <string name="target_val_file">shared_prefs/maswe0001_v5_sensitive.xml</string>
     <string name="target_val_method">FLAG_GRANT_READ_URI_PERMISSION + content://</string>
     <string name="target_val_root">NO — Standard Android IPC</string>
     <string name="target_val_api">API 26+ (target\'s minSdk)</string>
@@ -64,7 +73,7 @@
     <string name="exploit_receiver_success">🔓 EXPLOIT SUCCESSFUL</string>
     <string name="exploit_receiver_default">Exploit Receiver</string>
     <string name="exploit_receiver_ready">EXPLOIT RECEIVER READY</string>
-    <string name="exploit_waiting_msg">Waiting for app-vulnerable to trigger Vector 4 (FileProvider).</string>
+    <string name="exploit_waiting_msg">Waiting for app-vulnerable to trigger Vector 5 (FileProvider).</string>
     <string name="label_exploit_id">Exploit ID</string>
     <string name="label_technique">Technique</string>
     <string name="section_source_uri">SOURCE URI (Content:// Attack Vector)</string>

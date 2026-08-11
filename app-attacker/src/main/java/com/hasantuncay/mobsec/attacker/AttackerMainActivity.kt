@@ -13,11 +13,13 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.compose.ui.platform.LocalContext
 import android.app.Activity
 import com.hasantuncay.mobsec.attacker.navigation.DashboardRoute
-import com.hasantuncay.mobsec.attacker.navigation.ExploitReceiverRoute
-import com.hasantuncay.mobsec.attacker.navigation.LogcatExploitRoute
+import com.hasantuncay.mobsec.attacker.navigation.Maswe0001ExploitRoute
+import com.hasantuncay.mobsec.attacker.navigation.Maswe0002ExploitRoute
+import com.hasantuncay.mobsec.attacker.navigation.Maswe0005ExploitRoute
 import com.hasantuncay.mobsec.attacker.screens.DashboardScreen
-import com.hasantuncay.mobsec.attacker.screens.ExploitReceiverScreen
-import com.hasantuncay.mobsec.attacker.screens.LogcatExploitScreen
+import com.hasantuncay.mobsec.attacker.storage.Maswe0001ExploitScreen
+import com.hasantuncay.mobsec.attacker.storage.Maswe0002ExploitScreen
+import com.hasantuncay.mobsec.attacker.platform.Maswe0005ExploitScreen
 import com.hasantuncay.mobsec.attacker.theme.AttackerTheme
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,12 +32,12 @@ class AttackerMainActivity : ComponentActivity() {
 
         // Read intent data for direct routing
         val initialRoute: Any = if (intent.action == "com.hasantuncay.mobsec.attacker.action.LOGCAT") {
-            LogcatExploitRoute
+            Maswe0005ExploitRoute
         } else if (intent.data != null) {
-            ExploitReceiverRoute(
+            Maswe0001ExploitRoute(
                 uriString = intent.data.toString(),
-                exploitId = intent.getStringExtra("exploit_id") ?: getString(R.string.exploit_id_v4),
-                exploitDesc = intent.getStringExtra("exploit_description") ?: getString(R.string.exploit_title_v4)
+                exploitId = intent.getStringExtra("exploit_id") ?: getString(R.string.exploit_id_v5),
+                exploitDesc = intent.getStringExtra("exploit_description") ?: getString(R.string.exploit_title_v5)
             )
         } else {
             DashboardRoute
@@ -52,8 +54,8 @@ class AttackerMainActivity : ComponentActivity() {
 @Composable
 fun AttackerApp(initialRoute: Any) {
     val context = LocalContext.current
-    val maswe0002Id = stringResource(R.string.exploit_id_v4)
-    val maswe0002Title = stringResource(R.string.exploit_title_v4)
+    val maswe0001Id = stringResource(R.string.exploit_id_v5)
+    val maswe0001Title = stringResource(R.string.exploit_title_v5)
     val backStack = remember { mutableStateListOf<Any>(initialRoute) }
 
     val handleBack: () -> Unit = {
@@ -72,38 +74,44 @@ fun AttackerApp(initialRoute: Any) {
                 DashboardScreen(
                     onOpenExploitReceiver = {
                         backStack.add(
-                            ExploitReceiverRoute(
+                            Maswe0001ExploitRoute(
                                 uriString = null,
-                                exploitId = maswe0002Id,
-                                exploitDesc = maswe0002Title
+                                exploitId = maswe0001Id,
+                                exploitDesc = maswe0001Title
                             )
                         )
                     },
                     onOpenPathTraversalExploit = {
-                        val payloadUri = "content://com.hasantuncay.mobsec.vulnerable.provider/download?file=../shared_prefs/maswe0002_session.xml"
+                        val payloadUri = "content://com.hasantuncay.mobsec.vulnerable.provider/download?file=../shared_prefs/maswe0001_v5_sensitive.xml"
                         backStack.add(
-                            ExploitReceiverRoute(
+                            Maswe0001ExploitRoute(
                                 uriString = payloadUri,
-                                exploitId = "$maswe0002Id (Vector 8)",
+                                exploitId = "$maswe0001Id (Vector 8)",
                                 exploitDesc = "Path Traversal (CWE-22)"
                             )
                         )
                     },
                     onOpenLogcatExploit = {
-                        backStack.add(LogcatExploitRoute)
+                        backStack.add(Maswe0005ExploitRoute)
+                    },
+                    onOpenExternalStorageExploit = {
+                        backStack.add(Maswe0002ExploitRoute)
                     }
                 )
             }
-            entry<ExploitReceiverRoute> { route ->
-                ExploitReceiverScreen(
+            entry<Maswe0001ExploitRoute> { route ->
+                Maswe0001ExploitScreen(
                     uriString = route.uriString,
                     exploitId = route.exploitId,
                     exploitDescription = route.exploitDesc,
                     onBack = handleBack
                 )
             }
-            entry<LogcatExploitRoute> {
-                LogcatExploitScreen(onBack = handleBack)
+            entry<Maswe0005ExploitRoute> {
+                Maswe0005ExploitScreen(onBack = handleBack)
+            }
+            entry<Maswe0002ExploitRoute> {
+                Maswe0002ExploitScreen()
             }
         }
     )

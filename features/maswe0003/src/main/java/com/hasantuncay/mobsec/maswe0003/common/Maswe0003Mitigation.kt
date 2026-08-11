@@ -49,6 +49,15 @@ enum class Maswe0003Mitigation(
         icon = Icons.Default.Lock
     );
 
+    override fun getAdbCommand(resultPath: String?): String {
+        val pkg = "com.hasantuncay.mobsec"
+        return when (this) {
+            INSECURE_STORAGE_LOCATION -> "adb shell run-as $pkg \\\n  cat shared_prefs/crypto_key_secure.xml"
+            HARDCODED_KEY -> "# Check Keystore for 'maswe0003_runtime_key'"
+            INSECURE_KEY_IMPORT -> "adb logcat -s MASWE_0003_SECURE_KEY_IMPORT"
+        }
+    }
+
     companion object {
         val meta = MasweScreenMeta(
             masweId = "MASWE-0003",
