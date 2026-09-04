@@ -1,0 +1,21 @@
+rules:
+  - id: maswe-0001-unencrypted-sharedpreferences
+    message: >-
+      [MASWE-0001 / CWE-312] Sensitive data written to unencrypted SharedPreferences.
+      Values are stored as plaintext XML inside the application sandbox and readable on rooted devices or via backups.
+      Mitigation: Use EncryptedSharedPreferences (Jetpack Security) with MasterKey AES-256-GCM.
+    languages: [kotlin, java]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-312: Cleartext Storage of Sensitive Information"
+      masvs: "MASVS-STORAGE-1"
+      mastg: "MASTG-TEST-0001"
+      category: security
+    patterns:
+      - pattern-either:
+          - pattern: |
+              $PREFS = $CTX.getSharedPreferences(..., Context.MODE_PRIVATE)
+          - pattern: |
+              $PREFS = $CTX.getSharedPreferences(..., MODE_PRIVATE)
+          - pattern: |
+              preferencesDataStore(name = ...)

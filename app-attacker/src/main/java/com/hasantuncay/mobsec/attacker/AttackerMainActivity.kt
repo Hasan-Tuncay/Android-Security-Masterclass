@@ -26,12 +26,37 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AttackerMainActivity : ComponentActivity() {
+
+    private var onNewRouteListener: ((Any) -> Unit)? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Read intent data for direct routing
-        val initialRoute: Any = if (intent.action == "com.hasantuncay.mobsec.attacker.action.LOGCAT") {
+        val initialRoute = parseIntentRoute(intent)
+
+        setContent {
+            AttackerTheme {
+                AttackerApp(
+                    initialRoute = initialRoute,
+                    registerRouteListener = { listener ->
+                        onNewRouteListener = listener
+                    }
+                )
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        val newRoute = parseIntentRoute(intent)
+        onNewRouteListener?.invoke(newRoute)
+    }
+
+    private fun parseIntentRoute(intent: android.content.Intent?): Any {
+        if (intent == null) return DashboardRoute
+        return if (intent.action == "com.hasantuncay.mobsec.attacker.action.LOGCAT") {
             Maswe0005ExploitRoute
         } else if (intent.data != null) {
             Maswe0001ExploitRoute(
@@ -42,21 +67,25 @@ class AttackerMainActivity : ComponentActivity() {
         } else {
             DashboardRoute
         }
-
-        setContent {
-            AttackerTheme {
-                AttackerApp(initialRoute = initialRoute)
-            }
-        }
     }
 }
 
 @Composable
-fun AttackerApp(initialRoute: Any) {
+fun AttackerApp(
+    initialRoute: Any,
+    registerRouteListener: (((Any) -> Unit) -> Unit)? = null
+) {
     val context = LocalContext.current
     val maswe0001Id = stringResource(R.string.exploit_id_v5)
     val maswe0001Title = stringResource(R.string.exploit_title_v5)
     val backStack = remember { mutableStateListOf<Any>(initialRoute) }
+
+    androidx.compose.runtime.DisposableEffect(Unit) {
+        registerRouteListener?.invoke { route ->
+            backStack.add(route)
+        }
+        onDispose { }
+    }
 
     val handleBack: () -> Unit = {
         if (backStack.size > 1) {
@@ -111,7 +140,7 @@ fun AttackerApp(initialRoute: Any) {
                 Maswe0005ExploitScreen(onBack = handleBack)
             }
             entry<Maswe0002ExploitRoute> {
-                Maswe0002ExploitScreen()
+                Maswe0002ExploitScreen(onBack = handleBack)
             }
         }
     )

@@ -1,0 +1,47 @@
+rules:
+  - id: maswe-0003-key-in-shared-preferences
+    message: >-
+      Cryptographic key or secret saved to SharedPreferences detected.
+      Keys must be generated and held exclusively within the hardware-backed Android Keystore.
+    severity: ERROR
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0003
+      masvs-v2: MASVS-CRYPTO-2
+      mastg-test: MASTG-TEST-0017
+      cwe: CWE-312
+    pattern-either:
+      - pattern: $PREFS.edit().putString("...key...", ...)
+      - pattern: $PREFS.edit().putString("...secret...", ...)
+
+  - id: maswe-0003-hardcoded-byte-array-key
+    message: >-
+      Hardcoded byte array used as cryptographic key material detected.
+      Never hardcode cryptographic keys in code; generate them dynamically using KeyGenerator with AndroidKeyStore.
+    severity: ERROR
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0003
+      masvs-v2: MASVS-CRYPTO-2
+      mastg-test: MASTG-TEST-0014
+      cwe: CWE-321
+    patterns:
+      - pattern: byteArrayOf($A, $B, $C, $D, ...)
+      - pattern-inside: |
+          class $CLASS {
+            ...
+            val $KEY = ...
+            ...
+          }
+
+  - id: maswe-0003-software-keygenerator
+    message: >-
+      KeyGenerator initialized without specifying the 'AndroidKeyStore' provider.
+      Keys generated with the default provider reside in software memory and are not backed by hardware TEE or StrongBox.
+    severity: WARNING
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0003
+      masvs-v2: MASVS-CRYPTO-2
+      cwe: CWE-311
+    pattern: KeyGenerator.getInstance(...)

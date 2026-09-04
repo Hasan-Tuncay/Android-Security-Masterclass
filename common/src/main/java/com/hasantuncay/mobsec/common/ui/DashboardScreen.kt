@@ -285,7 +285,7 @@ fun MasvsCategoryAccordion(
                 )
                 Icon(
                     imageVector = if (expanded) Icons.Rounded.KeyboardArrowUp else Icons.Rounded.KeyboardArrowDown,
-                    contentDescription = "Expand/Collapse",
+                    contentDescription = if (expanded) stringResource(R.string.action_collapse) else stringResource(R.string.action_expand),
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
             }

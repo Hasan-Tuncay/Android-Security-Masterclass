@@ -1,0 +1,41 @@
+rules:
+  - id: maswe-0007-broken-crypto-algorithm
+    message: >-
+      Use of broken or deprecated cryptographic algorithm (DES, 3DES, RC4, or Blowfish).
+      Migrate to AES-256-GCM (AEAD) as mandated by OWASP MASVS-CRYPTO-1.
+    severity: ERROR
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0007
+      masvs-v2: MASVS-CRYPTO-1
+      mastg-test: MASTG-TEST-0019
+      cwe: CWE-327
+    pattern-either:
+      - pattern: Cipher.getInstance("=~/[Dd][Ee][Ss].*/")
+      - pattern: Cipher.getInstance("=~/[Rr][Cc]4.*/")
+
+  - id: maswe-0007-insecure-ecb-mode
+    message: >-
+      Use of Electronic Codebook (ECB) cipher mode detected.
+      ECB is deterministic and does not employ an IV, preserving plaintext patterns in ciphertext.
+    severity: ERROR
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0007
+      masvs-v2: MASVS-CRYPTO-1
+      mastg-test: MASTG-TEST-0019
+      cwe: CWE-327
+    pattern: Cipher.getInstance("=~/.*/ECB/.*/")
+
+  - id: maswe-0007-predictable-zero-iv
+    message: >-
+      Predictable or all-zeros Initialization Vector (IV) initialized with zeroed ByteArray.
+      Always generate fresh IVs via java.security.SecureRandom.
+    severity: ERROR
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0007
+      masvs-v2: MASVS-CRYPTO-1
+      mastg-test: MASTG-TEST-0021
+      cwe: CWE-329
+    pattern: IvParameterSpec(ByteArray($LEN))

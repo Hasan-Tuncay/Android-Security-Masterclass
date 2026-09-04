@@ -1,0 +1,28 @@
+rules:
+  - id: maswe-0005-sensitive-logcat-leak
+    message: >-
+      Sensitive data (passwords, tokens, credentials, or PII) logged directly to Logcat.
+      Use Timber with ReleaseTree stripping, SecureLog with @CompileTimeConstant, or ProGuard -assumenosideeffects.
+    severity: ERROR
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0005
+      masvs-v2: MASVS-STORAGE-2
+      mastg-test: MASTG-TEST-0005
+      cwe: CWE-532
+    pattern-either:
+      - pattern: Log.$LEVEL($TAG, "...$TOKEN...")
+      - pattern: Log.$LEVEL($TAG, "...$PASS...")
+      - pattern: Log.$LEVEL($TAG, "...$CARD...")
+
+  - id: maswe-0005-okhttp-body-interceptor
+    message: >-
+      HttpLoggingInterceptor set to Level.BODY in non-debug build or without header redaction.
+      This logs sensitive Authorization headers, Bearer tokens, and request payloads to console.
+    severity: WARNING
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0005
+      masvs-v2: MASVS-NETWORK-2
+      cwe: CWE-532
+    pattern: HttpLoggingInterceptor.Level.BODY

@@ -42,7 +42,7 @@
     public static int wtf(...);
 }
 
--assumenosideeffects class com.hasantuncay.mobsec.secure.utils.SecureLog {
+-assumenosideeffects class com.hasantuncay.mobsec.maswe0005.secure.SecureLog {
     public static void d(...);
     public static void dUnsafe(...);
     public static void dStrict(...);

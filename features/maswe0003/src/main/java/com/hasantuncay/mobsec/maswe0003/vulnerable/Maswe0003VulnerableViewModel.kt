@@ -1,14 +1,16 @@
 package com.hasantuncay.mobsec.maswe0003.vulnerable
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hasantuncay.mobsec.common.architecture.AppError
+import com.hasantuncay.mobsec.common.architecture.MviViewModel
 import com.hasantuncay.mobsec.common.data.MasterclassDataRepository
 import com.hasantuncay.mobsec.common.models.UiState
 import com.hasantuncay.mobsec.maswe0003.common.Maswe0003Vector
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,21 +18,40 @@ import javax.inject.Inject
 class Maswe0003VulnerableViewModel @Inject constructor(
     private val repository: Maswe0003VulnerableRepository,
     private val masterclassDataRepository: MasterclassDataRepository
-) : ViewModel() {
+) : MviViewModel<Maswe0003VulnerableState, Maswe0003VulnerableIntent, Maswe0003VulnerableEffect>(
+    Maswe0003VulnerableState()
+) {
 
-    private val _uiState = MutableStateFlow<UiState<String?>>(UiState.Idle)
-    val uiState: StateFlow<UiState<String?>> = _uiState.asStateFlow()
+    val legacyUiState: StateFlow<UiState<String?>> = uiState
+        .map { it.executionState }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, UiState.Idle)
+
+    override fun processIntent(intent: Maswe0003VulnerableIntent) {
+        when (intent) {
+            is Maswe0003VulnerableIntent.ExecuteVector -> executeVector(intent.vector)
+            is Maswe0003VulnerableIntent.Reset -> updateState {
+                it.copy(selectedVector = null, executionState = UiState.Idle)
+            }
+        }
+    }
 
     fun executeVector(vector: Maswe0003Vector) {
         viewModelScope.launch {
-            _uiState.value = UiState.Loading
-            try {
+            updateState { it.copy(selectedVector = vector, executionState = UiState.Loading) }
+            val result = runSafeCatching {
                 val appData = masterclassDataRepository.masterclassData.value
-                val result = repository.executeVector(vector, appData)
-                _uiState.value = UiState.Success(result)
-            } catch (e: Exception) {
-                _uiState.value = UiState.Error(e.message ?: "Unknown error occurred")
+                repository.executeVector(vector, appData)
             }
+            result.fold(
+                onSuccess = { path ->
+                    updateState { it.copy(executionState = UiState.Success(path)) }
+                },
+                onFailure = { throwable ->
+                    val appError = AppError.ExecutionError(throwable.message ?: "Vector execution failed")
+                    updateState { it.copy(executionState = UiState.Error(appError.message)) }
+                    sendEffect { Maswe0003VulnerableEffect.ExecutionFailed(appError) }
+                }
+            )
         }
     }
 }

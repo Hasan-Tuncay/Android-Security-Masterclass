@@ -1,4 +1,4 @@
-package com.hasantuncay.mobsec.secure.crypto
+package com.hasantuncay.mobsec.common.crypto
 
 import org.bouncycastle.jcajce.spec.MLKEMParameterSpec
 import org.bouncycastle.jce.provider.BouncyCastleProvider
@@ -12,11 +12,10 @@ import javax.crypto.KeyGenerator
 
 /**
  * PQC (Post-Quantum Cryptography) Manager
+ * NIST FIPS 203 ML-KEM (Kyber-768) implementation using BouncyCastle
  */
 object PqcManager {
 
-    // 1. Sağlayıcı doğrudan nesne (instance) olarak tanımlanır.
-    // JCA ortamına global Security.addProvider() kaydına gerek yoktur.
     private val bcProvider = BouncyCastleProvider()
 
     data class KemResult(
@@ -40,15 +39,12 @@ object PqcManager {
     }
 
     fun generateMlKemKeyPair(): KeyPair {
-        // 2. String olan "BC" (BouncyCastleProvider.PROVIDER_NAME) yerine 
-        // doğrudan bcProvider nesnesi geçirilir.
         val keyPairGenerator = KeyPairGenerator.getInstance("ML-KEM", bcProvider)
         keyPairGenerator.initialize(MLKEMParameterSpec.ml_kem_768, SecureRandom())
         return keyPairGenerator.generateKeyPair()
     }
 
     fun encapsulate(publicKey: PublicKey): KemResult {
-        // 3. String yerine bcProvider
         val keyGenerator = KeyGenerator.getInstance("ML-KEM", bcProvider)
         keyGenerator.init(org.bouncycastle.jcajce.spec.KEMGenerateSpec(publicKey, "AES"), SecureRandom())
         val secretKey = keyGenerator.generateKey()
@@ -62,7 +58,6 @@ object PqcManager {
     }
 
     fun decapsulate(privateKey: PrivateKey, encapsulation: ByteArray): ByteArray {
-        // 4. String yerine bcProvider
         val keyGenerator = KeyGenerator.getInstance("ML-KEM", bcProvider)
         keyGenerator.init(org.bouncycastle.jcajce.spec.KEMExtractSpec(privateKey, encapsulation, "AES"))
         val secretKey = keyGenerator.generateKey()

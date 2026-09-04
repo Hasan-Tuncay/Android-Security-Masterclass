@@ -75,10 +75,9 @@ fun <T : MasweItem> BaseMasweScreen(
         ScreenMode.VULNERABLE -> MaterialTheme.colorScheme.error
         ScreenMode.SECURE -> MaterialTheme.colorScheme.primary
     }
-    val modeLabel = when (mode) {
-        ScreenMode.VULNERABLE -> "VULNERABLE"
-        ScreenMode.SECURE -> "SECURE"
-    }
+    val modeLabel = stringResource(
+        id = if (mode == ScreenMode.VULNERABLE) R.string.mode_vulnerable else R.string.mode_secure
+    )
 
     val coroutineScope = rememberCoroutineScope()
     var lastTriggeredItem by remember { mutableStateOf<T?>(null) }
@@ -89,7 +88,7 @@ fun <T : MasweItem> BaseMasweScreen(
                 title = { Text(stringResource(id = R.string.maswe_title_format, masweId, modeLabel)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(id = R.string.cd_back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -241,7 +240,7 @@ fun <T : MasweItem> BaseMasweScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = "Error: $errorMessage",
+                            text = stringResource(id = R.string.format_error, errorMessage),
                             color = MaterialTheme.colorScheme.onErrorContainer,
                             modifier = Modifier.padding(16.dp)
                         )

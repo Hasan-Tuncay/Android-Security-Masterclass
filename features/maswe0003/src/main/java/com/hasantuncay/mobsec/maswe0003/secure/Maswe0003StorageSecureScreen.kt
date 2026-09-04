@@ -16,7 +16,7 @@ fun Maswe0003StorageSecureScreen(
     onBack: () -> Unit,
     viewModel: Maswe0003SecureViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.legacyUiState.collectAsState()
     BaseSecureScreen(
         meta = Maswe0003Mitigation.meta,
         vectors = Maswe0003Mitigation.entries,

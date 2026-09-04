@@ -1,0 +1,42 @@
+rules:
+  - id: maswe-0002-external-storage-usage
+    message: >-
+      Sensitive data must not be written to external storage locations via getExternalFilesDir() or Environment.getExternalStorageDirectory().
+      External storage can be accessed via ADB, removed SD cards, or by co-resident apps on Android < 10.
+      Use internal private storage (context.filesDir) or EncryptedFile instead.
+    severity: WARNING
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0002
+      masvs-v2: MASVS-STORAGE-2
+      mastg-test: MASTG-TEST-0006
+      cwe: CWE-732
+    pattern-either:
+      - pattern: $CONTEXT.getExternalFilesDir(...)
+      - pattern: Environment.getExternalStorageDirectory(...)
+      - pattern: Environment.getExternalStoragePublicDirectory(...)
+
+  - id: maswe-0002-ecb-cipher-mode
+    message: >-
+      Insecure cipher transformation using ECB mode detected. ECB preserves plaintext patterns in ciphertext.
+      Always use AES-256-GCM (AEAD) or EncryptedFile.
+    severity: ERROR
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0002
+      masvs-v2: MASVS-CRYPTO-1
+      cwe: CWE-327
+    pattern: Cipher.getInstance(".../ECB/...")
+
+  - id: maswe-0002-hardcoded-crypto-key
+    message: >-
+      Hardcoded cryptographic key detected in SecretKeySpec initialization.
+      Use Android Keystore (MasterKey) backed by hardware TEE/StrongBox.
+    severity: ERROR
+    languages: [kotlin, java]
+    metadata:
+      maswe-id: MASWE-0002
+      masvs-v2: MASVS-CRYPTO-2
+      cwe: CWE-321
+    patterns:
+      - pattern: SecretKeySpec($KEY.toByteArray(), ...)

@@ -18,7 +18,7 @@ fun Maswe0005LogVulnerableScreen(
     onBack: () -> Unit,
     viewModel: Maswe0005VulnerableViewModel = androidx.hilt.navigation.compose.hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.legacyUiState.collectAsState()
     
     BaseVulnerableScreen(
         meta = Maswe0005Vector.meta,

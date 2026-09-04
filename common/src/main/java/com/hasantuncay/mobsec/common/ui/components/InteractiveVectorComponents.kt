@@ -27,7 +27,8 @@ fun InteractiveVectorButton(
     icon: ImageVector,
     isActive: Boolean,
     onClick: () -> Unit,
-    isSecure: Boolean = false
+    isSecure: Boolean = false,
+    modifier: Modifier = Modifier
 ) {
     if (isSecure) {
         val containerColor = if (isActive) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
@@ -36,7 +37,9 @@ fun InteractiveVectorButton(
         ElevatedCard(
             onClick = onClick,
             colors = CardDefaults.elevatedCardColors(containerColor = containerColor, contentColor = contentColor),
-            modifier = Modifier.fillMaxWidth()
+            modifier = modifier
+                .fillMaxWidth()
+                .heightIn(min = 52.dp)
         ) {
             Row(
                 modifier = Modifier.padding(16.dp),
@@ -58,7 +61,9 @@ fun InteractiveVectorButton(
     } else {
         Button(
             onClick = onClick,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier
+                .fillMaxWidth()
+                .heightIn(min = 52.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = if (isActive)
                     MaterialTheme.colorScheme.error
@@ -88,9 +93,9 @@ fun InteractiveResultCard(
     resultPath: String?,
     adbCommand: String,
     isSecure: Boolean = false,
-    loadingText: String = "Processing...",
-    pathLabel: String = "Path / Verification",
-    triggeredText: String = if (isSecure) "Defense Activated" else "Vector Triggered!",
+    loadingText: String = stringResource(R.string.label_processing),
+    pathLabel: String = stringResource(R.string.label_path_verification),
+    triggeredText: String = if (isSecure) stringResource(R.string.label_defense_activated) else stringResource(R.string.label_vector_triggered),
     messageText: String? = null
 ) {
     val containerColor = if (isSecure) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.errorContainer
@@ -183,7 +188,7 @@ fun InteractiveResultCard(
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
-                    text = if (isSecure) "ADB Verification (No Leak):" else "ADB Verification:",
+                    text = if (isSecure) stringResource(R.string.label_adb_verification_secure) else stringResource(R.string.label_adb_verification),
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.Bold,
                     color = onContainerColor

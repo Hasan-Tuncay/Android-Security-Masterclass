@@ -17,14 +17,14 @@ fun Maswe0001StorageSecureScreen(
     onBack: () -> Unit,
     viewModel: Maswe0001SecureViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val state by viewModel.uiState.collectAsState()
     BaseSecureScreen(
         meta = Maswe0001Mitigation.meta,
         vectors = Maswe0001Mitigation.entries,
         onBack = onBack,
-        uiState = uiState,
+        uiState = state.executionState,
         onVectorClicked = { vector ->
-            viewModel.executeVector(vector = vector)
+            viewModel.processIntent(Maswe0001SecureIntent.ExecuteMitigation(vector))
         }
     )
 }

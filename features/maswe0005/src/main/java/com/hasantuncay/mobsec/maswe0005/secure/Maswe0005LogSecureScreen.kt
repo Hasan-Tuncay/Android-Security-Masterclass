@@ -55,7 +55,7 @@ fun Maswe0005LogSecureScreen(
     onBack: () -> Unit,
     viewModel: Maswe0005SecureViewModel = androidx.hilt.navigation.compose.hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.legacyUiState.collectAsState()
     
     BaseSecureScreen(
         meta = Maswe0005Mitigation.meta,

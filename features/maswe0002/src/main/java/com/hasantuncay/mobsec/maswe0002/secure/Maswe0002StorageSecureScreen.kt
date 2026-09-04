@@ -24,7 +24,7 @@ fun Maswe0002StorageSecureScreen(
     onBack: () -> Unit,
     viewModel: Maswe0002SecureViewModel = androidx.hilt.navigation.compose.hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.legacyUiState.collectAsState()
     
     BaseSecureScreen(
         meta = Maswe0002Mitigation.meta,

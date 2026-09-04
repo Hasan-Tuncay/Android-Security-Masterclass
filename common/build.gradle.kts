@@ -17,8 +17,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
@@ -47,7 +47,6 @@ dependencies {
     api(libs.bouncycastle.bcprov)
     api(libs.bouncycastle.bcpkix)
 
-    implementation(libs.timber)
     api(libs.androidx.navigation3.runtime)
     api(libs.okhttp.logging)
     api(libs.ktor.client.core)

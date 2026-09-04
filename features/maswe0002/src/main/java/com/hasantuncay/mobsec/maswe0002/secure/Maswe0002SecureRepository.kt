@@ -115,6 +115,7 @@ class Maswe0002SecureRepository @Inject constructor(
                 withContext(Dispatchers.Main) { resultPath = file.absolutePath }
 
             } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
                 Log.e("SECURE_0002", "Encryption failed", e)
                 showError("Encryption failed: ${e.message}")
             }

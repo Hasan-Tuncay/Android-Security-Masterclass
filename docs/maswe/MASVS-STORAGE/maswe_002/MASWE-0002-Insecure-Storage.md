@@ -1,41 +1,64 @@
-# MASWE-0002: Insecure Data Storage
+# MASWE-0002: Sensitive Data Stored Unencrypted Outside of Private Storage
 
 ## Overview
-**Category:** MASVS-STORAGE
-**Vulnerability:** Sensitive Data Stored With Insufficient Access Restrictions in Internal Locations
-**CWEs:** CWE-922, CWE-312, CWE-200, CWE-22, CWE-284
+**Category:** MASVS-STORAGE  
+**Vulnerability:** Sensitive Data Stored Unencrypted in Shared / External Storage Locations  
+**CWEs:** CWE-732 (Incorrect Permission Assignment), CWE-312, CWE-922, CWE-321, CWE-326, CWE-320  
+**MASTG Tests:** MASTG-TEST-0002, MASTG-TEST-0006  
+**MITRE ATT&CK Mobile:** T1409 (Access Stored Data), T1533 (Data from External Storage)  
+**CVSS v4.0 Score:** **7.5 HIGH** (`CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N`)  
+**NIST Standards:** NIST SP 800-163 Rev. 1 (§4.1), NIST SP 800-53 (AC-3, SC-28)  
+**Industry Compliance:** PCI-DSS v4.0 (Req 3.4), Google Play MASA (§1.2)  
 
-MASWE-0002 covers vulnerabilities where sensitive data (PII, Auth Tokens, PCI-DSS) is stored locally on the device without proper encryption or access controls. Even if the data is stored within the app's internal sandbox, it can still be extracted via rooted devices, ADB backups, or malicious local apps exploiting IPC mechanisms (like Path Traversal).
+MASWE-0002 covers vulnerabilities where sensitive information (bearer tokens, session cookies, passwords, credit card PANs) is written to external or shared storage (`getExternalFilesDir()`, SD cards, Downloads). Because external storage is accessible via ADB, removed physical media, and on Android < 10 by any application requesting `READ_EXTERNAL_STORAGE`, cleartext files and pseudo-encrypted files with hardcoded or co-located keys represent a severe risk of unauthorized disclosure.
 
 ---
 
 ## 🛑 Vulnerability Vectors (The "Attacker" Perspective)
 
-Our `app-vulnerable` module demonstrates 9 distinct insecure storage anti-patterns:
+Our `:features:maswe0002` module demonstrates 5 critical external storage anti-patterns:
 
-1. **SharedPreferences Plaintext Leak:** Storing cleartext tokens/PII in `/shared_prefs/`. Extractable via Root or ADB Backup.
-2. **DataStore Unencrypted:** Using Jetpack DataStore (Protocol Buffers) without encryption. **Binary ≠ Encrypted.**
-3. **Room/SQLite Plaintext:** Storing PCI-DSS data in standard SQLite. Data is left in plaintext on disk and inside WAL (Write-Ahead Log) journals.
-4. **FileProvider Root-Path Misconfiguration:** Using `<root-path>` in `file_paths.xml`. Grants external apps access to the entire sandbox.
-5. **External Storage Leak (API < 29):** Writing sensitive data to `getExternalFilesDir()`. Readable by any app with `READ_EXTERNAL_STORAGE`.
-6. **WebView DOM Storage:** Enabling `domStorageEnabled` allows JS to write tokens to `localStorage` (LevelDB), leaking them to the filesystem.
-7. **Cache Directory Leak:** Leaving sensitive temporary files (e.g. PDFs) in `context.cacheDir` indefinitely without calling `deleteOnExit()`.
-8. **Path Traversal via ContentProvider (CWE-22):** Trusting the `file` query parameter in a URI. An attacker can supply `../../../shared_prefs/session.xml` to escape the intended directory and steal arbitrary files.
-9. **Third-Party SDK Shadow Leaks:** The app securely encrypts its own databases, but sends raw PII (Email, TCKN) to a 3rd party Analytics/Crash SDK. The SDK caches this data offline in a plaintext SQLite database within the app's sandbox, effectively rendering the developer's own encryption useless.
+1. **External Storage Plaintext Leak:** Writing raw credentials and authentication tokens into `/sdcard/Android/data/.../files/maswe0002_plaintext.json`.
+2. **Hardcoded Encryption Key:** Encrypting external storage files using a static, hardcoded AES key embedded in Kotlin bytecode. Easily extracted via decompilation.
+3. **Encryption Key Stored on Filesystem:** Storing the symmetric AES key directly in `/sdcard/.../secret.key` alongside the encrypted payload.
+4. **Weak Cipher Mode (AES/ECB):** Encrypting sensitive data using Electronic Codebook (ECB) mode (`AES/ECB/PKCS5Padding`). Identical plaintext blocks produce identical ciphertext blocks, allowing pattern reconstruction.
+5. **Reused Encryption Key Across Devices:** Using predictable seeds (e.g. constant strings or device attributes) that allow ciphertext from one device to be cloned and decrypted on any other device.
+
+### 📊 Attack Flow Sequence
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Attacker as 😈 Attacker / Malware
+    participant Storage as 📁 External Storage (/sdcard/Android/data/...)
+    participant App as 📱 Vulnerable App (:app-vulnerable)
+    participant Backend as ☁️ Enterprise Backend
+
+    App->>Storage: 1. Write tokens to maswe0002_plaintext.json
+    App->>Storage: 2. Write secret.key alongside encrypted data
+    Attacker->>Storage: 3. Read plaintext JSON or dump secret.key
+    Storage-->>Attacker: 4. Cleartext JWT and crypto key recovered
+    Attacker->>Backend: 5. Replay JWT token to impersonate victim
+    Backend-->>Attacker: 6. Complete account takeover
+```
 
 ---
 
 ## 🛡️ Mitigations & Secure Implementation (The "Secure" Perspective)
 
-Our `app-secure` module applies defense-in-depth to remediate these issues:
+Our `:features:maswe0002` secure mirror demonstrates comprehensive defenses:
 
-1. **EncryptedSharedPreferences (Tink):** AES256-SIV for keys and AES256-GCM for values. Data at rest is fully encrypted.
-2. **DataStore + CryptoManager:** Wrapping Protocol Buffers serialization with a custom AES-GCM cipher before writing to disk.
-3. **SQLCipher for Room:** Encrypting the entire database file, including WAL journals and temporary files, using a passphrase derived from the Android Keystore.
-4. **Strict FileProvider Scopes:** Removing `<root-path>` and strictly limiting `<files-path>` or `<cache-path>` to intended subdirectories.
-5. **Scoped Storage Compliance:** Migrating away from external storage or encrypting files before writing them to public directories.
-6. **Path Traversal Prevention:** Validating canonical paths. `targetFile.canonicalPath.startsWith(baseDir.canonicalPath)` ensures the resolved file doesn't escape the sandbox.
-7. **SDK Data Sanitization (DataMaskingUtils):** Never trust 3rd party SDKs with raw data.
-   - We apply **Data Masking** (`h***n@gmail.com`) for logs/analytics.
-   - We apply **One-Way Hashing** (SHA-256) for unique identifiers like TCKN before passing them to the SDK.
-   - This prevents **Shadow Leaks** entirely.
+1. **Redirect to Private Internal Sandbox:** Store sensitive data exclusively in `context.filesDir`. Internal storage is protected by kernel-level Linux UID permissions and SELinux policies.
+2. **Android Keystore Hardware-Backed Keys:** Keys are generated within the hardware TEE / StrongBox Keymaster. Private keys can never be exported or decompiled.
+3. **Key Encapsulation (Zero Filesystem Storage):** Cryptographic keys are referenced solely by Keystore alias. No key files are ever saved to disk.
+4. **Authenticated AEAD Encryption (AES-256-GCM):** Encrypt external data using `EncryptedFile` with `AES256_GCM_HKDF_4KB` authenticated encryption.
+5. **Device-Bound Key Isolation:** Hardware Keystore keys cannot be migrated, cloned, or replayed across devices.
+
+---
+
+## 🔬 Automated Verification Suite (`features/maswe0002/poc/`)
+
+| Script | Type | Purpose |
+| :--- | :--- | :--- |
+| [`frida_hook.js`](file:///Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/features/maswe0002/poc/frida_hook.js) | Dynamic Instrumentation | Hooks `getExternalFilesDir`, `SecretKeySpec`, and `Cipher.getInstance` to intercept keys and unencrypted leaks |
+| [`semgrep_rule.yml`](file:///Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/features/maswe0002/poc/semgrep_rule.yml) | Static Analysis (SAST) | Detects external file calls, ECB modes, and hardcoded key declarations in CI/CD |
+| [`adb_verify.sh`](file:///Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/features/maswe0002/poc/adb_verify.sh) | ADB Device Automation | Inspects `/sdcard/Android/data/...` for leaked JSON files and `secret.key` artifacts |

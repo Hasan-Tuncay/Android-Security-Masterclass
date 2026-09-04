@@ -17,14 +17,14 @@ fun Maswe0001StorageVulnerableScreen(
     onBack: () -> Unit,
     viewModel: Maswe0001VulnerableViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val state by viewModel.uiState.collectAsState()
     BaseVulnerableScreen(
         meta = Maswe0001Vector.meta,
         vectors = Maswe0001Vector.entries,
         onBack = onBack,
-        uiState = uiState,
+        uiState = state.executionState,
         onVectorClicked = { vector ->
-            viewModel.executeVector(vector = vector)
+            viewModel.processIntent(Maswe0001VulnerableIntent.ExecuteVector(vector))
         }
     )
 }

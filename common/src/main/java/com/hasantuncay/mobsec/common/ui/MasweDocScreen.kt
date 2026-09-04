@@ -57,7 +57,7 @@ fun MasweDocScreen(masweId: String, onBack: () -> Unit) {
                 title = { Text(text = stringResource(id = R.string.maswe_docs_title, masweId), fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.Close, contentDescription = "Close")
+                        Icon(Icons.Default.Close, contentDescription = stringResource(id = R.string.action_close))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

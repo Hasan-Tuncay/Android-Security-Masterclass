@@ -1,22 +1,12 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
+    id("mobsec.android.application")
 }
 
 android {
     namespace = "com.hasantuncay.mobsec.secure"
-    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.hasantuncay.mobsec.secure"
-        minSdk = 26
-        targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -28,31 +18,9 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-    packaging {
-        resources.excludes.add("META-INF/LICENSE.md")
-        resources.excludes.add("META-INF/LICENSE")
-    }
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    
     // Security & Cryptography
     implementation(libs.androidx.security.crypto)
     implementation(libs.tink.android)
@@ -75,6 +43,10 @@ dependencies {
     implementation(libs.timber)
     implementation(project(":common"))
     implementation(project(":features:maswe0001"))
+    implementation(project(":features:maswe0002"))
+    implementation(project(":features:maswe0003"))
+    implementation(project(":features:maswe0004"))
+    implementation(project(":features:maswe0005"))
     implementation(project(":features:maswe0006"))
     implementation(project(":features:maswe0007"))
     implementation(project(":features:maswe0008"))
@@ -148,10 +120,6 @@ dependencies {
     implementation(project(":features:maswe0076"))
     implementation(project(":features:maswe0077"))
     implementation(project(":features:maswe0078"))
-    implementation(project(":features:maswe0005"))
-    implementation(project(":features:maswe0004"))
-    implementation(project(":features:maswe0003"))
-    implementation(project(":features:maswe0002"))
     implementation(libs.errorprone.annotations)
     
     testImplementation(libs.junit)

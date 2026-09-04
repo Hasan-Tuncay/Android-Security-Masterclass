@@ -36,7 +36,7 @@ fun DataVaultScreen(
                 title = { Text(stringResource(id = R.string.data_vault_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(id = R.string.cd_back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

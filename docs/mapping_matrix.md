@@ -18,16 +18,16 @@ This matrix maps every implemented vector across all **78 isolated MASWE modules
 | **Encryption Key on Filesystem** | MASWE-0002 | MASVS-STORAGE-2 | MASTG-TEST-0006 | CWE-312 | `:features:maswe0002`<br>Key stored alongside encrypted data externally | `:features:maswe0002`<br>Keystore encapsulation |
 | **Insufficient Encryption** | MASWE-0002 | MASVS-STORAGE-2 | MASTG-TEST-0006 | CWE-326 | `:features:maswe0002`<br>Weak algorithm/config for external storage encryption | `:features:maswe0002`<br>AES-256-GCM authenticated encryption |
 | **Reuse of Encryption Key** | MASWE-0002 | MASVS-STORAGE-2 | MASTG-TEST-0006 | CWE-320 | `:features:maswe0002`<br>Same key shared between devices enabling data cloning | `:features:maswe0002`<br>Device-unique hardware keys |
-| *Module 0003 Scenarios (TBD)* | MASWE-0003 | MASVS-STORAGE | TBD | TBD | `:features:maswe0003` | `:features:maswe0003` |
-| *Module 0004 Scenarios (TBD)* | MASWE-0004 | MASVS-STORAGE | TBD | TBD | `:features:maswe0004` | `:features:maswe0004` |
+| Cryptographic Keys Stored Outside Platform Keystore | MASWE-0003 | MASVS-STORAGE-1 | MASTG-TEST-0017 | CWE-312 | `:features:maswe0003` | `:features:maswe0003` |
+| Sensitive Data Hardcoded in App Package | MASWE-0004 | MASVS-STORAGE-1 / CRYPTO-2 | MASTG-TEST-0004 | CWE-798, CWE-312, CWE-321 | `:features:maswe0004` | `:features:maswe0004` |
 | **System Console PII Leak** | MASWE-0005 | MASVS-STORAGE-1 | MASTG-TEST-0002 | CWE-532 | `:features:maswe0005`<br>Plaintext PII/Keys in Logcat (`Log.e`) | `:features:maswe0005`<br>`@CompileTimeConstant` Wrapper (`SecureLog`), ProGuard Stripping |
 | **Network Interceptor Log Leak** | MASWE-0005 | MASVS-NETWORK-2 | MASTG-TEST-0002 | CWE-532 | `:features:maswe0005`<br>`HttpLoggingInterceptor` dumps OAuth Tokens | `:features:maswe0005`<br>Interceptor Redaction, Log Level downgrade to `BASIC`/`NONE` |
 | **Local File Log Leak** | MASWE-0005 | MASVS-STORAGE-1 | MASTG-TEST-0002 | CWE-532 | `:features:maswe0005`<br>Custom logger appends cleartext to `debug.log` | `:features:maswe0005`<br>ProGuard rule `-assumenosideeffects` removing log calls |
 | **SDK Telemetry PII Leak** | MASWE-0005 | MASVS-PLATFORM-2 | MASTG-TEST-0002 | CWE-532 | `:features:maswe0005`<br>`FirebaseCrashlytics.log()` records cleartext PII | `:features:maswe0005`<br>PII Hash-masking prior to SDK ingestion |
 | **WebView Console Leak** | MASWE-0005 | MASVS-STORAGE-1 | MASTG-TEST-0002 | CWE-532 | `:features:maswe0005`<br>`console.log` pushed to Logcat via WebChromeClient | `:features:maswe0005`<br>Default Deny regex whitelist on JS messages |
-| *Module 0006 Scenarios (TBD)* | MASWE-0006 | MASVS-STORAGE | TBD | TBD | `:features:maswe0006` | `:features:maswe0006` |
+| **Sensitive Data in Cloud & Local Backup** | MASWE-0006 | MASVS-STORAGE-2 | MASTG-TEST-0006 | CWE-200, CWE-312 | `:features:maswe0006`<br>Full sandbox backed up via Cloud & ADB (`allowBackup="true"`) | `:features:maswe0006`<br>`allowBackup="false"`, `backup_rules.xml`, `data_extraction_rules.xml`, AES-GCM pre-encryption |
 | **--- CRYPTOGRAPHY ---** | | | | | | |
-| *Module 0007 Scenarios (TBD)* | MASWE-0007 | MASVS-CRYPTO | TBD | TBD | `:features:maswe0007` | `:features:maswe0007` |
+| **Improper Encryption (DES, ECB, Zero IV, Key Reuse)** | MASWE-0007 | MASVS-CRYPTO-1 | MASTG-TEST-0019 | CWE-327, CWE-326, CWE-329 | `:features:maswe0007`<br>DES 56-bit, AES-ECB mode, static zero IV, RSA key reuse | `:features:maswe0007`<br>AES-256-GCM AEAD, SecureRandom 12-byte IVs, dedicated key pairs |
 | *Module 0008 Scenarios (TBD)* | MASWE-0008 | MASVS-CRYPTO | TBD | TBD | `:features:maswe0008` | `:features:maswe0008` |
 | *Module 0009 Scenarios (TBD)* | MASWE-0009 | MASVS-CRYPTO | TBD | TBD | `:features:maswe0009` | `:features:maswe0009` |
 | *Module 0010 Scenarios (TBD)* | MASWE-0010 | MASVS-CRYPTO | TBD | TBD | `:features:maswe0010` | `:features:maswe0010` |

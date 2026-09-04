@@ -46,14 +46,17 @@ class MainActivity : ComponentActivity() {
 fun SecurityApp() {
     val context = LocalContext.current
     val backStack = remember { mutableStateListOf<Any>(DashboardRoute) }
-    val onBack: () -> Unit = { backStack.removeLastOrNull() }
+    val onBack: () -> Unit = {
+        if (backStack.size > 1) {
+            backStack.removeLastOrNull()
+        } else {
+            (context as? Activity)?.finish()
+        }
+    }
 
     NavDisplay(
         backStack = backStack,
-        onBack = {
-            if (backStack.size > 1) onBack()
-            else (context as? Activity)?.finish()
-        },
+        onBack = onBack,
         entryProvider = entryProvider {
             entry<DashboardRoute> {
                 DashboardScreen(

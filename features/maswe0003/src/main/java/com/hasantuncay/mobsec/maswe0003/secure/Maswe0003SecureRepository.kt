@@ -65,6 +65,7 @@ class Maswe0003SecureRepository @Inject constructor(
                 keyGenerator.generateKey()
                 return // Success with StrongBox
             } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
                 // Fallback to standard hardware keystore if StrongBox is unavailable
                 builder.setIsStrongBoxBacked(false)
             }

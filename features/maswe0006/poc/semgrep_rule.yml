@@ -1,0 +1,27 @@
+rules:
+  - id: maswe-0006-allow-backup-enabled
+    message: >-
+      android:allowBackup is set to true or not explicitly disabled in AndroidManifest.xml.
+      This allows attackers with physical or ADB access to extract the application sandbox via `adb backup`
+      without root privileges, violating OWASP MASVS-STORAGE-2.
+    severity: ERROR
+    languages: [xml]
+    metadata:
+      maswe-id: MASWE-0006
+      masvs-v2: MASVS-STORAGE-2
+      mastg-test: MASTG-TEST-0006
+      cwe: CWE-200
+    pattern: <application ... android:allowBackup="true" ...>
+
+  - id: maswe-0006-missing-data-extraction-rules
+    message: >-
+      Targeting API 31+ without declaring android:dataExtractionRules.
+      Default cloud and device-to-device migration rules will back up private app files and databases.
+    severity: WARNING
+    languages: [xml]
+    metadata:
+      maswe-id: MASWE-0006
+      masvs-v2: MASVS-STORAGE-2
+      mastg-test: MASTG-TEST-0006
+      cwe: CWE-200
+    pattern: <application ... android:dataExtractionRules=... >

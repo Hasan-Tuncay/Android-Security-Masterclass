@@ -42,12 +42,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SecureApp() {
+    val context = androidx.compose.ui.platform.LocalContext.current
     val backStack = remember { mutableStateListOf<Any>(DashboardRoute) }
-    val onBack: () -> Unit = { backStack.removeLastOrNull() }
+    val onBack: () -> Unit = {
+        if (backStack.size > 1) {
+            backStack.removeLastOrNull()
+        } else {
+            (context as? android.app.Activity)?.finish()
+        }
+    }
 
     NavDisplay(
         backStack = backStack,
-        onBack = { backStack.removeLastOrNull() },
+        onBack = onBack,
         entryProvider = entryProvider {
             entry<DashboardRoute> {
                 DashboardScreen(

@@ -60,5 +60,17 @@ nav:
   - 🏠 Home: index.md
   - 📜 Whitepaper: whitepaper.md
   - 🗺️ Mapping Matrix: mapping_matrix.md
+  - 📊 Security Taxonomy: multi_authority_security_taxonomy.md
   - 🛡️ OWASP Application: owasp_application.md
   - 🔍 SAST Pipeline: sast_pipeline.md
+  - 🏆 MASTG Best Practices:
+      - MASTG-BEST-0002 ProGuard: mastg-best/MASTG-BEST-0002-ProGuard.md
+  - 🗄️ MASVS-STORAGE:
+      - MASWE-0001 Insecure Private Storage: maswe/MASVS-STORAGE/maswe_001/MASWE-0001-Insecure-Private-Storage.md
+      - MASWE-0002 Insecure Storage: maswe/MASVS-STORAGE/maswe_002/MASWE-0002-Insecure-Storage.md
+      - MASWE-0003 Insecure Key Storage: maswe/MASVS-STORAGE/maswe_003/MASWE-0003-Insecure-Key-Storage.md
+      - MASWE-0004 Hardcoded Secrets: maswe/MASVS-STORAGE/maswe_004/MASWE-0004-Hardcoded-Secrets.md
+      - MASWE-0005 Logging Leaks: maswe/MASVS-STORAGE/maswe_005/MASWE-0005-Logging-Leaks.md
+      - MASWE-0006 Sensitive Data in Backup: maswe/MASVS-STORAGE/maswe_006/MASWE-0006-Sensitive-Data-Backup.md
+  - 🔐 MASVS-CRYPTO:
+      - MASWE-0007 Improper Encryption: maswe/MASVS-CRYPTO/maswe_007/MASWE-0007-Improper-Encryption.md

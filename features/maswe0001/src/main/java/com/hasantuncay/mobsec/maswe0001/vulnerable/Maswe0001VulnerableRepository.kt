@@ -171,11 +171,13 @@ class Maswe0001VulnerableRepository @Inject constructor(
                 try {
                     context.startActivity(exploitIntent)
                 } catch (e: Exception) {
+                    if (e is kotlin.coroutines.cancellation.CancellationException) throw e
                     Log.w("MASWE_0001", "Attacker app not installed.")
                 }
 
                 withContext(Dispatchers.Main) { resultPath = uri.toString() }
             } catch (e: Exception) {
+                if (e is kotlin.coroutines.cancellation.CancellationException) throw e
                 withContext(Dispatchers.Main) { resultPath = null }
             }
         }

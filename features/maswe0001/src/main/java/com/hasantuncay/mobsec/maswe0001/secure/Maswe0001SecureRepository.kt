@@ -217,6 +217,7 @@ class Maswe0001SecureRepository @Inject constructor(
                 val uri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
                 withContext(Dispatchers.Main) { resultPath = uri.toString() }
             } catch (e: Exception) {
+                if (e is kotlin.coroutines.cancellation.CancellationException) throw e
                 withContext(Dispatchers.Main) { resultPath = "Error: ${e.message}" }
             }
         }

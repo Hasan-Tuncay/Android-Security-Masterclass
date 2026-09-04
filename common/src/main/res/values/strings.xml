@@ -8,6 +8,7 @@
     <string name="dashboard_title_vulnerable">Vulnerability Dashboard</string>
 
     <!-- Actions & Buttons -->
+    <string name="action_close">Close</string>
     <string name="action_collapse">Collapse</string>
     <string name="action_expand">Expand</string>
     <string name="action_hide">HIDE</string>
@@ -100,6 +101,22 @@
     <string name="msg_coming_soon">Coming Soon!</string>
     <string name="test_pqc_kyber">Test PQC (Kyber ML-KEM)</string>
 
-    <string name="error_attacker_app_not_installed">⚠️ Attacker App is not installed! Please install the app-attacker module first.</string>
+    <string name="error_attacker_app_not_installed">Attacker App is not installed! Please install the app-attacker module first.</string>
+
+    <!-- Base Screen & Result Labels -->
+    <string name="mode_vulnerable">VULNERABLE</string>
+    <string name="mode_secure">SECURE</string>
+    <string name="cd_back">Back</string>
+    <string name="format_error">Error: %1$s</string>
+    <string name="label_processing">Processing...</string>
+    <string name="label_path_verification">Path / Verification</string>
+    <string name="label_defense_activated">Defense Activated</string>
+    <string name="label_vector_triggered">Vector Triggered!</string>
+    <string name="btn_copy">COPY</string>
+    <string name="btn_copied">COPIED</string>
+    <string name="label_terminal_verification">Terminal Verification</string>
+    <string name="label_adb_command">ADB Verification Command</string>
+    <string name="label_adb_verification">ADB Verification:</string>
+    <string name="label_adb_verification_secure">ADB Verification (No Leak):</string>
 
 </resources>

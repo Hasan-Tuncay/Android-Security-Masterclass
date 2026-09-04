@@ -93,17 +93,26 @@ We have mapped the entire OWASP MASVS standard into 78 distinct modules across 8
 - 🛡️ **Resilience**: MASWE 0051 - 0065
 - 🕵️ **Privacy**: MASWE 0066 - 0078
 
-### ✅ Initial Implemented Vectors
-The following modules have their business logic and attack/defense simulations fully implemented:
+### ✅ Implemented Security Weakness Lab Modules
+The following modules have their business logic, MVI architecture, unit tests, and attack/defense simulations fully implemented:
 
-1. **MASWE-0001 (Private Storage)**: Simulates plaintext leaks into SharedPreferences, DataStore, SQLite Databases, and FileProviders. Secured via Jetpack Security (EncryptedSharedPreferences), Tink, and SQLCipher.
-2. **MASWE-0002 (External Storage)**: Demonstrates the risks of exporting PII to world-readable external volumes and the dangers of hardcoded/filesystem encryption keys. Secured via Keystore hardware-backed keys.
-3. **MASWE-0005 (Logging Leaks)**: Demonstrates data bleeding into system logcat, network interceptors, and 3rd party SDK telemetry. Secured via ProGuard stripping (`-assumenosideeffects`) and SecureLog wrappers.
+1. **MASWE-0001 (Private Storage - MASVS-STORAGE-1)**: Simulates plaintext leaks into SharedPreferences, DataStore, SQLite Databases, and FileProviders. Hardened via Jetpack Security (EncryptedSharedPreferences), Google Tink (AEAD), and SQLCipher.
+2. **MASWE-0002 (External Storage - MASVS-STORAGE-1)**: Demonstrates the risks of exporting PII to world-readable external volumes and filesystem encryption keys. Hardened via Keystore hardware-backed keys, Scoped Storage, and Storage Access Framework.
+3. **MASWE-0003 (Insecure Key Storage - MASVS-STORAGE-1)**: Demonstrates plaintext key storage in SharedPreferences, app-private files, and hardcoded assets. Hardened via Android KeyStore (TEE / StrongBox Keymaster), hardware non-exportable keys, and biometric authentication gating.
+4. **MASWE-0004 (Hardcoded Secrets - MASVS-STORAGE-2)**: Demonstrates embedding API keys, cloud tokens, and staging credentials in source code, build configs, and XML assets. Hardened via Backend-For-Frontend (BFF) proxy, ephemeral tokens, and Google Cloud package-restricted keys.
+5. **MASWE-0005 (Logging Leaks - MASVS-STORAGE-1)**: Demonstrates data bleeding into system logcat, network interceptors, and 3rd party SDK telemetry. Hardened via ProGuard / R8 bytecode stripping (`-assumenosideeffects`) and SecureLog wrappers.
+6. **MASWE-0006 (Sensitive Data in Backups - MASVS-STORAGE-1)**: Demonstrates sensitive data extraction via `adb backup` or Google Drive cloud backup. Hardened via `android:allowBackup="false"`, `dataExtractionRules`, and `fullBackupContent`.
+7. **MASWE-0007 (Improper Encryption - MASVS-CRYPTO-1)**: Demonstrates 7 critical cryptographic anti-patterns: DES 56-bit broken cipher, AES-CBC static zero IV reuse, PKCS5Padding oracle risks, ECB mode penguin leakage, low key length (56/64-bit), key reuse across encryption and signing, and pseudo-encryption (XOR/Base64 obfuscation). Hardened via AES-256-GCM authenticated encryption and post-quantum cryptography (ML-KEM / ML-DSA ready).
 
 ### ✅ Completed Logic Implementations
+- [**MASWE-0001**: Sensitive Data Stored Unencrypted in Private Storage (CWE-312)](docs/maswe/MASVS-STORAGE/maswe_001/MASWE-0001-Insecure-Private-Storage.md) *(Attacker App PoC Ready)*
+- [**MASWE-0002**: Sensitive Data Stored Unencrypted in Shared/External Storage (CWE-922)](docs/maswe/MASVS-STORAGE/maswe_002/MASWE-0002-Insecure-Storage.md) *(Attacker App PoC Ready)*
+- [**MASWE-0003**: Cryptographic Keys Stored Outside Platform Keystore (CWE-312)](docs/maswe/MASVS-STORAGE/maswe_003/MASWE-0003-Insecure-Key-Storage.md) *(Attacker App PoC Ready)*
+- [**MASWE-0004**: Sensitive Data Hardcoded in App Package (CWE-798)](docs/maswe/MASVS-STORAGE/maswe_004/MASWE-0004-Hardcoded-Secrets.md)
 - [**MASWE-0005**: Sensitive Data Leakage via Logging (CWE-532)](docs/maswe/MASVS-STORAGE/maswe_005/MASWE-0005-Logging-Leaks.md)
+- [**MASWE-0006**: Sensitive Data Not Excluded From Backup (CWE-200 / CWE-312)](docs/maswe/MASVS-STORAGE/maswe_006/MASWE-0006-Sensitive-Data-Backup.md)
+- [**MASWE-0007**: Improper Encryption (CWE-327 / CWE-326)](docs/maswe/MASVS-CRYPTO/maswe_007/MASWE-0007-Improper-Encryption.md)
 - [**MASTG-BEST-0002**: Remove Logging Code (Memory Leaks)](docs/mastg-best/MASTG-BEST-0002-ProGuard.md)
-- [**MASWE-0001 & 0002**: Insecure Storage (Private & External)](docs/maswe/MASVS-STORAGE/maswe_002/MASWE-0002-Insecure-Storage.md) *(Attacker App PoC Ready)*
 
 *(See the `docs/mapping_matrix.md` on the MkDocs site for the full 78-vector breakdown).*
 

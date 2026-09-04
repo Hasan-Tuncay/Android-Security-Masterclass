@@ -8,15 +8,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.hasantuncay.mobsec.common.navigation.*
 import com.hasantuncay.mobsec.common.R
 
-// Import mitigations
-import com.hasantuncay.mobsec.common.models.storage.*
-import com.hasantuncay.mobsec.common.models.crypto.*
-import com.hasantuncay.mobsec.common.models.auth.*
-import com.hasantuncay.mobsec.common.models.network.*
-import com.hasantuncay.mobsec.common.models.platform.*
-import com.hasantuncay.mobsec.common.models.code.*
-import com.hasantuncay.mobsec.common.models.resilience.*
-import com.hasantuncay.mobsec.common.models.privacy.*
 
 data class MasweItemData(
     val meta: MasweScreenMeta,

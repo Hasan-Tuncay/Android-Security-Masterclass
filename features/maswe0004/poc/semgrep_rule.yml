@@ -1,0 +1,33 @@
+rules:
+  - id: maswe-0004-hardcoded-credentials
+    message: >-
+      [MASWE-0004 / CWE-798] Hardcoded sensitive credential or secret key detected in source code.
+      Embedding static secrets in compiled applications allows attackers to recover them via reverse engineering.
+      Mitigation: Use Backend-For-Frontend (BFF) proxy or retrieve short-lived tokens at runtime.
+    languages: [kotlin, java]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-798: Use of Hard-coded Credentials"
+      masvs: "MASVS-STORAGE-1"
+      mastg: "MASTG-TEST-0004"
+      category: security
+    patterns:
+      - pattern-either:
+          - pattern: |
+              val $KEY = "sk_live_..."
+          - pattern: |
+              const val $KEY = "sk_live_..."
+          - pattern: |
+              val $KEY = "AKIA..."
+          - pattern: |
+              const val $KEY = "AKIA..."
+          - pattern: |
+              val $KEY = "AIza..."
+          - pattern: |
+              const val $KEY = "AIza..."
+          - pattern: |
+              String $KEY = "sk_live_...";
+          - pattern: |
+              String $KEY = "AKIA...";
+          - pattern: |
+              String $KEY = "AIza...";

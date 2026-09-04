@@ -36,8 +36,7 @@ persisting unredacted data. Key violations:
 
 ### Group 1 — Custom Logging Infrastructure
 
-**File:** [
-`SecureLog.kt`](../../../../app-secure/src/main/java/com/hasantuncay/mobsec/secure/utils/SecureLog.kt)
+**File:** `app-secure/src/main/java/com/hasantuncay/mobsec/secure/utils/SecureLog.kt`
 
 Instead of using Android's native `android.util.Log` directly (which allows arbitrary string
 concatenation), a custom logging gateway is implemented. This is the **"silver bullet" solution**
@@ -57,9 +56,7 @@ recommended by OWASP MASTG-BEST-0002.
 
 ### Group 2 — Static Analysis Enforcement (ErrorProne)
 
-**Files:** [`libs.versions.toml`](../../../../gradle/libs.versions.toml) · [
-`build.gradle.kts`](../../../../app-secure/build.gradle.kts) · [
-`SecureLog.kt`](../../../../app-secure/src/main/java/com/hasantuncay/mobsec/secure/utils/SecureLog.kt)
+**Files:** `gradle/libs.versions.toml` · `app-secure/build.gradle.kts` · `SecureLog.kt`
 
 | #   | Implementation                                                               | Mechanism                                                                 |
 |-----|------------------------------------------------------------------------------|---------------------------------------------------------------------------|
@@ -78,7 +75,7 @@ SecureLog.dStrict("Tag", "User: " + userId)
 
 ### Group 3 — R8 / ProGuard Log Stripping
 
-**File:** [`proguard-rules.pro`](../../../../app-secure/proguard-rules.pro)
+**File:** `app-secure/proguard-rules.pro`
 
 R8 uses `-assumenosideeffects` to treat log calls as dead code and **completely removes them from
 the Release APK bytecode**. A reverse-engineered APK will contain zero log statements.
@@ -124,8 +121,7 @@ Disables the shrinking engine while keeping `-assumenosideeffects` active.
 
 ### Group 4 — Incident Response Kill Switch
 
-**File:** [
-`RemoteConfigSim.kt`](../../../../app-secure/src/main/java/com/hasantuncay/mobsec/secure/utils/RemoteConfigSim.kt)
+**File:** `app-secure/src/main/java/com/hasantuncay/mobsec/secure/utils/RemoteConfigSim.kt`
 
 Per Google's official Android Security Guidelines: *"If you're going to log in Production, prepare
 flags you can use to shut down logging conditionally in case of an incident."*
@@ -144,9 +140,7 @@ millions of devices stops **instantly**, with zero app update required.
 
 ### Group 5 — Network Traffic Logging
 
-**File:** [
-`Maswe0001SecureLogic.kt`](../../../../../features/maswe0005/src/main/java/com/hasantuncay/mobsec/maswe0005/secure/Maswe0001SecureLogic.kt) —
-`secureNetworkLeak()`
+**File:** `features/maswe0005/src/main/java/.../Maswe0005SecureRepository.kt` — `secureNetworkLeak()`
 
 | #   | Implementation                                                                      | Mechanism                                |
 |-----|-------------------------------------------------------------------------------------|------------------------------------------|
@@ -162,9 +156,7 @@ SecureLog.d("SecureNetwork", "Outgoing request with REDACTED sensitive headers."
 
 ### Group 6 — Local File Dumping (PCI-DSS Compliance)
 
-**File:** [
-`Maswe0001SecureLogic.kt`](../../../../../features/maswe0005/src/main/java/com/hasantuncay/mobsec/maswe0005/secure/Maswe0001SecureLogic.kt) —
-`secureLocalFileLeak()`
+**File:** `features/maswe0005/src/main/java/.../Maswe0005SecureRepository.kt` — `secureLocalFileLeak()`
 
 | #   | Implementation                                                         | Mechanism                                      |
 |-----|------------------------------------------------------------------------|------------------------------------------------|
@@ -176,9 +168,7 @@ SecureLog.d("SecureNetwork", "Outgoing request with REDACTED sensitive headers."
 
 ### Group 7 — Third-Party SDK Telemetry (GDPR)
 
-**File:** [
-`Maswe0001SecureLogic.kt`](../../../../../features/maswe0005/src/main/java/com/hasantuncay/mobsec/maswe0005/secure/Maswe0001SecureLogic.kt) —
-`secureSdkTelemetryLeak()`
+**File:** `features/maswe0005/src/main/java/.../Maswe0005SecureRepository.kt` — `secureSdkTelemetryLeak()`
 
 | #   | Implementation                                                                         | Mechanism                                                          |
 |-----|----------------------------------------------------------------------------------------|--------------------------------------------------------------------|
@@ -189,9 +179,7 @@ SecureLog.d("SecureNetwork", "Outgoing request with REDACTED sensitive headers."
 
 ### Group 8 — WebView Console Filtering
 
-**File:** [
-`Maswe0001SecureLogic.kt`](../../../../../features/maswe0005/src/main/java/com/hasantuncay/mobsec/maswe0005/secure/Maswe0001SecureLogic.kt) —
-`secureWebViewConsoleLeak()`
+**File:** `features/maswe0005/src/main/java/.../Maswe0005SecureRepository.kt` — `secureWebViewConsoleLeak()`
 
 | Approach                                                               | Model                          | Verdict                                               |
 |------------------------------------------------------------------------|--------------------------------|-------------------------------------------------------|
@@ -213,12 +201,8 @@ if (!safeWhitelistRegex.matches(msg)) {
 
 **Files:**
 
-- [
-  `GdprPiiData.kt`](../../../../common/src/main/java/com/hasantuncay/mobsec/common/models/data/compliance/GdprPiiData.kt) —
-  Class-level redaction
-- [
-  `ToMask.kt`](../../../../common/src/main/java/com/hasantuncay/mobsec/common/models/data/compliance/ToMask.kt) —
-  Field-level masking
+- `common/src/main/java/.../GdprPiiData.kt` — Class-level redaction
+- `common/src/main/java/.../ToMask.kt` — Field-level masking
 - All domain data classes (`SystemData`, `UserData`, `NetworkSessionData`, etc.)
 
 #### 9.1 — Class-Level Redaction (`toString()` Override)
