@@ -69,7 +69,27 @@ Desktop.ini
 google-services.json
 
 # ============================================================
-# AGY Rules
+# AGY & AI Agent Rules / State
 # ============================================================
 .agyrules
+.agent/
+.agent*
+.system_generated/
 site/
+
+# ============================================================
+# Local Helper Scripts & Scratch Workspace
+# ============================================================
+scripts/
+*.py
+__pycache__/
+*.pyc
+scratch/
+local/
+private/
+temp/
+*.log
+*.tmp
+.env
+.env.*
+
