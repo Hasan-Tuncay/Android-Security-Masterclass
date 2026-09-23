@@ -54,6 +54,6 @@ Our `:features:maswe0003` secure mirror applies defense-in-depth:
 
 | Script | Type | Purpose |
 | :--- | :--- | :--- |
-| [`frida_hook.js`](file:///Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/features/maswe0003/poc/frida_hook.js) | Dynamic Instrumentation | Hooks `SharedPreferences.putString` and `KeyGenerator` to detect software-backed keys and XML leaks |
-| [`semgrep_rule.yml`](file:///Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/features/maswe0003/poc/semgrep_rule.yml) | Static Analysis (SAST) | Flags hardcoded byte arrays and SharedPreferences key storage in CI/CD pipelines |
-| [`adb_verify.sh`](file:///Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/features/maswe0003/poc/adb_verify.sh) | ADB Device Automation | Verifies `crypto_key.xml` in application sandbox and inspects Logcat for key import leaks |
+| [`frida_hook.js`](https://github.com/OWASP/Android-Security-Masterclass/blob/main/features/maswe0003/poc/frida_hook.js) | Dynamic Instrumentation | Hooks `SharedPreferences.putString` and `KeyGenerator` to detect software-backed keys and XML leaks |
+| [`semgrep_rule.yml`](https://github.com/OWASP/Android-Security-Masterclass/blob/main/features/maswe0003/poc/semgrep_rule.yml) | Static Analysis (SAST) | Flags hardcoded byte arrays and SharedPreferences key storage in CI/CD pipelines |
+| [`adb_verify.sh`](https://github.com/OWASP/Android-Security-Masterclass/blob/main/features/maswe0003/poc/adb_verify.sh) | ADB Device Automation | Verifies `crypto_key.xml` in application sandbox and inspects Logcat for key import leaks |

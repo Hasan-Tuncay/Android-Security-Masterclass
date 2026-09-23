@@ -19,7 +19,7 @@ We take the security of the `:app-secure` reference implementations seriously.
 
 If you discover a legitimate security flaw within the in-scope modules, **do NOT open a public GitHub Issue.** 
 
-Please report it via email directly to the maintainers: **[GÜVENLİK_EPOSTA_ADRESİNİZİ_YAZIN]**
+Please report it via email directly to the project lead: **[hasan.tuncay@owasp.org](mailto:hasan.tuncay@owasp.org)** or GitHub Security Advisories.
 
 ### Response SLA
 *   You will receive an initial acknowledgment within **48 hours**.

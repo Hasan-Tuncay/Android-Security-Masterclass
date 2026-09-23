@@ -59,6 +59,6 @@ Our `:features:maswe0002` secure mirror demonstrates comprehensive defenses:
 
 | Script | Type | Purpose |
 | :--- | :--- | :--- |
-| [`frida_hook.js`](file:///Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/features/maswe0002/poc/frida_hook.js) | Dynamic Instrumentation | Hooks `getExternalFilesDir`, `SecretKeySpec`, and `Cipher.getInstance` to intercept keys and unencrypted leaks |
-| [`semgrep_rule.yml`](file:///Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/features/maswe0002/poc/semgrep_rule.yml) | Static Analysis (SAST) | Detects external file calls, ECB modes, and hardcoded key declarations in CI/CD |
-| [`adb_verify.sh`](file:///Users/PROJECTS_ALL/Appfiliate/AndroidSecurityMasterclass/features/maswe0002/poc/adb_verify.sh) | ADB Device Automation | Inspects `/sdcard/Android/data/...` for leaked JSON files and `secret.key` artifacts |
+| [`frida_hook.js`](https://github.com/OWASP/Android-Security-Masterclass/blob/main/features/maswe0002/poc/frida_hook.js) | Dynamic Instrumentation | Hooks `getExternalFilesDir`, `SecretKeySpec`, and `Cipher.getInstance` to intercept keys and unencrypted leaks |
+| [`semgrep_rule.yml`](https://github.com/OWASP/Android-Security-Masterclass/blob/main/features/maswe0002/poc/semgrep_rule.yml) | Static Analysis (SAST) | Detects external file calls, ECB modes, and hardcoded key declarations in CI/CD |
+| [`adb_verify.sh`](https://github.com/OWASP/Android-Security-Masterclass/blob/main/features/maswe0002/poc/adb_verify.sh) | ADB Device Automation | Inspects `/sdcard/Android/data/...` for leaked JSON files and `secret.key` artifacts |
