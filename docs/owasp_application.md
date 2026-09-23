@@ -83,7 +83,7 @@ This project is cross-referenced against **two authoritative pillars**:
 - **License:** Apache 2.0
 - **Language:** Kotlin
 - **Platform:** Android
-- **Repository:** https://github.com/Hasan-Tuncay/Android-Security-Masterclass
+- **Repository:** https://github.com/OWASP/Android-Security-Masterclass
 
 ---
 
@@ -117,7 +117,7 @@ If OWASP sees value in this work, we would be grateful to discuss what that supp
 
 **Name:** Hasan Tuncay  
 **Email:** hasantuncay2635@gmail.com 
-**GitHub:**https://github.com/Hasan-Tuncay/Android-Security-Masterclass
+**GitHub:**https://github.com/OWASP/Android-Security-Masterclass
  
 
 ---

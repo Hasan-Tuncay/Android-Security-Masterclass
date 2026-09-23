@@ -1,24 +1,25 @@
 # Android Security Masterclass 🛡️📱
 
-> **A Hands-on OWASP MASVS/MASTG Security Training Lab for Android Developers & Pentesters — Mirror Architecture: Vulnerable ↔ Secure ↔ Attacker**
+> **Official OWASP Project — A Hands-on OWASP MASVS/MASTG Security Training Lab for Android Developers & Pentesters — Mirror Architecture: Vulnerable ↔ Secure ↔ Attacker**
 
+[![OWASP Project](https://img.shields.io/badge/OWASP-Official%20Project-000000.svg?logo=owasp)](https://owasp.org/projects/android-security-masterclass)
 ![Kotlin](https://img.shields.io/badge/Kotlin-1.9.0-blue.svg?logo=kotlin)
 ![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4CAF50.svg?logo=android)
 ![OWASP MASVS](https://img.shields.io/badge/OWASP-MASVS%20Compliant-red.svg?logo=owasp)
 ![Platform](https://img.shields.io/badge/Platform-Android-green.svg?logo=android)
-![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)
+![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
 ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)
 
 ## 📖 Overview
 
-The **Android Security Masterclass** is not just a vulnerable app; it is a **Mirror Architecture** project designed to teach Android developers and security researchers *exactly* what vulnerabilities look like and *exactly* how to fix them using modern Android development practices.
+The **Android Security Masterclass** is an official OWASP project designed with a **Mirror Architecture** to teach Android developers and security researchers *exactly* what vulnerabilities look like and *exactly* how to fix them using modern Android development practices.
 
 Instead of hunting for bugs in outdated Java codebases, this project uses a state-of-the-art tech stack (Kotlin, Jetpack Compose, MVVM, Material 3) and is structured around a massively scalable "Package-by-Feature" system.
 
-> 🌐 **Full Documentation:**
-> The entire project, including the Whitepaper, the 78-Module Mapping Matrix, and step-by-step vulnerability guides are hosted on our dedicated MkDocs portal. 
-> 
-> **[👉 View the Documentation Portal Here](https://Hasan-Tuncay.github.io/Android-Security-Masterclass/)**
+> 🌐 **OWASP Project Portal & Documentation:**
+> - **OWASP Project Page:** [https://owasp.org/projects/android-security-masterclass](https://owasp.org/projects/android-security-masterclass)
+> - **Documentation Portal:** [https://owasp.github.io/Android-Security-Masterclass/](https://owasp.github.io/Android-Security-Masterclass/)
+> - **Whitepaper & 78-Module Mapping Matrix:** Available in the documentation portal.
 
 ---
 
@@ -171,7 +172,7 @@ This project is created strictly for **educational purposes**. The vulnerabiliti
 
 ## 🤝 How to Contribute
 
-We welcome contributions from the community! Please read our comprehensive **[Contributing Guide](https://github.com/Hasan-Tuncay/Android-Security-Masterclass/blob/main/CONTRIBUTING.md)** before opening a Pull Request. It covers our project philosophy (Package-by-Feature Mirror Architecture), coding standards, and the step-by-step process for generating and implementing logic inside the `:features:masweXXXX` modules.
+We welcome contributions from the community! Please read our comprehensive **[Contributing Guide](https://github.com/OWASP/Android-Security-Masterclass/blob/main/CONTRIBUTING.md)** before opening a Pull Request. It covers our project philosophy (Package-by-Feature Mirror Architecture), coding standards, and the step-by-step process for generating and implementing logic inside the `:features:masweXXXX` modules.
 
 ---
 
