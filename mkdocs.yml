@@ -61,7 +61,7 @@ nav:
   - 📜 Whitepaper: whitepaper.md
   - 🗺️ Mapping Matrix: mapping_matrix.md
   - 📊 Security Taxonomy: multi_authority_security_taxonomy.md
-  - 🛡️ OWASP Application: owasp_application.md
+  - 🛡️ About & Roadmap: about.md
   - 🔍 SAST Pipeline: sast_pipeline.md
   - 🏆 MASTG Best Practices:
       - MASTG-BEST-0002 ProGuard: mastg-best/MASTG-BEST-0002-ProGuard.md

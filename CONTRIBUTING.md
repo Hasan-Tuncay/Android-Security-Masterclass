@@ -314,7 +314,7 @@ git checkout -b feat/maswe-0002-insecure-storage
 
 * **GitHub Discussions:** Open a Discussion for conceptual questions.
 * **GitHub Issues:** Open an Issue for bugs or new module proposals.
-* **YouTube:** Follow the companion series at [Harpia Academy](https://www.youtube.com/@harpiaacademyofficial) for video walkthroughs of each module.
+* **OWASP Slack:** Join the community in `#project-android-security-masterclass` on [OWASP Slack](https://owasp.slack.com/).
 
 ---
 

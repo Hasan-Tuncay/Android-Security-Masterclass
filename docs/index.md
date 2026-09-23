@@ -176,18 +176,11 @@ We welcome contributions from the community! Please read our comprehensive **[Co
 
 ---
 
-## 🦅 Contact & Community
+## 👥 Project Leadership & Community
 
-**Instructor: Hasan Tunçay**
-- [LinkedIn](https://www.linkedin.com/in/hasantuncay2635)
-- [X (Twitter)](https://x.com/yacnutnasah)
+**Project Leader:**
+- **Hasan Tunçay** — [GitHub](https://github.com/Hasan-Tuncay) · [LinkedIn](https://www.linkedin.com/in/hasantuncay2635) · [X (Twitter)](https://x.com/yacnutnasah) · [OWASP Email](mailto:hasan.tuncay@owasp.org)
 
-<div align="center">
-  <img src="assets/harpia_logo.png" alt="Harpia Academy" width="300"/>
-</div>
-
-**Harpia Academy**
-- [LinkedIn](https://www.linkedin.com/company/harpiaacademyofficial)
-- [YouTube](https://www.youtube.com/@harpiaacademyofficial)
-- [Instagram](https://www.instagram.com/harpiaacademyofficial)
-- [X (Twitter)](https://x.com/harpiaacademy)
+**Community & Support:**
+- **OWASP Project Page:** [https://owasp.org/projects/android-security-masterclass](https://owasp.org/projects/android-security-masterclass)
+- **OWASP Slack:** Join us on the official [OWASP Slack Workspace](https://owasp.slack.com/).
