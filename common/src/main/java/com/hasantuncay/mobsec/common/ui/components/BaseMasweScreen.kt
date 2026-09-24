@@ -56,7 +56,7 @@ fun <T : MasweItem> BaseMasweScreen(
 ) {
     if (items.isEmpty()) return
 
-    val masweId = meta.masweId
+    val masweId = meta.id
     val titleString = stringResource(id = meta.titleRes)
     val displayDesc = stringResource(id = meta.descRes)
     val contextInfoRes = meta.contextInfoRes

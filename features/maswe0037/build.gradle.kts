@@ -2,10 +2,6 @@ plugins {
     id("mobsec.android.feature")
 }
 
-android {
-    namespace = "com.hasantuncay.mobsec.maswe0037"
-}
-
 dependencies {
     implementation(libs.androidx.security.crypto)
     implementation(libs.tink.android)
@@ -22,3 +18,4 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
 }
+

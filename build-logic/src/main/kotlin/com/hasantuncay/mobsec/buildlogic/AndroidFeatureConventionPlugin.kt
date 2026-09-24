@@ -23,6 +23,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             extensions.configure<LibraryExtension> {
+                namespace = "com.hasantuncay.mobsec.${project.name.replace("-", "")}"
                 compileSdk = 37
 
                 defaultConfig {
@@ -42,7 +43,9 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                add("implementation", project(":common"))
+                if (project.name != "common") {
+                    add("implementation", project(":common"))
+                }
                 add("implementation", platform(libs.findLibrary("androidx-compose-bom").get()))
                 add("implementation", libs.findLibrary("androidx-activity-compose").get())
                 add("implementation", libs.findLibrary("androidx-compose-material3").get())
@@ -56,6 +59,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("hilt-android").get())
                 add("ksp", libs.findLibrary("hilt-compiler").get())
                 add("implementation", libs.findLibrary("androidx-hilt-navigation-compose").get())
+                add("implementation", libs.findLibrary("timber").get())
+
                 add("testImplementation", libs.findLibrary("junit").get())
                 add("testImplementation", libs.findLibrary("androidx-junit").get())
                 add("testImplementation", libs.findLibrary("kotlinx-coroutines-test").get())

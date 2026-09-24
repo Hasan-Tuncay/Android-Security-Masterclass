@@ -1,6 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run All 3 Apps" type="CompoundRunConfigurationType">
+  <configuration default="false" name="Run All 4 Apps" type="CompoundRunConfigurationType">
     <toRun name="app-attacker" type="AndroidRunConfigurationType" />
+    <toRun name="app-auditor" type="AndroidRunConfigurationType" />
     <toRun name="app-secure" type="AndroidRunConfigurationType" />
     <toRun name="app-vulnerable" type="AndroidRunConfigurationType" />
     <method v="2" />

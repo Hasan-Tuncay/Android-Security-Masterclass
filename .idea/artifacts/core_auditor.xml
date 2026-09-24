@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="core-auditor">
+    <output-path>$PROJECT_DIR$/core-auditor/build/libs</output-path>
+    <root id="archive" name="core-auditor.jar">
+      <element id="module-output" name="Android-Security-Masterclass.core-auditor.androidMain" />
+    </root>
+  </artifact>
+</component>

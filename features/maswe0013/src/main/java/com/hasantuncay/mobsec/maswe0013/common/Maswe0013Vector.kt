@@ -59,10 +59,10 @@ enum class Maswe0013Vector(
     companion object {
         val meta = MasweScreenMeta(
             masweId = "MASWE-0013",
-            titleRes = CommonR.string.maswe_0013_vuln_title,
-            descRes = CommonR.string.maswe_0013_vuln_desc,
+            titleRes = CommonR.string.maswe_0013_title,
+            descRes = CommonR.string.maswe_0013_desc,
             contextInfoRes = CommonR.string.maswe_context_info,
-            itemsTitleRes = CommonR.string.maswe_0013_vuln_vectors_title
+            itemsTitleRes = CommonR.string.maswe_0013_vectors_title
         )
     }
 }

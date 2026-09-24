@@ -320,7 +320,7 @@ fun MasvsCategoryAccordion(
                             Spacer(modifier = Modifier.width(16.dp))
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = item.meta.masweId,
+                                    text = item.meta.id,
                                     style = MaterialTheme.typography.labelLarge,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
@@ -333,8 +333,8 @@ fun MasvsCategoryAccordion(
                                 )
                             }
                             // DOCS Button for Documentation
-                            if (item.meta.masweId.isNotEmpty()) {
-                                val masweIdStr = item.meta.masweId
+                            if (item.meta.id.isNotEmpty()) {
+                                val masweIdStr = item.meta.id
                                 OutlinedButton(
                                     onClick = { onOpenDocumentation(masweIdStr) },
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),

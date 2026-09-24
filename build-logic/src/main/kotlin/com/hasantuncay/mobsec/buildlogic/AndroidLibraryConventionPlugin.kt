@@ -14,6 +14,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
 
             extensions.configure<LibraryExtension> {
+                namespace = "com.hasantuncay.mobsec.${project.name.replace("-", "")}"
                 compileSdk = 37
 
                 defaultConfig {

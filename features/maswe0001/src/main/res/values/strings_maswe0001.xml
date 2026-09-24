@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
 
     <string name="maswe_0001_desc">These vectors demonstrate writing data to unprotected private storage locations as per the new MASWE-0001 guidelines.</string>
@@ -47,8 +47,6 @@
     <string name="maswe_0001_vector_6_secure">6. Data Removed After Use</string>
     <string name="maswe_0001_vector_6_vuln">6. Data Not Removed After Use (Cache)</string>
 
-    <string name="maswe_0001_vuln_desc">These vectors demonstrate writing data to unprotected private storage locations as per the new MASWE-0001 guidelines.</string>
-    <string name="maswe_0001_vuln_title">MASWE-0001: Private Storage (VULNERABLE)</string>
-    <string name="maswe_0001_vuln_vectors_title">Private Storage Vulnerability Vectors</string>
+    <string name="maswe_0001_vectors_title">Private Storage Vulnerability Vectors</string>
     <string name="maswe_0001_written_to">Written to: %1$s</string>
 </resources>

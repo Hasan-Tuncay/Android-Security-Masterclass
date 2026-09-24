@@ -41,10 +41,10 @@ enum class Maswe0056Mitigation(
     companion object {
         val meta = MasweScreenMeta(
             masweId = "MASWE-0056",
-            titleRes = CommonR.string.maswe_0056_secure_title,
-            descRes = CommonR.string.maswe_0056_secure_desc,
+            titleRes = CommonR.string.maswe_0056_title,
+            descRes = CommonR.string.maswe_0056_desc,
             contextInfoRes = CommonR.string.maswe_context_info,
-            itemsTitleRes = CommonR.string.maswe_0056_secure_vectors_title
+            itemsTitleRes = CommonR.string.maswe_0056_vectors_title
         )
     }
 }

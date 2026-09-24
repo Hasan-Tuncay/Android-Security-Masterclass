@@ -2,10 +2,6 @@ plugins {
     id("mobsec.android.feature")
 }
 
-android {
-    namespace = "com.hasantuncay.mobsec.maswe0001"
-}
-
 dependencies {
     // Specific security & storage dependencies for MASWE-0001
     implementation(libs.androidx.security.crypto)
@@ -19,3 +15,4 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.sqlcipher)
 }
+

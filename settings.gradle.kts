@@ -28,6 +28,8 @@ include(":app-vulnerable")
 include(":app-secure")
 include(":app-attacker")   // Malicious third-party app for IPC exploit demonstrations
 include(":common")
+include(":core-auditor")
+include(":app-auditor")
 include(":features:maswe0001")
 include(":features:maswe0002")
 include(":features:maswe0003")

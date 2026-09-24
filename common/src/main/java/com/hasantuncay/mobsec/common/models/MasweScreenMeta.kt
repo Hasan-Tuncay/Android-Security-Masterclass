@@ -13,4 +13,6 @@ data class MasweScreenMeta(
     @StringRes val descRes: Int,
     @StringRes val contextInfoRes: Int? = null,
     @StringRes val itemsTitleRes: Int
-)
+) {
+    val id: String get() = masweId
+}

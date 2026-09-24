@@ -2,10 +2,6 @@ plugins {
     id("mobsec.android.feature")
 }
 
-android {
-    namespace = "com.hasantuncay.mobsec.maswe0010"
-}
-
 dependencies {
     implementation(libs.androidx.security.crypto)
     implementation(libs.tink.android)
@@ -18,3 +14,4 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.sqlcipher)
 }
+

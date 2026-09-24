@@ -8,6 +8,7 @@ dependencies {
     implementation(libs.compose.compiler.gradlePlugin)
     implementation(libs.ksp.gradlePlugin)
     implementation(libs.hilt.gradlePlugin)
+    implementation(libs.compose.gradle.plugin)
 }
 
 gradlePlugin {
@@ -23,6 +24,10 @@ gradlePlugin {
         register("mobsecAndroidApplication") {
             id = "mobsec.android.application"
             implementationClass = "com.hasantuncay.mobsec.buildlogic.AndroidApplicationConventionPlugin"
+        }
+        register("mobsecKmpLibrary") {
+            id = "mobsec.kmp.library"
+            implementationClass = "com.hasantuncay.mobsec.buildlogic.MobsecKmpLibraryConventionPlugin"
         }
     }
 }

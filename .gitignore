@@ -69,12 +69,35 @@ Desktop.ini
 google-services.json
 
 # ============================================================
-# AGY & AI Agent Rules / State
+# AGY & AI Agent Rules, Skills, DAG Pipeline Artifacts & Reports
 # ============================================================
 .agyrules
 .agent/
+.agents/
 .agent*
+.skills/
+.skill*
+skill_*
+*.skill
+.dag/
+dag_*
 .system_generated/
+.gemini/
+.antigravity/
+.claude/
+.cursor/
+.vscode/
+analysis_report.md
+plan.md
+probe_report.md
+stabilization_report.md
+terminal_report.md
+*_report.md
+reports/
+*analysis*.txt
+gradle_analysis.txt
+*.agent
+agent_*
 site/
 
 # ============================================================
@@ -93,3 +116,7 @@ temp/
 .env
 .env.*
 
+# ============================================================
+# User Documents
+# ============================================================
+my_documents/

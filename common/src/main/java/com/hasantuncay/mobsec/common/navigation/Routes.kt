@@ -104,3 +104,9 @@ import kotlinx.serialization.Serializable
 @Serializable data object Maswe0076PrivacyRoute
 @Serializable data object Maswe0077PrivacyRoute
 @Serializable data object Maswe0078PrivacyRoute
+
+// ── AUDITOR ROUTES ─────────────────────────────────────────────────────────────
+@Serializable data object AuditorDashboardRoute
+@Serializable data class AuditorScreenRoute(val masweId: String)
+
+

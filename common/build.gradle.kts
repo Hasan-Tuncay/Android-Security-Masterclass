@@ -1,28 +1,5 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
-}
-
-android {
-    namespace = "com.hasantuncay.mobsec.common"
-    compileSdk = 37
-
-    defaultConfig {
-        minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    buildFeatures {
-        compose = true
-    }
+    id("mobsec.android.feature")
 }
 
 dependencies {
@@ -60,4 +37,9 @@ dependencies {
     api(libs.hilt.android)
     ksp(libs.hilt.compiler)
     api(libs.androidx.hilt.navigation.compose)
+
+    testImplementation(libs.junit)
+    testImplementation("org.robolectric:robolectric:4.14.1")
+    testImplementation("androidx.test:core-ktx:1.5.0")
 }
+
